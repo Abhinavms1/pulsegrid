@@ -16,7 +16,7 @@ export default async function AdminDashboard() {
     })
   } catch (err) {
     console.error("Prisma error:", err)
-    errorMsg = "Warning: Could not connect to Supabase database. Please ensure your Vercel Environment Variables (DATABASE_URL) are correctly set up via the Supabase Integration."
+    errorMsg = "Database Connection Error: " + String(err.message || err)
   }
 
   const users = { length: 12450 };
