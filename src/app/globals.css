@@ -2,20 +2,27 @@
 
 :root {
   --primary-red: #E63946;
-  --primary-red-hover: #D62828;
-  --dark-bg: #0B0E14;
-  --dark-surface: #151A22;
-  --text-light: #F8F9FA;
-  --text-muted: #A0AEC0;
-  --glass-bg: rgba(21, 26, 34, 0.6);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-highlight: rgba(255, 255, 255, 0.15);
+  --primary-red-hover: #d62828;
+  --dark-bg: #030508;
+  --dark-surface: #0a0d14;
+  --text-light: #F1FAEE;
+  --text-muted: #A8DADC;
+  --glass-bg: rgba(11, 14, 20, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.05);
+  --glass-highlight: rgba(255, 255, 255, 0.1);
 }
 
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  cursor: none !important; /* CSSDA Custom Cursor Override */
+}
+
+/* Hide scrollbar for smooth scrolling immersion */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
 }
 
 body {

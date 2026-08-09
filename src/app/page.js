@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
+import MagneticButton from '../components/MagneticButton';
 
 // Dynamically import Map component (disables SSR to prevent Leaflet window errors)
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
@@ -92,8 +93,12 @@ export default function Home() {
             An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
           </p>
           <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
-            <a href="/register" className="btn-primary" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px' }}>Join the Grid</a>
-            <a href="/blood-banks" className="glass-panel" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px', color: 'var(--text-light)', border: '1px solid rgba(255,255,255,0.2)' }}>Find Banks</a>
+            <MagneticButton className="btn-primary" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px' }} onClick={() => window.location.href = '/register'}>
+              Join the Grid
+            </MagneticButton>
+            <MagneticButton className="glass-panel" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px', color: 'var(--text-light)', border: '1px solid rgba(255,255,255,0.2)' }} onClick={() => window.location.href = '/blood-banks'}>
+              Find Banks
+            </MagneticButton>
           </div>
         </section>
 
