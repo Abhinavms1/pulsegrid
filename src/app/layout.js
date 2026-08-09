@@ -9,37 +9,60 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        {/* Navigation */}
-        <nav style={{ display: 'flex', justifyContent: 'space-between', padding: '20px 50px', backgroundColor: 'var(--glass-bg)', borderBottom: '1px solid var(--glass-border)', position: 'sticky', top: 0, zIndex: 100 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.5rem', fontWeight: 'bold' }}>
-            <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
+        <nav style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          padding: '20px 50px', 
+          background: 'rgba(11, 14, 20, 0.8)', 
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid var(--glass-border)', 
+          position: 'fixed', 
+          width: '100%',
+          top: 0, 
+          zIndex: 100 
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '1px' }}>
+            <div style={{ background: 'white', padding: '5px', borderRadius: '50%', display: 'flex' }}>
+              <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '35px', height: '35px', objectFit: 'contain' }} />
+            </div>
             PulseGrid
           </div>
-          <ul style={{ display: 'flex', gap: '20px', listStyle: 'none', alignItems: 'center' }}>
-            <li><a href="/">Home</a></li>
-            <li><a href="/register">Find Donors</a></li>
-            <li><a href="/blood-banks">Blood Banks</a></li>
-            <li><a href="/login" style={{ backgroundColor: 'var(--primary-red)', color: '#fff', padding: '10px 20px', borderRadius: '8px' }}>Admin Login</a></li>
+          <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', alignItems: 'center', fontWeight: '600' }}>
+            <li><a href="/" style={{ color: 'var(--text-light)' }}>Home</a></li>
+            <li><a href="/register" style={{ color: 'var(--text-light)' }}>Find Donors</a></li>
+            <li><a href="/blood-banks" style={{ color: 'var(--text-light)' }}>Live Grid</a></li>
+            <li><a href="/login" className="btn-primary" style={{ padding: '10px 24px', fontSize: '1rem' }}>Admin Login</a></li>
           </ul>
         </nav>
         
-        {children}
+        <div style={{ paddingTop: '85px' }}>
+          {children}
+        </div>
 
-        {/* Footer */}
-        <footer style={{ backgroundColor: '#1a1a1a', color: '#fff', padding: '40px 50px', marginTop: '50px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <footer style={{ 
+          background: 'var(--dark-surface)', 
+          borderTop: '1px solid var(--glass-border)',
+          padding: '60px 50px 30px', 
+          marginTop: '80px' 
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', maxWidth: '1200px', margin: '0 auto' }}>
             <div>
-              <h2 style={{ marginBottom: '10px' }}>PulseGrid</h2>
-              <p style={{ maxWidth: '300px', color: '#aaa' }}>Saving lives through seamless location-based blood donation networking.</p>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.8rem', fontWeight: '800', marginBottom: '15px' }}>
+                <div style={{ background: 'white', padding: '4px', borderRadius: '50%', display: 'flex' }}>
+                  <img src="/logo.jpg" alt="Logo" style={{ width: '24px', height: '24px', objectFit: 'contain' }} />
+                </div>
+                PulseGrid
+              </div>
+              <p style={{ maxWidth: '300px', color: 'var(--text-muted)', lineHeight: '1.6' }}>Saving lives through seamless location-based blood donation networking. Fast, secure, and always active.</p>
             </div>
             <div>
-              <h3 style={{ marginBottom: '10px' }}>Contact Us</h3>
-              <p>Email: emergency@pulsegrid.com</p>
-              <p>Phone: +1 (800) 123-4567</p>
+              <h3 style={{ marginBottom: '20px', color: 'white' }}>Contact Support</h3>
+              <p style={{ color: 'var(--text-muted)', marginBottom: '10px' }}>Email: emergency@pulsegrid.com</p>
+              <p style={{ color: 'var(--text-muted)' }}>Hotline: +1 (800) 123-4567</p>
             </div>
           </div>
-          <div style={{ textAlign: 'center', marginTop: '30px', borderTop: '1px solid #333', paddingTop: '20px', color: '#777' }}>
-            © 2026 PulseGrid. All Rights Reserved.
+          <div style={{ textAlign: 'center', marginTop: '50px', borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '30px', color: 'rgba(255,255,255,0.3)', fontSize: '0.9rem' }}>
+            © {new Date().getFullYear()} PulseGrid Technologies. All Rights Reserved.
           </div>
         </footer>
       </body>
