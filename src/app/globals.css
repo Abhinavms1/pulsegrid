@@ -118,26 +118,45 @@ a {
   }
 }
 
-/* Enhanced Live Animated Background */
+/* Premium Interactive Grid Background */
 .live-bg {
   position: absolute;
   inset: 0;
   overflow: hidden;
   z-index: 0;
-  background: url(/bg.jpg) center/cover no-repeat;
-  animation: pulse-bg 15s infinite alternate ease-in-out;
+  background-color: var(--dark-bg);
+  /* The animated geometric grid */
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  animation: grid-move 20s linear infinite;
 }
 
-@keyframes pulse-bg {
-  0% { transform: scale(1); }
-  100% { transform: transform: scale(1.1); }
+@keyframes grid-move {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* The Interactive Mouse Glow (Targeted via JS) */
+.mouse-glow {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+    rgba(230, 57, 70, 0.15),
+    transparent 40%
+  );
 }
 
 .live-bg::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(11,14,20,0.8) 0%, rgba(11,14,20,0.95) 100%);
+  background: linear-gradient(180deg, rgba(11,14,20,0.4) 0%, rgba(11,14,20,0.95) 100%);
+  z-index: 2;
 }
 
 /* Red Blood Cell Particles */

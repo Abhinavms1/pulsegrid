@@ -10,7 +10,7 @@ export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [locationEnabled, setLocationEnabled] = useState(false);
 
-  // Splash screen timing & Scroll Reveal logic
+  // Splash screen timing, Scroll Reveal, & Mouse Tracking logic
   useEffect(() => {
     const splashTimer = setTimeout(() => setShowSplash(false), 3500);
     
@@ -26,9 +26,18 @@ export default function Home() {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
+    // Interactive Mouse Tracking for Background Glow
+    const handleMouseMove = (e) => {
+      const { clientX, clientY } = e;
+      document.documentElement.style.setProperty('--mouse-x', `${clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${clientY}px`);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
     return () => {
       clearTimeout(splashTimer);
       revealElements.forEach(el => observer.unobserve(el));
+      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
@@ -55,8 +64,9 @@ export default function Home() {
 
       <main style={{ position: 'relative' }}>
         
-        {/* Live Hero Background */}
+        {/* Live Hero Background & Interactive Glow */}
         <div className="live-bg">
+          <div className="mouse-glow"></div>
           {particles.map(p => (
             <div 
               key={p.id} 
