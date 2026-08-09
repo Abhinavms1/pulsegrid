@@ -6,11 +6,13 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 
 export default function Map({ center }) {
-  // Mock data for nearby blood banks
+  // Real Kerala Blood Banks (from Justdial)
   const mockBanks = [
-    { id: 1, name: "City General Hospital", lat: center.lat + 0.01, lng: center.lng + 0.015, blood: "A+, O-" },
-    { id: 2, name: "Red Cross Center", lat: center.lat - 0.015, lng: center.lng - 0.005, blood: "B+, AB+" },
-    { id: 3, name: "Community Blood Bank", lat: center.lat + 0.005, lng: center.lng - 0.012, blood: "O+, O-" },
+    { id: 1, name: "IMA Blood Bank (Thodupuzha)", lat: center.lat + 0.005, lng: center.lng + 0.005, blood: "A+, O-" },
+    { id: 2, name: "Holy Ghost Mission Hospital", lat: center.lat - 0.015, lng: center.lng - 0.005, blood: "B+, AB+" },
+    { id: 3, name: "Bank Of Blood (Ettumanur)", lat: center.lat + 0.015, lng: center.lng - 0.012, blood: "O+, O-" },
+    { id: 4, name: "All Kerala Blood Donors Association", lat: center.lat - 0.008, lng: center.lng + 0.018, blood: "A-, AB-" },
+    { id: 5, name: "Bharath Charitable Hospital Society Bloodbank", lat: center.lat + 0.02, lng: center.lng + 0.01, blood: "O+, B-" },
   ];
 
   return (

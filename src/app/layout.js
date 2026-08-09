@@ -12,27 +12,27 @@ export default function RootLayout({ children }) {
         <nav style={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
-          padding: '20px 50px', 
-          background: 'rgba(11, 14, 20, 0.8)', 
+          alignItems: 'center', 
+          padding: '20px 50px',
+          background: 'rgba(11, 14, 20, 0.7)',
           backdropFilter: 'blur(20px)',
-          borderBottom: '1px solid var(--glass-border)', 
-          position: 'fixed', 
-          width: '100%',
-          top: 0, 
-          zIndex: 100 
+          borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+          position: 'sticky',
+          top: 0,
+          zIndex: 1000
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '1px' }}>
-            <div style={{ background: 'white', padding: '5px', borderRadius: '50%', display: 'flex' }}>
-              <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '35px', height: '35px', objectFit: 'contain' }} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            <div style={{ background: 'white', borderRadius: '50%', padding: '5px', display: 'flex' }}>
+              <img src="/logo.jpg" alt="PulseGrid Logo" style={{ height: '40px', width: '40px', objectFit: 'contain' }} />
             </div>
-            PulseGrid
+            <span style={{ fontSize: '1.5rem', fontWeight: 'bold', letterSpacing: '1px' }}>PulseGrid</span>
           </div>
-          <ul style={{ display: 'flex', gap: '30px', listStyle: 'none', alignItems: 'center', fontWeight: '600' }}>
-            <li><a href="/" style={{ color: 'var(--text-light)' }}>Home</a></li>
-            <li><a href="/register" style={{ color: 'var(--text-light)' }}>Find Donors</a></li>
-            <li><a href="/blood-banks" style={{ color: 'var(--text-light)' }}>Live Grid</a></li>
-            <li><a href="/login" className="btn-primary" style={{ padding: '10px 24px', fontSize: '1rem' }}>Admin Login</a></li>
-          </ul>
+          <div style={{ display: 'flex', gap: '30px', alignItems: 'center' }}>
+            <a href="/" className="nav-link">Home</a>
+            <a href="/blood-banks" className="nav-link">Find Donors</a>
+            <a href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</a>
+            <a href="/admin" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Admin Login</a>
+          </div>
         </nav>
         
         <div style={{ paddingTop: '85px' }}>
