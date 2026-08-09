@@ -32,6 +32,7 @@ model BloodBank {
   longitude          Float?
   verificationStatus String   @default("PENDING") // PENDING, APPROVED, REJECTED
   inventory          BloodInventory[]
+  createdAt          DateTime @default(now())
 }
 
 model BloodInventory {
