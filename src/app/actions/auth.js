@@ -10,7 +10,7 @@ export async function loginAdmin(formData) {
   if (username === 'admin' && password === 'PulseGridAdmin2026') {
     // Set an extremely simple auth cookie for prototype purposes
     cookies().set('admin_auth', 'true', { secure: true, httpOnly: true, maxAge: 60 * 60 * 24 });
-    redirect('/admin');
+    return { success: true };
   } else {
     return { error: 'Invalid credentials. Please try again.' };
   }

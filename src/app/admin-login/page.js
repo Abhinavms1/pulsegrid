@@ -12,11 +12,18 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
     
-    const formData = new FormData(e.target);
-    const res = await loginAdmin(formData);
-    
-    if (res?.error) {
-      setError(res.error);
+    try {
+      const formData = new FormData(e.target);
+      const res = await loginAdmin(formData);
+      
+      if (res?.error) {
+        setError(res.error);
+        setLoading(false);
+      } else if (res?.success) {
+        window.location.href = '/admin'; // Force full client navigation to clear cache
+      }
+    } catch (err) {
+      setError('An unexpected error occurred.');
       setLoading(false);
     }
   };
