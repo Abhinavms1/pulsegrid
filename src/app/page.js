@@ -125,7 +125,7 @@ export default function Home() {
 
         {/* Live Geographic Map Section */}
         {locationEnabled && (
-          <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, background: '#0a0d14' }}>
+          <section className="section-padding" style={{ position: 'relative', zIndex: 1, background: '#0a0d14', animation: 'fadeIn 1s ease-out' }}>
             <h2 style={{ fontSize: '3rem', color: 'var(--text-light)', marginBottom: '30px' }}>Grid <span style={{ color: 'var(--primary-red)' }}>Active</span></h2>
             <div className="glass-panel" style={{ height: '600px', width: '100%', borderRadius: '30px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
               <Map center={{ lat: 9.8956, lng: 76.7184 }} />
