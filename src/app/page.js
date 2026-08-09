@@ -107,51 +107,6 @@ export default function Home() {
               )}
             </div>
           </div>
-        </section>
-
-        {/* Live Statistics Section */}
-        <section style={{ padding: '80px 50px', background: 'var(--dark-surface)' }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto', textAlign: 'center' }}>
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '50px' }}>Platform <span style={{ color: 'var(--primary-red)' }}>Impact</span></h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '30px' }}>
-              <div className="glass-panel" style={{ padding: '40px' }}>
-                <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--primary-red)' }}>450+</div>
-                <div style={{ color: 'var(--text-muted)' }}>Registered Blood Banks</div>
-              </div>
-              <div className="glass-panel" style={{ padding: '40px' }}>
-                <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--primary-red)' }}>12,000+</div>
-                <div style={{ color: 'var(--text-muted)' }}>Active Donors</div>
-              </div>
-              <div className="glass-panel" style={{ padding: '40px' }}>
-                <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--primary-red)' }}>5,000+</div>
-                <div style={{ color: 'var(--text-muted)' }}>Lives Saved</div>
-              </div>
-              <div className="glass-panel" style={{ padding: '40px' }}>
-                <div style={{ fontSize: '3rem', fontWeight: 'bold', color: 'var(--primary-red)' }}>&lt; 5 min</div>
-                <div style={{ color: 'var(--text-muted)' }}>Average Response Time</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* How it Works Section */}
-        <section style={{ padding: '100px 50px', maxWidth: '1400px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center' }}>How It <span style={{ color: 'var(--primary-red)' }}>Works</span></h2>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>1</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Register or Request</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Sign up as a donor to save lives, or instantly submit an emergency request without an account.</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>2</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Live Geolocation</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Our system maps your exact location to ping nearby donors and blood banks instantly.</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>3</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Connect & Save</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Get connected directly with verified blood banks or local volunteers. Your privacy is protected.</p>
             </div>
           </div>
         </section>

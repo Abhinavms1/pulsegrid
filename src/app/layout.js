@@ -31,7 +31,7 @@ export default function RootLayout({ children }) {
             <a href="/" className="nav-link">Home</a>
             <a href="/blood-banks" className="nav-link">Find Donors</a>
             <a href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</a>
-            <a href="/admin" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Admin Login</a>
+            <a href="/admin-login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Admin Login</a>
           </div>
         </nav>
         
