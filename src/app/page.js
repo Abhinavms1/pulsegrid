@@ -1,117 +1,164 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import dynamic from 'next/dynamic';
 
-// Dynamically load the Leaflet Map component only on the client side
-const DynamicMap = dynamic(() => import('@/components/Map'), { ssr: false, loading: () => <div className="spinner"></div> });
+// Dynamically import Map component (disables SSR to prevent Leaflet window errors)
+const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
-  const [locationStatus, setLocationStatus] = useState("Ready to secure location.");
-  const [coords, setCoords] = useState(null);
+  const [locationEnabled, setLocationEnabled] = useState(false);
 
+  // Splash screen timing & Scroll Reveal logic
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowSplash(false);
-    }, 2500); // 2.5s for blink & slide
-    return () => clearTimeout(timer);
+    const splashTimer = setTimeout(() => setShowSplash(false), 3500);
+    
+    // Intersection Observer for scroll reveal animations
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const revealElements = document.querySelectorAll('.reveal');
+    revealElements.forEach(el => observer.observe(el));
+
+    return () => {
+      clearTimeout(splashTimer);
+      revealElements.forEach(el => observer.unobserve(el));
+    };
   }, []);
 
-  const requestLocation = () => {
-    if ("geolocation" in navigator) {
-      setLocationStatus("Requesting permission...");
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCoords({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-          setLocationStatus("Location found! Loading live grid...");
-        },
-        (error) => {
-          setLocationStatus("Location access denied. Please enable location services.");
-        }
-      );
-    } else {
-      setLocationStatus("Geolocation is not supported by your browser.");
-    }
-  };
-
-  const addDrip = (e) => {
-    const btn = e.currentTarget;
-    const drip = document.createElement("div");
-    drip.classList.add("drip");
-    btn.appendChild(drip);
-    setTimeout(() => drip.remove(), 500);
-    
-    setTimeout(() => {
-      window.location.href = '/request-blood';
-    }, 600);
-  };
+  // Generate 15 particles for the live background
+  const particles = Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    left: `${Math.random() * 100}%`,
+    top: `${Math.random() * 100}%`,
+    animationDelay: `${Math.random() * 10}s`,
+    width: `${Math.random() * 40 + 10}px`
+  }));
 
   return (
     <>
+      {/* Intro Splash Screen */}
       <div className={`splash-screen ${!showSplash ? 'hidden' : ''}`}>
-        <div className="logo-wrapper">
-          <img src="/logo.jpg" alt="PulseGrid Logo" className="logo-animated" />
+        <div className="splash-content">
+          <div className="splash-logo-circle">
+            <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
+          </div>
+          <h1 className="splash-text">PulseGrid</h1>
         </div>
       </div>
 
-      <main>
-        {/* Hero Section with Live Background */}
-        <section style={{ 
-          position: 'relative',
-          display: 'flex', 
-          gap: '40px', 
-          padding: '120px 50px 80px', 
-          alignItems: 'center',
-          minHeight: '80vh',
-        }}>
-          {/* Live Animated Particles Background */}
-          <div className="live-bg">
-            <div className="particle" style={{ width: '100px', height: '100px', left: '10%', top: '20%', animationDelay: '0s' }}></div>
-            <div className="particle" style={{ width: '150px', height: '150px', left: '70%', top: '60%', animationDelay: '2s' }}></div>
-            <div className="particle" style={{ width: '80px', height: '80px', left: '40%', top: '80%', animationDelay: '4s' }}></div>
-            <div className="particle" style={{ width: '200px', height: '200px', left: '80%', top: '10%', animationDelay: '6s' }}></div>
-          </div>
+      <main style={{ position: 'relative' }}>
+        
+        {/* Live Hero Background */}
+        <div className="live-bg">
+          {particles.map(p => (
+            <div 
+              key={p.id} 
+              className="particle" 
+              style={{
+                left: p.left,
+                top: p.top,
+                width: p.width,
+                height: p.width,
+                animationDelay: p.animationDelay
+              }}
+            />
+          ))}
+        </div>
 
-          <div style={{ position: 'relative', zIndex: 2, display: 'flex', width: '100%', gap: '40px', maxWidth: '1400px', margin: '0 auto' }}>
-            <div className="glass-panel" style={{ flex: 1.2, padding: '50px' }}>
-              <h1 style={{ fontSize: '3.5rem', marginBottom: '20px', fontWeight: '800', lineHeight: '1.2' }}>Every Drop <span style={{ color: 'var(--primary-red)' }}>Counts.</span></h1>
-              <p style={{ fontSize: '1.2rem', marginBottom: '40px', color: 'var(--text-light)', opacity: 0.9, lineHeight: '1.6' }}>Connect with nearby blood donors and blood banks instantly during medical emergencies. Your pulse, our grid.</p>
-              <div style={{ display: 'flex', gap: '20px' }}>
-                <button className="btn-primary" onClick={addDrip}>
-                  Request Blood Now
-                </button>
-                <a href="/register" className="btn-outline">
-                  Register as Donor
-                </a>
+        {/* Hero Section */}
+        <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, minHeight: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+          <h1 className="text-massive">
+            Blood <span style={{ color: 'var(--primary-red)' }}>donation,</span><br/>
+            reimagined.
+          </h1>
+          <p className="text-subtitle">
+            An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
+          </p>
+          <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
+            <a href="/register" className="btn-primary" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px' }}>Join the Grid</a>
+            <a href="/blood-banks" className="glass-panel" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px', color: 'var(--text-light)', border: '1px solid rgba(255,255,255,0.2)' }}>Find Banks</a>
+          </div>
+        </section>
+
+        {/* Massive Bento Box Grid */}
+        <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, background: '#080a0f' }}>
+          <h2 className="text-massive" style={{ fontSize: '4rem', marginBottom: '60px' }}>The Platform</h2>
+          
+          <div className="bento-grid">
+            {/* Box 1: Large Span */}
+            <div className="bento-item" style={{ gridColumn: 'span 8', gridRow: 'span 2' }}>
+              <h3 style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '15px' }}>Instant Connectivity</h3>
+              <p className="text-subtitle" style={{ fontSize: '1.1rem' }}>Our algorithm bridges the gap between critical shortages and available donors in milliseconds. The moment an emergency request is fired, the grid activates.</p>
+            </div>
+            
+            {/* Box 2: Square */}
+            <div className="bento-item" style={{ gridColumn: 'span 4', gridRow: 'span 1' }}>
+              <h3 style={{ fontSize: '4rem', color: 'var(--primary-red)', margin: 0 }}>24/7</h3>
+              <p style={{ color: 'var(--text-muted)' }}>Emergency Dispatch</p>
+            </div>
+
+            {/* Box 3: Square */}
+            <div className="bento-item" style={{ gridColumn: 'span 4', gridRow: 'span 1' }}>
+              <h3 style={{ fontSize: '4rem', color: '#0cf011', margin: 0 }}>482</h3>
+              <p style={{ color: 'var(--text-muted)' }}>Verified Blood Banks</p>
+            </div>
+
+            {/* Box 4: Map Teaser Span */}
+            <div className="bento-item" style={{ gridColumn: 'span 12', gridRow: 'span 1', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+              <div>
+                <h3 style={{ fontSize: '2rem', color: 'var(--text-light)' }}>Live Geographic Grid</h3>
+                <p style={{ color: 'var(--text-muted)' }}>Track real-time inventory and nearby donors dynamically.</p>
               </div>
-            </div>
-
-            {/* Live Map Section */}
-            <div className="glass-panel" style={{ flex: 0.8, height: '400px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', padding: coords ? '0' : '40px' }}>
-              {coords ? (
-                <DynamicMap center={coords} />
-              ) : (
-                <div>
-                  <h2 style={{ marginBottom: '15px', fontSize: '2rem' }}>Live Donor Grid</h2>
-                  <p style={{ marginBottom: '30px', color: 'var(--text-muted)' }}>{locationStatus}</p>
-                  <div className="spinner" style={{ marginBottom: '30px' }}></div>
-                  <br/>
-                  <button onClick={requestLocation} className="btn-outline">
-                    Enable Live Map
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
+              <button onClick={() => setLocationEnabled(true)} className="btn-primary" style={{ padding: '12px 30px', borderRadius: '30px' }}>
+                Activate Map
+              </button>
             </div>
           </div>
         </section>
 
+        {/* Live Geographic Map Section */}
+        {locationEnabled && (
+          <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, background: '#0a0d14' }}>
+            <h2 style={{ fontSize: '3rem', color: 'var(--text-light)', marginBottom: '30px' }}>Grid <span style={{ color: 'var(--primary-red)' }}>Active</span></h2>
+            <div className="glass-panel" style={{ height: '600px', width: '100%', borderRadius: '30px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <Map center={{ lat: 9.8956, lng: 76.7184 }} />
+            </div>
+          </section>
+        )}
+
       </main>
+      
+      {/* Massive Footer */}
+      <footer style={{ background: '#05070a', padding: '100px 50px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '50px' }}>
+          <div style={{ gridColumn: 'span 2' }}>
+            <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'white', marginBottom: '20px' }}>PulseGrid</h1>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '400px' }}>Redefining the standard for emergency blood network infrastructure. Built for scale, designed for life.</p>
+          </div>
+          <div>
+            <h4 style={{ color: 'white', marginBottom: '20px' }}>Network</h4>
+            <ul style={{ listStyle: 'none', padding: 0, gap: '15px', display: 'flex', flexDirection: 'column' }}>
+              <li><a href="/register" style={{ color: 'var(--text-muted)' }}>Register as Donor</a></li>
+              <li><a href="/blood-banks" style={{ color: 'var(--text-muted)' }}>Find Blood Banks</a></li>
+              <li><a href="/request-blood" style={{ color: 'var(--text-muted)' }}>Emergency Request</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style={{ color: 'white', marginBottom: '20px' }}>System</h4>
+            <ul style={{ listStyle: 'none', padding: 0, gap: '15px', display: 'flex', flexDirection: 'column' }}>
+              <li><a href="/admin-login" style={{ color: 'var(--text-muted)' }}>Admin Gateway</a></li>
+              <li><a href="#" style={{ color: 'var(--text-muted)' }}>API Documentation</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
     </>
   );
 }
