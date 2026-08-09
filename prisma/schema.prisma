@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id              String   @id @default(cuid())
+  name            String
+  email           String   @unique
+  password        String
+  role            String   @default("USER") // USER, DONOR, ADMIN
+  bloodGroup      String?
+  latitude        Float?
+  longitude       Float?
+  contactVisible  Boolean  @default(false)
+  isAvailable     Boolean  @default(true)
+  lastDonatedDate DateTime?
+  createdAt       DateTime @default(now())
+}
+
+model BloodBank {
+  id                 String   @id @default(cuid())
+  name               String
+  contact            String
+  address            String
+  latitude           Float?
+  longitude          Float?
+  verificationStatus String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  inventory          BloodInventory[]
+}
+
+model BloodInventory {
+  id           String    @id @default(cuid())
+  bloodBankId  String
+  bloodGroup   String
+  quantity     Int       @default(0)
+  lastUpdated  DateTime  @default(now())
+  bloodBank    BloodBank @relation(fields: [bloodBankId], references: [id])
+}
+
+model EmergencyRequest {
+  id                 String   @id @default(cuid())
+  requesterId        String
+  patientName        String
+  bloodGroupRequired String
+  unitsRequired      Int
+  latitude           Float?
+  longitude          Float?
+  status             String   @default("OPEN") // OPEN, FULFILLED, CANCELLED
+  createdAt          DateTime @default(now())
+}
