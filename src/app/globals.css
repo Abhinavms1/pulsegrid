@@ -240,6 +240,139 @@ a {
   transform: translateY(0);
 }
 
+/* Base Nav & Layout Classes */
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 40px;
+  margin: 20px 50px;
+  border-radius: 50px;
+  position: sticky;
+  top: 20px;
+  z-index: 1000;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.impact-grid, .steps-grid, .footer-grid {
+  display: grid;
+  gap: 40px;
+}
+
+.impact-grid { grid-template-columns: repeat(3, 1fr); }
+.steps-grid { grid-template-columns: repeat(3, 1fr); }
+.footer-grid { grid-template-columns: repeat(4, 1fr); }
+
+/* --- MOBILE OPTIMIZATIONS --- */
+@media (max-width: 1024px) {
+  .section-padding {
+    padding: 100px 30px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Disable Custom Cursor entirely on Mobile */
+  * { cursor: auto !important; }
+  .custom-cursor { display: none !important; }
+  
+  .section-padding {
+    padding: 60px 20px;
+  }
+  
+  .text-massive {
+    font-size: 3rem; /* Downscale massive typography */
+  }
+  
+  .splash-text {
+    font-size: 2rem;
+  }
+  
+  .splash-logo-circle img {
+    width: 50px !important;
+    height: 50px !important;
+  }
+
+  /* Stack Bento Grid */
+  .bento-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .bento-item {
+    padding: 30px;
+  }
+
+  /* Reset grid spans for mobile */
+  .bento-item[style*="span"] {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 20px;
+  }
+
+  /* Nav Bar Mobile Refactor */
+  .nav-bar {
+    flex-direction: column;
+    padding: 15px 20px;
+    margin: 10px;
+    border-radius: 20px;
+    gap: 20px;
+  }
+  
+  .nav-links {
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  
+  .nav-links .btn-primary {
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  /* Stack inline flex rows */
+  div[style*="display: flex"][style*="gap: 20px"] {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .btn-primary, .glass-panel {
+    text-align: center;
+    width: 100%;
+  }
+
+  /* Stack Grids */
+  .impact-grid, .steps-grid, .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .footer-grid div[style*="span 2"] {
+    grid-column: span 1 !important;
+  }
+}
+
+/* Touch Device Specific Overrides */
+@media (pointer: coarse) {
+  * { cursor: auto !important; }
+  .custom-cursor { display: none !important; }
+}
+
 /* Button Drip Effect */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-red), var(--primary-red-hover));

@@ -148,11 +148,52 @@ export default function Home() {
           </section>
         )}
 
+        {/* Platform Impact Statistics */}
+        <section className="section-padding" style={{ background: 'var(--dark-surface)', position: 'relative', zIndex: 1 }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-light)' }}>Platform Impact</h2>
+          <div className="impact-grid">
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>12K+</h3>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Registered Donors</p>
+            </div>
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>482</h3>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Verified Banks</p>
+            </div>
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>1.5M</h3>
+              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Lives Saved</p>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className="section-padding" style={{ position: 'relative', zIndex: 1, background: 'var(--dark-bg)' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-light)' }}>How PulseGrid Works</h2>
+          <div className="steps-grid">
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>1</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Register</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Sign up as a donor with your blood group and location securely.</p>
+            </div>
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>2</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Get Notified</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Receive emergency alerts when a nearby hospital needs your blood type.</p>
+            </div>
+            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>3</div>
+              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Save Lives</h3>
+              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Donate at the verified blood bank and track your life-saving impact.</p>
+            </div>
+          </div>
+        </section>
+
       </main>
       
       {/* Massive Footer */}
       <footer style={{ background: '#05070a', padding: '100px 50px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '50px' }}>
+        <div className="footer-grid" style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ gridColumn: 'span 2' }}>
             <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'white', marginBottom: '20px' }}>PulseGrid</h1>
             <p style={{ color: 'var(--text-muted)', maxWidth: '400px' }}>Redefining the standard for emergency blood network infrastructure. Built for scale, designed for life.</p>
