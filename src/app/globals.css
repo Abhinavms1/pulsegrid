@@ -1,15 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
 
 :root {
-  --primary-red: #E63946;
-  --primary-red-hover: #d62828;
-  --dark-bg: #030508;
-  --dark-surface: #0a0d14;
-  --text-light: #F1FAEE;
-  --text-muted: #A8DADC;
-  --glass-bg: rgba(11, 14, 20, 0.4);
+  --primary-red: #721c24; /* Deep, elegant burgundy */
+  --primary-red-hover: #5c161d;
+  --dark-bg: #0B111A; /* Deep slate oceanic blue/black */
+  --dark-surface: #121A24; 
+  --text-light: #F8F9FA;
+  --text-muted: #94A3B8; /* Refined cool gray */
+  --glass-bg: rgba(18, 26, 36, 0.4);
   --glass-border: rgba(255, 255, 255, 0.05);
   --glass-highlight: rgba(255, 255, 255, 0.1);
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
 }
 
 * {
@@ -26,11 +28,29 @@
 }
 
 body {
-  font-family: 'Outfit', sans-serif;
   background-color: var(--dark-bg);
   color: var(--text-light);
+  font-family: var(--font-inter);
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* Elegant Typography Overrides */
+h1, h2, h3, .text-massive, .splash-text {
+  font-family: var(--font-playfair) !important;
+  font-weight: 500;
+}
+
+/* WebGL Fluid Canvas */
+.fluid-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: all;
 }
 
 a {

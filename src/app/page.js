@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import dynamic from 'next/dynamic';
 import MagneticButton from '../components/MagneticButton';
 
@@ -10,8 +10,9 @@ const Map = dynamic(() => import('../components/Map'), { ssr: false });
 export default function Home() {
   const [showSplash, setShowSplash] = useState(true);
   const [locationEnabled, setLocationEnabled] = useState(false);
+  const canvasRef = useRef(null);
 
-  // Splash screen timing, Scroll Reveal, & Mouse Tracking logic
+  // Splash screen, WebGL Fluid, & Scroll Reveal logic
   useEffect(() => {
     const splashTimer = setTimeout(() => setShowSplash(false), 3500);
     
@@ -27,13 +28,30 @@ export default function Home() {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
-    // Interactive Mouse Tracking for Background Glow
+    // Interactive Mouse Tracking for Background Glow (still used on some elements)
     const handleMouseMove = (e) => {
       const { clientX, clientY } = e;
       document.documentElement.style.setProperty('--mouse-x', `${clientX}px`);
       document.documentElement.style.setProperty('--mouse-y', `${clientY}px`);
     };
     window.addEventListener('mousemove', handleMouseMove);
+
+    // Initialize WebGL Fluid Physics Simulation
+    import('webgl-fluid').then((webGLFluidSimulation) => {
+      if (canvasRef.current) {
+        webGLFluidSimulation.default({
+          CANVAS: canvasRef.current,
+          COLOR_PALETTE: ['#721c24', '#5c161d', '#9b2c37', '#1a0608'], // Deep cinematic crimson/burgundy
+          HOVER: true,
+          DENSITY_DISSIPATION: 0.98,
+          VELOCITY_DISSIPATION: 0.99,
+          PRESSURE: 0.8,
+          SPLAT_RADIUS: 0.25,
+          BACK_COLOR: '#0B111A', // Deep oceanic slate
+          TRANSPARENT: false
+        });
+      }
+    });
 
     return () => {
       clearTimeout(splashTimer);
@@ -42,54 +60,33 @@ export default function Home() {
     };
   }, []);
 
-  // Generate 15 particles for the live background
-  const particles = Array.from({ length: 15 }).map((_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    top: `${Math.random() * 100}%`,
-    animationDelay: `${Math.random() * 10}s`,
-    width: `${Math.random() * 40 + 10}px`
-  }));
-
   return (
     <>
       {/* Intro Splash Screen */}
-      <div className={`splash-screen ${!showSplash ? 'hidden' : ''}`}>
+      <div className={`splash-screen ${!showSplash ? 'hidden' : ''}`} style={{ background: 'var(--dark-bg)' }}>
         <div className="splash-content">
-          <div className="splash-logo-circle">
+          <div className="splash-logo-circle" style={{ background: 'transparent', boxShadow: 'none' }}>
             <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
           </div>
-          <h1 className="splash-text">PulseGrid</h1>
+          <h1 className="splash-text" style={{ fontSize: '3rem', letterSpacing: '2px', fontWeight: '400' }}>PulseGrid</h1>
         </div>
       </div>
 
       <main style={{ position: 'relative' }}>
         
-        {/* Live Hero Background & Interactive Glow */}
-        <div className="live-bg">
+        {/* Live WebGL Fluid Background */}
+        <div className="live-bg" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
+          <canvas ref={canvasRef} className="fluid-canvas" />
           <div className="mouse-glow"></div>
-          {particles.map(p => (
-            <div 
-              key={p.id} 
-              className="particle" 
-              style={{
-                left: p.left,
-                top: p.top,
-                width: p.width,
-                height: p.width,
-                animationDelay: p.animationDelay
-              }}
-            />
-          ))}
         </div>
 
         {/* Hero Section */}
         <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, minHeight: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h1 className="text-massive">
+          <h1 className="text-massive" style={{ textShadow: '0px 10px 30px rgba(0,0,0,0.8)' }}>
             Blood <span style={{ color: 'var(--primary-red)' }}>donation,</span><br/>
             reimagined.
           </h1>
-          <p className="text-subtitle">
+          <p className="text-subtitle" style={{ fontFamily: 'var(--font-inter)', fontWeight: '300' }}>
             An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
           </p>
           <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>

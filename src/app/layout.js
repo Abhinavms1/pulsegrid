@@ -1,6 +1,10 @@
 import './globals.css'
 import SmoothScroll from '../components/SmoothScroll';
 import CustomCursor from '../components/CustomCursor';
+import { Inter, Playfair_Display } from 'next/font/google';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
 
 export const metadata = {
   title: 'PulseGrid - Advanced Blood Network',
@@ -9,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
         <SmoothScroll>
           <CustomCursor />
