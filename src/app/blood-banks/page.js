@@ -1,3 +1,4 @@
+"use client";
 export default function BloodBanks() {
   const banks = [
     { id: 1, name: "IMA Blood Bank", location: "Thodupuzha Town Road, Idukki", contact: "+91 4862 222 222" },
