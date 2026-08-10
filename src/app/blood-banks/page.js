@@ -13,7 +13,7 @@ export default function BloodBanks() {
   const loading = false;
 
   return (
-    <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, var(--bg-cream) 0%, rgba(211,47,47,0.08) 50%, var(--bg-cream) 100%)', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
+    <main style={{ minHeight: '100vh', background: 'transparent', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
       
       {/* Abstract Background Mesh */}
       <div style={{ position: 'absolute', top: '10%', left: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(211,47,47,0.15) 0%, rgba(255,255,255,0) 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>

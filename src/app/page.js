@@ -76,7 +76,7 @@ export default function Home() {
         </section>
 
         {/* East Luwu Photo Grid Section */}
-        <section className="reveal" style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'var(--bg-cream)' }}>
+        <section className="reveal" style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'transparent' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '20px' }}>
               <h2 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: '1.1' }}>Platform<br/>Impact</h2>
@@ -87,26 +87,26 @@ export default function Home() {
             <div className="photo-grid">
               <div className="photo-card">
                 <img src="/card-hospital.jpg" alt="Verified Banks" />
-                <div className="photo-card-content">
+                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0' }}>
                   <span style={{ fontSize: '0.9rem', letterSpacing: '2px', fontWeight: 'bold', color: 'var(--primary-red)' }}>01</span>
-                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'white' }}>482 Banks</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Verified medical facilities active.</p>
+                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'var(--text-dark)' }}>482 Banks</h3>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Verified medical facilities active.</p>
                 </div>
               </div>
               <div className="photo-card">
                 <img src="/card-humanity.jpg" alt="Active Donors" />
-                <div className="photo-card-content">
+                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0' }}>
                   <span style={{ fontSize: '0.9rem', letterSpacing: '2px', fontWeight: 'bold', color: 'var(--primary-red)' }}>02</span>
-                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'white' }}>12K Donors</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Willing donors ready to assist.</p>
+                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'var(--text-dark)' }}>12K Donors</h3>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Willing donors ready to assist.</p>
                 </div>
               </div>
               <div className="photo-card">
                 <img src="/card-logistics.jpg" alt="Logistics" />
-                <div className="photo-card-content">
+                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0' }}>
                   <span style={{ fontSize: '0.9rem', letterSpacing: '2px', fontWeight: 'bold', color: 'var(--primary-red)' }}>03</span>
-                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'white' }}>1.5M Lives</h3>
-                  <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Emergency transports completed.</p>
+                  <h3 className="text-massive" style={{ fontSize: '2rem', color: 'var(--text-dark)' }}>1.5M Lives</h3>
+                  <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Emergency transports completed.</p>
                 </div>
               </div>
             </div>
@@ -114,7 +114,7 @@ export default function Home() {
         </section>
 
         {/* Footer */}
-        <footer style={{ background: 'var(--bg-cream)', padding: '100px 50px 50px', position: 'relative', zIndex: 1 }}>
+        <footer className="liquid-glass" style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, borderLeft: 'none', borderRight: 'none', borderBottom: 'none', borderRadius: '0' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <hr className="elegant-line" />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginTop: '50px' }}>

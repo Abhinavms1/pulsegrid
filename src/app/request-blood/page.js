@@ -15,7 +15,7 @@ export default function RequestBlood() {
   };
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--bg-cream)', paddingTop: '150px', paddingBottom: '100px', position: 'relative', zIndex: 1 }}>
+    <main style={{ minHeight: '100vh', background: 'transparent', paddingTop: '150px', paddingBottom: '100px', position: 'relative', zIndex: 1 }}>
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
         
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
