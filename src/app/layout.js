@@ -15,12 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
         <SmoothScroll>
-          <nav className="glass-panel nav-bar">
+          <nav className="liquid-glass nav-bar">
             <div className="nav-brand">
-              <div style={{ background: 'var(--primary-red)', padding: '8px', borderRadius: '50%' }}>
-                <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '24px', height: '24px', objectFit: 'contain', filter: 'brightness(0) invert(1)' }} />
-              </div>
-              <span style={{ fontWeight: 'bold', fontSize: '1.2rem', color: 'var(--text-dark)', letterSpacing: '-0.5px' }}>PulseGrid</span>
+              <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', borderRadius: '8px' }} />
+              <span style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-dark)', letterSpacing: '-0.5px' }}>PulseGrid</span>
             </div>
             
             <div className="nav-links">

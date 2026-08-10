@@ -1,15 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,600&display=swap');
 
 :root {
-  --primary-red: #E63946; /* Vibrant, trustworthy medical red */
-  --primary-red-hover: #D32F2F;
-  --bg-light: #FFFFFF; /* Clean white */
-  --bg-offwhite: #F8F9FA; /* Soft gray for contrast */
-  --text-dark: #1F2937; /* Very dark gray, highly readable */
-  --text-muted: #6B7280;
-  --glass-bg: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(0, 0, 0, 0.05);
-  --glass-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  --primary-red: #D32F2F; 
+  --primary-red-hover: #B71C1C;
+  --bg-cream: #FAF9F6; /* Premium Alabaster/Cream, NOT black/blue */
+  --text-dark: #1C1C1C;
+  --text-muted: #757575;
+  --glass-bg: rgba(255, 255, 255, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
   --font-inter: 'Inter', sans-serif;
   --font-playfair: 'Playfair Display', serif;
 }
@@ -21,7 +20,7 @@
 }
 
 body {
-  background-color: var(--bg-light);
+  background-color: var(--bg-cream);
   color: var(--text-dark);
   font-family: var(--font-inter);
   line-height: 1.6;
@@ -31,7 +30,7 @@ body {
 
 h1, h2, h3, .text-massive {
   font-family: var(--font-playfair) !important;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-dark);
 }
 
@@ -40,52 +39,46 @@ a {
   color: inherit;
 }
 
+/* Liquid Glass UI */
+.liquid-glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
 /* Button Styles */
 .btn-primary {
   background: var(--primary-red);
   color: white !important;
-  padding: 12px 24px;
+  padding: 12px 28px;
   border-radius: 50px;
   font-weight: 600;
   display: inline-block;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
-  box-shadow: 0 4px 15px rgba(230,57,70,0.3);
+  box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
 }
 
 .btn-primary:hover {
   background: var(--primary-red-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(230,57,70,0.4);
+  box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
 }
 
-.glass-panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  box-shadow: var(--glass-shadow);
-  border-radius: 20px;
-}
-
-/* Base Nav & Layout Classes */
+/* Nav Bar */
 .nav-bar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 15px 40px;
   margin: 20px 50px;
   border-radius: 50px;
-  position: absolute; /* Float over hero */
-  top: 0;
-  left: 0;
-  right: 0;
+  position: absolute;
+  top: 0; left: 0; right: 0;
   z-index: 1000;
-}
-
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 15px;
 }
 
 .nav-links {
@@ -102,17 +95,33 @@ a {
   color: var(--primary-red) !important;
 }
 
-/* Grids */
-.impact-grid, .steps-grid, .footer-grid {
-  display: grid;
-  gap: 40px;
+/* Splash Screen */
+.splash-screen {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: var(--bg-cream);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+.splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+.splash-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  animation: logoFadeIn 1s ease forwards;
+}
+@keyframes logoFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.impact-grid { grid-template-columns: repeat(3, 1fr); }
-.steps-grid { grid-template-columns: repeat(3, 1fr); }
-.footer-grid { grid-template-columns: repeat(4, 1fr); }
-
-/* Hero Animation */
+/* Hero Background */
 .hero-bg-container {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
@@ -120,48 +129,66 @@ a {
   z-index: 0;
 }
 .hero-bg-image {
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   background-image: url('/hero-bg.jpg');
   background-size: cover;
-  background-position: center;
-  animation: subtleZoom 20s infinite alternate ease-in-out;
+  background-position: center 30%;
+  animation: subtleZoom 25s infinite alternate ease-in-out;
 }
 .hero-overlay {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+  background: linear-gradient(to right, rgba(250,249,246,0.95) 0%, rgba(250,249,246,0.4) 100%);
 }
-
 @keyframes subtleZoom {
   0% { transform: scale(1); }
-  100% { transform: scale(1.1); }
+  100% { transform: scale(1.08); }
 }
 
-/* --- MOBILE OPTIMIZATIONS --- */
+/* Elegant Thin Separators (East Luwu Style) */
+hr.elegant-line {
+  border: none;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  margin: 40px 0;
+  width: 100%;
+}
+
+/* Photo Grid */
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 50px;
+}
+.photo-card {
+  position: relative;
+  height: 400px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--glass-shadow);
+}
+.photo-card img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.photo-card:hover img {
+  transform: scale(1.05);
+}
+.photo-card-content {
+  position: absolute;
+  bottom: 0; left: 0; width: 100%;
+  padding: 30px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  color: white;
+}
+
 @media (max-width: 768px) {
-  .section-padding { padding: 40px 20px !important; }
-  .text-massive { font-size: 3rem !important; line-height: 1.2 !important; word-wrap: break-word; }
-  
   .nav-bar {
-    flex-direction: column !important;
-    padding: 15px !important;
-    margin: 10px !important;
-    border-radius: 20px !important;
-    gap: 15px !important;
-    position: relative !important; /* Don't float on mobile to avoid overlap */
+    flex-direction: column;
+    padding: 15px; margin: 10px; gap: 15px; position: relative;
   }
-  
-  .nav-links {
-    width: 100% !important;
-    justify-content: space-around !important;
-    gap: 10px !important;
-    flex-wrap: wrap !important;
-  }
-  
-  .impact-grid, .steps-grid, .footer-grid {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 20px !important;
-  }
+  .nav-links { flex-wrap: wrap; justify-content: center; }
+  .photo-grid { grid-template-columns: 1fr; }
+  .text-massive { font-size: 3.5rem !important; }
 }
