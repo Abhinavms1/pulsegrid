@@ -282,95 +282,107 @@ a {
 }
 
 @media (max-width: 768px) {
-  /* Disable Custom Cursor entirely on Mobile */
+  /* Disable Custom Cursor and Glow entirely on Mobile */
   * { cursor: auto !important; }
-  .custom-cursor { display: none !important; }
+  .custom-cursor, .mouse-glow { display: none !important; }
   
   .section-padding {
-    padding: 60px 20px;
+    padding: 40px 15px !important;
   }
   
   .text-massive {
-    font-size: 3rem; /* Downscale massive typography */
+    font-size: 3rem !important; 
+    line-height: 1.2 !important;
+    word-wrap: break-word;
   }
   
   .splash-text {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
   
   .splash-logo-circle img {
-    width: 50px !important;
-    height: 50px !important;
+    width: 40px !important;
+    height: 40px !important;
   }
 
-  /* Stack Bento Grid */
+  /* Bulletproof Bento Grid Stacking */
   .bento-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
   }
   
   .bento-item {
-    padding: 30px;
+    width: 100% !important;
+    padding: 25px !important;
   }
 
-  /* Reset grid spans for mobile */
-  .bento-item[style*="span"] {
-    grid-column: span 1 !important;
-    grid-row: span 1 !important;
-    flex-direction: column !important;
-    align-items: flex-start !important;
-    gap: 20px;
+  /* Force all inline grid-spans to reset */
+  div[style*="gridColumn"], div[style*="grid-column"] {
+    grid-column: unset !important;
+  }
+  div[style*="gridRow"], div[style*="grid-row"] {
+    grid-row: unset !important;
   }
 
   /* Nav Bar Mobile Refactor */
   .nav-bar {
-    flex-direction: column;
-    padding: 15px 20px;
-    margin: 10px;
-    border-radius: 20px;
-    gap: 20px;
+    flex-direction: column !important;
+    padding: 15px !important;
+    margin: 10px !important;
+    border-radius: 20px !important;
+    gap: 15px !important;
+    width: calc(100% - 20px) !important;
+  }
+  
+  .nav-brand span {
+    font-size: 1rem !important;
   }
   
   .nav-links {
-    width: 100%;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
+    width: 100% !important;
+    justify-content: space-around !important;
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+  }
+  
+  .nav-links a {
+    font-size: 0.8rem !important;
+    padding: 8px 12px !important;
   }
   
   .nav-links .btn-primary {
-    width: 100%;
-    text-align: center;
-    margin-top: 10px;
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 5px !important;
   }
   
-  /* Stack inline flex rows */
-  div[style*="display: flex"][style*="gap: 20px"] {
-    flex-direction: column;
-    width: 100%;
-  }
-  
-  .btn-primary, .glass-panel {
-    text-align: center;
-    width: 100%;
-  }
-
   /* Stack Grids */
   .impact-grid, .steps-grid, .footer-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px !important;
+    width: 100% !important;
   }
 
-  .footer-grid div[style*="span 2"] {
-    grid-column: span 1 !important;
+  /* Hero Section Buttons */
+  section div[style*="display: flex"][style*="gap: 20px"] {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  
+  button, .btn-primary, .glass-panel {
+    width: 100% !important;
+    text-align: center !important;
   }
 }
 
 /* Touch Device Specific Overrides */
-@media (pointer: coarse) {
+@media (pointer: coarse), (hover: none) {
   * { cursor: auto !important; }
-  .custom-cursor { display: none !important; }
+  .custom-cursor, .mouse-glow { display: none !important; }
+  .nav-bar { position: relative !important; top: 0 !important; } /* Unstick nav on touch to save space */
 }
 
 /* Button Drip Effect */
