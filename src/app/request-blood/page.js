@@ -1,5 +1,4 @@
 "use client";
-
 import { useState } from 'react';
 
 export default function RequestBlood() {
@@ -9,55 +8,64 @@ export default function RequestBlood() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API Call
     setTimeout(() => {
       setLoading(false);
       setSuccess(true);
     }, 1500);
   };
 
-  if (success) {
-    return (
-      <main style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '50px' }}>
-        <div className="glass-panel" style={{ width: '100%', maxWidth: '600px', padding: '50px', textAlign: 'center' }}>
-          <div style={{ width: '80px', height: '80px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '2rem', color: 'var(--primary-red)' }}>✓</div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: 'var(--text-light)' }}>Emergency Broadcast Sent</h1>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Your request has been pinged to all verified donors and blood banks within a 50km radius. You will be contacted shortly.</p>
-          <a href="/" className="btn-primary" style={{ display: 'inline-block' }}>Return to Map</a>
-        </div>
-      </main>
-    );
-  }
-
   return (
-    <main style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '50px' }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '600px', padding: '50px' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: 'var(--primary-red)', textAlign: 'center' }}>Emergency Blood Request</h1>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '30px', textAlign: 'center' }}>Fill this out to immediately broadcast a request to nearby donors.</p>
+    <main style={{ minHeight: '100vh', background: 'var(--bg-cream)', paddingTop: '150px', paddingBottom: '100px', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '0 20px' }}>
         
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-          <input type="text" placeholder="Patient Name" className="input-glass" required />
-          <input type="text" placeholder="Hospital / Location" className="input-glass" required />
-          
-          <select className="input-glass" required style={{ appearance: 'none', backgroundColor: 'var(--dark-surface)' }}>
-            <option value="" disabled selected>Required Blood Group</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-          </select>
+        <div style={{ textAlign: 'center', marginBottom: '50px' }}>
+          <h1 className="text-massive" style={{ fontSize: '3.5rem', color: 'var(--primary-red)' }}>Request Blood</h1>
+          <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', marginTop: '15px' }}>Initiate an emergency network broadcast to nearby facilities.</p>
+        </div>
 
-          <input type="number" placeholder="Units Required" className="input-glass" required min="1" max="10" />
-          <input type="tel" placeholder="Contact Phone Number" className="input-glass" required />
-          
-          <button type="submit" className="btn-primary" style={{ marginTop: '10px' }} disabled={loading}>
-            {loading ? <div className="spinner" style={{ width: '20px', height: '20px', borderWidth: '2px' }}></div> : 'Broadcast Emergency'}
-          </button>
-        </form>
+        <div className="liquid-glass" style={{ padding: '50px', borderRadius: '30px' }}>
+          {success ? (
+             <div style={{ textAlign: 'center', padding: '40px 0' }}>
+               <div style={{ width: '80px', height: '80px', background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 30px', fontSize: '2rem' }}>✓</div>
+               <h2 className="text-massive" style={{ fontSize: '2rem', marginBottom: '15px' }}>Emergency Broadcast Initiated</h2>
+               <p style={{ color: 'var(--text-muted)' }}>We have pinged all verified blood banks in a 50km radius. They will contact you shortly.</p>
+             </div>
+          ) : (
+            <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '25px' }}>
+              <div style={{ gridColumn: 'span 2' }}>
+                <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600' }}>Patient / Hospital Name</label>
+                <input type="text" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', fontSize: '1rem', outline: 'none' }} placeholder="Enter facility or patient name..." />
+              </div>
+
+              <div>
+                <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600' }}>Blood Group Required</label>
+                <select required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', fontSize: '1rem', outline: 'none' }}>
+                  <option value="">Select Type</option>
+                  <option value="A+">A+</option><option value="A-">A-</option>
+                  <option value="B+">B+</option><option value="B-">B-</option>
+                  <option value="O+">O+</option><option value="O-">O-</option>
+                  <option value="AB+">AB+</option><option value="AB-">AB-</option>
+                </select>
+              </div>
+
+              <div>
+                <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600' }}>Units Required</label>
+                <input type="number" min="1" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', fontSize: '1rem', outline: 'none' }} placeholder="e.g. 2" />
+              </div>
+
+              <div style={{ gridColumn: 'span 2' }}>
+                <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600' }}>Emergency Contact Number</label>
+                <input type="tel" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', fontSize: '1rem', outline: 'none' }} placeholder="+1 (555) 000-0000" />
+              </div>
+
+              <div style={{ gridColumn: 'span 2', marginTop: '20px' }}>
+                <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', padding: '20px', fontSize: '1.2rem', borderRadius: '15px' }}>
+                  {loading ? 'Broadcasting...' : 'Broadcast Emergency Request'}
+                </button>
+              </div>
+            </form>
+          )}
+        </div>
       </div>
     </main>
   );

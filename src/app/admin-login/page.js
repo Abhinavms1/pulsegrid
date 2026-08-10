@@ -1,53 +1,60 @@
 "use client";
-
 import { useState } from 'react';
-import { loginAdmin } from '../actions/auth';
+import { useRouter } from 'next/navigation';
+import { handleAdminLogin } from './actions';
 
 export default function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError('');
     
-    try {
-      const formData = new FormData(e.target);
-      const res = await loginAdmin(formData);
-      
-      if (res?.error) {
-        setError(res.error);
-        setLoading(false);
-      } else if (res?.success) {
-        window.location.href = '/admin'; // Force full client navigation to clear cache
-      }
-    } catch (err) {
-      setError('An unexpected error occurred.');
+    const formData = new FormData(e.target);
+    const result = await handleAdminLogin(formData);
+    
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
+    } else if (result.success) {
+      router.push('/admin');
     }
   };
 
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '400px', padding: '40px', textAlign: 'center' }}>
-        <div style={{ background: 'white', borderRadius: '50%', padding: '10px', display: 'inline-flex', marginBottom: '20px' }}>
-          <img src="/logo.jpg" alt="PulseGrid" style={{ width: '50px', height: '50px', objectFit: 'contain' }} />
-        </div>
-        <h1 style={{ fontSize: '2rem', marginBottom: '10px', color: 'var(--text-light)' }}>Admin <span style={{ color: 'var(--primary-red)' }}>Access</span></h1>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Restricted area. Please sign in.</p>
-        
-        {error && (
-          <div style={{ background: 'rgba(230, 57, 70, 0.1)', border: '1px solid var(--primary-red)', color: 'var(--primary-red)', padding: '10px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.9rem' }}>
-            {error}
-          </div>
-        )}
+    <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-cream)', position: 'relative' }}>
+      
+      {/* Background Graphic */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0 }}>
+        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(211,47,47,0.05) 0%, rgba(250,249,246,0) 70%)', borderRadius: '50%' }}></div>
+        <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(0,0,0,0.03) 0%, rgba(250,249,246,0) 70%)', borderRadius: '50%' }}></div>
+      </div>
 
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <input type="text" name="username" placeholder="Username" className="input-glass" required />
-          <input type="password" name="password" placeholder="Password" className="input-glass" required />
-          <button type="submit" className="btn-primary" style={{ marginTop: '10px' }} disabled={loading}>
-            {loading ? 'Authenticating...' : 'Sign In'}
+      <div className="liquid-glass" style={{ padding: '60px', borderRadius: '30px', width: '100%', maxWidth: '500px', position: 'relative', zIndex: 1 }}>
+        
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px' }}>
+          <img src="/logo.jpg" alt="PulseGrid" style={{ width: '60px', height: '60px', borderRadius: '15px', marginBottom: '20px', boxShadow: '0 10px 20px rgba(211,47,47,0.2)' }} />
+          <h1 className="text-massive" style={{ fontSize: '2.5rem', textAlign: 'center' }}>Admin Portal</h1>
+          <p style={{ color: 'var(--text-muted)', textAlign: 'center', marginTop: '10px' }}>Secure infrastructure access</p>
+        </div>
+
+        {error && <div style={{ background: '#ffebee', color: '#c62828', padding: '15px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.9rem', border: '1px solid #ef9a9a' }}>{error}</div>}
+        
+        <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '25px' }}>
+          <div>
+            <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600', fontSize: '0.95rem' }}>Administrator ID</label>
+            <input type="text" name="username" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', color: 'var(--text-dark)', fontSize: '1rem', outline: 'none', transition: 'border 0.3s' }} placeholder="Enter ID..." />
+          </div>
+          <div>
+            <label style={{ display: 'block', marginBottom: '10px', color: 'var(--text-dark)', fontWeight: '600', fontSize: '0.95rem' }}>Secure Passphrase</label>
+            <input type="password" name="password" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.9)', border: '1px solid rgba(0,0,0,0.1)', borderRadius: '12px', color: 'var(--text-dark)', fontSize: '1rem', outline: 'none', transition: 'border 0.3s' }} placeholder="Enter passphrase..." />
+          </div>
+          
+          <button type="submit" disabled={loading} className="btn-primary" style={{ width: '100%', padding: '18px', fontSize: '1.1rem', marginTop: '10px' }}>
+            {loading ? 'Authenticating...' : 'Establish Secure Connection'}
           </button>
         </form>
       </div>

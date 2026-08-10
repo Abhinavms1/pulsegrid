@@ -1,5 +1,6 @@
 import './globals.css'
 import SmoothScroll from '../components/SmoothScroll';
+import NavigationAndSplash from '../components/NavigationAndSplash';
 import { Inter, Playfair_Display } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
@@ -15,19 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body>
         <SmoothScroll>
-          <nav className="liquid-glass nav-bar">
-            <div className="nav-brand">
-              <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '40px', height: '40px', objectFit: 'contain', borderRadius: '8px' }} />
-              <span style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-dark)', letterSpacing: '-0.5px' }}>PulseGrid</span>
-            </div>
-            
-            <div className="nav-links">
-              <a href="/" className="nav-link" style={{ color: 'var(--text-dark)' }}>Home</a>
-              <a href="/blood-banks" className="nav-link" style={{ color: 'var(--text-dark)' }}>Find Donors</a>
-              <a href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</a>
-              <a href="/admin-login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Admin Login</a>
-            </div>
-          </nav>
+          <NavigationAndSplash />
           
           <div>
             {children}
