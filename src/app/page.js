@@ -1,21 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import dynamic from 'next/dynamic';
-import MagneticButton from '../components/MagneticButton';
 
 // Dynamically import Map component (disables SSR to prevent Leaflet window errors)
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
-  const [locationEnabled, setLocationEnabled] = useState(false);
-  const canvasRef = useRef(null);
 
-  // Splash screen, WebGL Fluid, & Scroll Reveal logic
+  // Scroll Reveal logic
   useEffect(() => {
-    const splashTimer = setTimeout(() => setShowSplash(false), 3500);
-    
     // Intersection Observer for scroll reveal animations
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -28,190 +22,106 @@ export default function Home() {
     const revealElements = document.querySelectorAll('.reveal');
     revealElements.forEach(el => observer.observe(el));
 
-    // Interactive Mouse Tracking for Background Glow (still used on some elements)
-    const handleMouseMove = (e) => {
-      const { clientX, clientY } = e;
-      document.documentElement.style.setProperty('--mouse-x', `${clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${clientY}px`);
-    };
-    window.addEventListener('mousemove', handleMouseMove);
-
-    // Initialize WebGL Fluid Physics Simulation
-    import('webgl-fluid').then((webGLFluidSimulation) => {
-      if (canvasRef.current) {
-        webGLFluidSimulation.default({
-          CANVAS: canvasRef.current,
-          COLOR_PALETTE: ['#721c24', '#5c161d', '#9b2c37', '#1a0608'], // Deep cinematic crimson/burgundy
-          HOVER: true,
-          DENSITY_DISSIPATION: 0.98,
-          VELOCITY_DISSIPATION: 0.99,
-          PRESSURE: 0.8,
-          SPLAT_RADIUS: 0.25,
-          BACK_COLOR: '#0B111A', // Deep oceanic slate
-          TRANSPARENT: false
-        });
-      }
-    });
-
     return () => {
-      clearTimeout(splashTimer);
       revealElements.forEach(el => observer.unobserve(el));
-      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
   return (
-    <>
-      {/* Intro Splash Screen */}
-      <div className={`splash-screen ${!showSplash ? 'hidden' : ''}`} style={{ background: 'var(--dark-bg)' }}>
-        <div className="splash-content">
-          <div className="splash-logo-circle" style={{ background: 'transparent', boxShadow: 'none' }}>
-            <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '80px', height: '80px', objectFit: 'contain' }} />
-          </div>
-          <h1 className="splash-text" style={{ fontSize: '3rem', letterSpacing: '2px', fontWeight: '400' }}>PulseGrid</h1>
-        </div>
+    <main style={{ position: 'relative' }}>
+      
+      {/* Live Photographic Hero Background */}
+      <div className="hero-bg-container">
+        <div className="hero-bg-image"></div>
+        <div className="hero-overlay"></div>
       </div>
 
-      <main style={{ position: 'relative' }}>
-        
-        {/* Live WebGL Fluid Background */}
-        <div className="live-bg" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100vh', zIndex: 0, overflow: 'hidden' }}>
-          <canvas ref={canvasRef} className="fluid-canvas" />
-          <div className="mouse-glow"></div>
+      {/* Hero Section */}
+      <section style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 50px', paddingTop: '100px' }}>
+        <h1 className="text-massive" style={{ color: 'white', textShadow: '0px 10px 30px rgba(0,0,0,0.8)', fontSize: '5rem', maxWidth: '800px' }}>
+          Blood <span style={{ color: 'var(--primary-red)' }}>donation,</span><br/>
+          reimagined.
+        </h1>
+        <p style={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.2rem', maxWidth: '600px', marginTop: '20px', textShadow: '0px 2px 10px rgba(0,0,0,0.5)' }}>
+          An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
+        </p>
+        <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
+          <a href="/register" className="btn-primary" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px' }}>
+            Join the Grid
+          </a>
+          <a href="/blood-banks" className="glass-panel" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px', color: 'white', border: '1px solid rgba(255,255,255,0.3)', background: 'rgba(0,0,0,0.4)' }}>
+            Find Banks
+          </a>
         </div>
+      </section>
 
-        {/* Hero Section */}
-        <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, minHeight: '90vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-          <h1 className="text-massive" style={{ textShadow: '0px 10px 30px rgba(0,0,0,0.8)' }}>
-            Blood <span style={{ color: 'var(--primary-red)' }}>donation,</span><br/>
-            reimagined.
-          </h1>
-          <p className="text-subtitle" style={{ fontFamily: 'var(--font-inter)', fontWeight: '300' }}>
-            An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
-          </p>
-          <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
-            <MagneticButton className="btn-primary" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px' }} onClick={() => window.location.href = '/register'}>
-              Join the Grid
-            </MagneticButton>
-            <MagneticButton className="glass-panel" style={{ padding: '16px 40px', fontSize: '1.2rem', borderRadius: '50px', color: 'var(--text-light)', border: '1px solid rgba(255,255,255,0.2)' }} onClick={() => window.location.href = '/blood-banks'}>
-              Find Banks
-            </MagneticButton>
+      {/* Platform Impact Statistics (Light Mode) */}
+      <section style={{ padding: '100px 50px', background: 'var(--bg-light)', position: 'relative', zIndex: 1 }}>
+        <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-dark)' }}>Platform Impact</h2>
+        <div className="impact-grid">
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+            <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>12K+</h3>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Registered Donors</p>
           </div>
-        </section>
-
-        {/* Massive Bento Box Grid */}
-        <section className="section-padding reveal" style={{ position: 'relative', zIndex: 1, background: '#080a0f' }}>
-          <h2 className="text-massive" style={{ fontSize: '4rem', marginBottom: '60px' }}>The Platform</h2>
-          
-          <div className="bento-grid">
-            {/* Box 1: Large Span */}
-            <div className="bento-item" style={{ gridColumn: 'span 8', gridRow: 'span 2' }}>
-              <h3 style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '15px' }}>Instant Connectivity</h3>
-              <p className="text-subtitle" style={{ fontSize: '1.1rem' }}>Our algorithm bridges the gap between critical shortages and available donors in milliseconds. The moment an emergency request is fired, the grid activates.</p>
-            </div>
-            
-            {/* Box 2: Square */}
-            <div className="bento-item" style={{ gridColumn: 'span 4', gridRow: 'span 1' }}>
-              <h3 style={{ fontSize: '4rem', color: 'var(--primary-red)', margin: 0 }}>24/7</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Emergency Dispatch</p>
-            </div>
-
-            {/* Box 3: Square */}
-            <div className="bento-item" style={{ gridColumn: 'span 4', gridRow: 'span 1' }}>
-              <h3 style={{ fontSize: '4rem', color: '#0cf011', margin: 0 }}>482</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Verified Blood Banks</p>
-            </div>
-
-            {/* Box 4: Map Teaser Span */}
-            <div className="bento-item" style={{ gridColumn: 'span 12', gridRow: 'span 1', display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-              <div>
-                <h3 style={{ fontSize: '2rem', color: 'var(--text-light)' }}>Live Geographic Grid</h3>
-                <p style={{ color: 'var(--text-muted)' }}>Track real-time inventory and nearby donors dynamically.</p>
-              </div>
-              <button onClick={() => setLocationEnabled(true)} className="btn-primary" style={{ padding: '12px 30px', borderRadius: '30px' }}>
-                Activate Map
-              </button>
-            </div>
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+            <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>482</h3>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Verified Banks</p>
           </div>
-        </section>
-
-        {/* Live Geographic Map Section */}
-        {locationEnabled && (
-          <section className="section-padding" style={{ position: 'relative', zIndex: 1, background: '#0a0d14', animation: 'fadeIn 1s ease-out' }}>
-            <h2 style={{ fontSize: '3rem', color: 'var(--text-light)', marginBottom: '30px' }}>Grid <span style={{ color: 'var(--primary-red)' }}>Active</span></h2>
-            <div className="glass-panel" style={{ height: '600px', width: '100%', borderRadius: '30px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
-              <Map center={{ lat: 9.8956, lng: 76.7184 }} />
-            </div>
-          </section>
-        )}
-
-        {/* Platform Impact Statistics */}
-        <section className="section-padding" style={{ background: 'var(--dark-surface)', position: 'relative', zIndex: 1 }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-light)' }}>Platform Impact</h2>
-          <div className="impact-grid">
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>12K+</h3>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Registered Donors</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>482</h3>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Verified Banks</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>1.5M</h3>
-              <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Lives Saved</p>
-            </div>
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
+            <h3 style={{ fontSize: '3rem', color: 'var(--primary-red)' }}>1.5M</h3>
+            <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>Lives Saved</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* How It Works */}
-        <section className="section-padding" style={{ position: 'relative', zIndex: 1, background: 'var(--dark-bg)' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-light)' }}>How PulseGrid Works</h2>
-          <div className="steps-grid">
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>1</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Register</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Sign up as a donor with your blood group and location securely.</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>2</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Get Notified</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Receive emergency alerts when a nearby hospital needs your blood type.</p>
-            </div>
-            <div className="glass-panel" style={{ padding: '40px', textAlign: 'center' }}>
-              <div style={{ width: '60px', height: '60px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>3</div>
-              <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Save Lives</h3>
-              <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Donate at the verified blood bank and track your life-saving impact.</p>
-            </div>
+      {/* How It Works (Off-White) */}
+      <section style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'var(--bg-offwhite)' }}>
+        <h2 style={{ fontSize: '2.5rem', marginBottom: '50px', textAlign: 'center', color: 'var(--text-dark)' }}>How PulseGrid Works</h2>
+        <div className="steps-grid">
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', background: 'white' }}>
+            <div style={{ width: '60px', height: '60px', background: 'rgba(211,47,47,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>1</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Register</h3>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Sign up as a donor with your blood group and location securely.</p>
           </div>
-        </section>
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', background: 'white' }}>
+            <div style={{ width: '60px', height: '60px', background: 'rgba(211,47,47,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>2</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Get Notified</h3>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Receive emergency alerts when a nearby hospital needs your blood type.</p>
+          </div>
+          <div className="glass-panel" style={{ padding: '40px', textAlign: 'center', background: 'white' }}>
+            <div style={{ width: '60px', height: '60px', background: 'rgba(211,47,47,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '1.5rem', color: 'var(--primary-red)', fontWeight: 'bold' }}>3</div>
+            <h3 style={{ fontSize: '1.5rem', marginBottom: '15px' }}>Save Lives</h3>
+            <p style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>Donate at the verified blood bank and track your life-saving impact.</p>
+          </div>
+        </div>
+      </section>
 
-      </main>
-      
       {/* Massive Footer */}
-      <footer style={{ background: '#05070a', padding: '100px 50px', borderTop: '1px solid rgba(255,255,255,0.05)', position: 'relative', zIndex: 1 }}>
+      <footer style={{ background: 'white', padding: '100px 50px', borderTop: '1px solid rgba(0,0,0,0.05)', position: 'relative', zIndex: 1 }}>
         <div className="footer-grid" style={{ maxWidth: '1400px', margin: '0 auto' }}>
           <div style={{ gridColumn: 'span 2' }}>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'white', marginBottom: '20px' }}>PulseGrid</h1>
+            <h1 style={{ fontSize: '2.5rem', fontWeight: 'bold', color: 'var(--text-dark)', marginBottom: '20px' }}>PulseGrid</h1>
             <p style={{ color: 'var(--text-muted)', maxWidth: '400px' }}>Redefining the standard for emergency blood network infrastructure. Built for scale, designed for life.</p>
           </div>
           <div>
-            <h4 style={{ color: 'white', marginBottom: '20px' }}>Network</h4>
-            <ul style={{ listStyle: 'none', padding: 0, gap: '15px', display: 'flex', flexDirection: 'column' }}>
-              <li><a href="/register" style={{ color: 'var(--text-muted)' }}>Register as Donor</a></li>
-              <li><a href="/blood-banks" style={{ color: 'var(--text-muted)' }}>Find Blood Banks</a></li>
-              <li><a href="/request-blood" style={{ color: 'var(--text-muted)' }}>Emergency Request</a></li>
-            </ul>
+            <h4 style={{ color: 'var(--text-dark)', marginBottom: '20px', fontWeight: 'bold' }}>Platform</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>Donor Network</a>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>Blood Banks</a>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>Emergency APIs</a>
+            </div>
           </div>
           <div>
-            <h4 style={{ color: 'white', marginBottom: '20px' }}>System</h4>
-            <ul style={{ listStyle: 'none', padding: 0, gap: '15px', display: 'flex', flexDirection: 'column' }}>
-              <li><a href="/admin-login" style={{ color: 'var(--text-muted)' }}>Admin Gateway</a></li>
-              <li><a href="#" style={{ color: 'var(--text-muted)' }}>API Documentation</a></li>
-            </ul>
+            <h4 style={{ color: 'var(--text-dark)', marginBottom: '20px', fontWeight: 'bold' }}>Legal</h4>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>Privacy Policy</a>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>Terms of Service</a>
+              <a href="#" style={{ color: 'var(--text-muted)' }}>HIPAA Compliance</a>
+            </div>
           </div>
         </div>
       </footer>
-    </>
+
+    </main>
   );
 }
