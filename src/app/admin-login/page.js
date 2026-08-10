@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { handleAdminLogin } from './actions';
+import { loginAdmin } from '../actions/auth';
 
 export default function AdminLogin() {
   const [error, setError] = useState('');
@@ -14,7 +14,7 @@ export default function AdminLogin() {
     setError('');
     
     const formData = new FormData(e.target);
-    const result = await handleAdminLogin(formData);
+    const result = await loginAdmin(formData);
     
     if (result.error) {
       setError(result.error);

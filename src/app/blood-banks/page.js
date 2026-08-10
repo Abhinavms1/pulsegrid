@@ -1,16 +1,15 @@
 export default function BloodBanks() {
-  // Real Kerala Blood Banks (from Justdial)
-  const [banks, setBanks] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function load() {
-      const data = await getBloodBanks();
-      setBanks(data);
-      setLoading(false);
-    }
-    load();
-  }, []);
+  const banks = [
+    { id: 1, name: "IMA Blood Bank", location: "Thodupuzha Town Road, Idukki", contact: "+91 4862 222 222" },
+    { id: 2, name: "Holy Ghost Mission Hospital", location: "Hospital Road, Muttuchira, Kottayam", contact: "+91 4829 282 224" },
+    { id: 3, name: "Bank Of Blood", location: "Ettumanur, Kottayam", contact: "+91 481 253 5555" },
+    { id: 4, name: "Bharath Charitable Hospital Society Bloodbank", location: "Azad Lane, Thirunakkara, Kottayam", contact: "+91 481 256 5000" },
+    { id: 5, name: "All Kerala Blood Donors Association", location: "Maradu, Ernakulam", contact: "+91 484 270 5000" },
+    { id: 6, name: "B4Blood.com", location: "Indira Road, Palarivattom, Ernakulam", contact: "+91 484 233 4444" },
+    { id: 7, name: "I M A Blood Bank", location: "W R M Road, Ernakulam South", contact: "+91 484 236 2222" },
+    { id: 8, name: "Pvs Memorial Hospital Blood Bank", location: "Kaloor, Ernakulam", contact: "+91 484 233 2222" }
+  ];
+  const loading = false;
 
   return (
     <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, var(--bg-cream) 0%, rgba(211,47,47,0.08) 50%, var(--bg-cream) 100%)', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
