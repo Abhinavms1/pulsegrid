@@ -30,8 +30,8 @@ export default function AdminLogin() {
       
       {/* Background Graphic */}
       <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0 }}>
-        <div style={{ position: 'absolute', top: '-20%', right: '-10%', width: '800px', height: '800px', background: 'radial-gradient(circle, rgba(211,47,47,0.05) 0%, rgba(250,249,246,0) 70%)', borderRadius: '50%' }}></div>
-        <div style={{ position: 'absolute', bottom: '-20%', left: '-10%', width: '600px', height: '600px', background: 'radial-gradient(circle, rgba(0,0,0,0.03) 0%, rgba(250,249,246,0) 70%)', borderRadius: '50%' }}></div>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: "url('/vibrant_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', filter: 'brightness(1.1)' }}></div>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(11,17,26,0.3) 0%, rgba(11,17,26,0.9) 100%)' }}></div>
       </div>
 
       <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="liquid-glass" style={{ padding: '60px', borderRadius: '30px', width: '100%', maxWidth: '500px', position: 'relative', zIndex: 1 }}>

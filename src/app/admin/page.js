@@ -1,106 +1,61 @@
-import { PrismaClient } from '@prisma/client'
-import { redirect } from 'next/navigation'
-import { cookies } from 'next/headers'
+import { getDashboardStats } from '../actions';
+import { logoutAdmin } from '../actions/auth';
 
-export const dynamic = 'force-dynamic'
-
-const prisma = new PrismaClient()
+export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboard() {
-  // SECURITY: Check Cookie
-  const cookieStore = cookies();
-  const isAuthenticated = cookieStore.get('admin_auth');
-
-  if (!isAuthenticated) {
-    redirect('/admin-login');
-  }
-
-  // Fetch real data
-  let banks = []
-  let errorMsg = null
-
-  try {
-    banks = await prisma.bloodBank.findMany({
-      orderBy: { createdAt: 'desc' }
-    })
-  } catch (err) {
-    console.error("Prisma error:", err)
-    errorMsg = "Database Connection Error: " + String(err.message || err)
-  }
-
-  const users = { length: 12450 };
-  const requests = { length: 125 };
+  const stats = await getDashboardStats();
 
   return (
-    <div style={{ padding: '40px', maxWidth: '1400px', margin: '0 auto', minHeight: '100vh' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '30px' }}>
-        <h1 style={{ fontSize: '3rem', color: 'var(--text-light)' }}>Admin <span style={{ color: 'var(--primary-red)' }}>Dashboard</span></h1>
-        <form action={async () => {
-          "use server";
-          cookies().delete('admin_auth');
-          redirect('/admin-login');
-        }}>
-          <button type="submit" className="glass-panel" style={{ padding: '10px 20px', color: 'var(--text-light)', cursor: 'pointer' }}>Sign Out</button>
-        </form>
-      </div>
-      
-      {errorMsg && (
-        <div className="glass-panel" style={{ padding: '20px', marginBottom: '30px', border: '1px solid var(--primary-red)', color: 'var(--primary-red)' }}>
-          {errorMsg}
+    <main style={{ minHeight: '100vh', background: 'var(--dark-bg)', color: 'var(--text-light)', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+        
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '50px' }}>
+          <div>
+            <h1 className="text-massive" style={{ fontSize: '3rem' }}>Infrastructure <span style={{ color: 'var(--primary-red)' }}>Overview</span></h1>
+            <p style={{ color: 'var(--text-muted)' }}>Secure administrator dashboard.</p>
+          </div>
+          <form action={logoutAdmin}>
+            <button type="submit" className="liquid-glass" style={{ padding: '12px 24px', borderRadius: '50px', border: '1px solid var(--primary-red)', color: 'var(--primary-red)', fontWeight: 'bold', background: 'transparent', cursor: 'pointer' }}>
+              Terminate Session
+            </button>
+          </form>
         </div>
-      )}
 
-      {/* Stats Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px', marginBottom: '50px' }}>
-        <div className="glass-panel" style={{ padding: '30px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--text-muted)' }}>Total Users/Donors</h2>
-          <p style={{ fontSize: '4rem', fontWeight: 'bold', color: 'var(--text-light)', margin: '10px 0' }}>{users.length.toLocaleString()}</p>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '30px', marginBottom: '50px' }}>
+          <div className="liquid-glass" style={{ padding: '30px', borderRadius: '20px' }}>
+            <h3 style={{ color: 'var(--text-muted)', marginBottom: '10px' }}>Verified Facilities</h3>
+            <p className="text-massive" style={{ fontSize: '3rem', color: 'var(--text-light)', margin: 0 }}>{stats.totalBanks}</p>
+          </div>
+          <div className="liquid-glass" style={{ padding: '30px', borderRadius: '20px' }}>
+            <h3 style={{ color: 'var(--text-muted)', marginBottom: '10px' }}>Active Emergencies</h3>
+            <p className="text-massive" style={{ fontSize: '3rem', color: 'var(--primary-red)', margin: 0 }}>{stats.activeRequests}</p>
+          </div>
         </div>
-        <div className="glass-panel" style={{ padding: '30px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--text-muted)' }}>Registered Blood Banks</h2>
-          <p style={{ fontSize: '4rem', fontWeight: 'bold', color: 'var(--primary-red)', margin: '10px 0' }}>{banks.length}</p>
-        </div>
-        <div className="glass-panel" style={{ padding: '30px', textAlign: 'center' }}>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--text-muted)' }}>Active Emergency Requests</h2>
-          <p style={{ fontSize: '4rem', fontWeight: 'bold', color: 'var(--text-light)', margin: '10px 0' }}>{requests.length}</p>
-        </div>
-      </div>
 
-      {/* Massive Data Tables */}
-      <h2 style={{ fontSize: '2rem', marginBottom: '20px', color: 'var(--text-light)' }}>Network Blood Banks</h2>
-      <div className="glass-panel" style={{ padding: '30px', overflowX: 'auto', marginBottom: '50px' }}>
-        {banks.length === 0 ? (
-          <p style={{ color: 'var(--text-muted)' }}>No blood banks registered in the database yet.</p>
-        ) : (
-          <table style={{ width: '100%', textAlign: 'left', borderCollapse: 'collapse' }}>
-            <thead>
-              <tr style={{ borderBottom: '1px solid var(--glass-border)', color: 'var(--text-muted)' }}>
-                <th style={{ padding: '15px' }}>ID</th>
-                <th style={{ padding: '15px' }}>Name</th>
-                <th style={{ padding: '15px' }}>Location</th>
-                <th style={{ padding: '15px' }}>Status</th>
-                <th style={{ padding: '15px' }}>Registered Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {banks.map(bank => (
-                <tr key={bank.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.02)' }}>
-                  <td style={{ padding: '15px', color: 'var(--text-muted)' }}>{bank.id.substring(0,8)}...</td>
-                  <td style={{ padding: '15px', fontWeight: 'bold' }}>{bank.name}</td>
-                  <td style={{ padding: '15px' }}>{bank.address}</td>
-                  <td style={{ padding: '15px' }}>
-                    <span style={{ background: 'rgba(5, 138, 7, 0.2)', color: '#0cf011', padding: '4px 12px', borderRadius: '20px', fontSize: '0.8rem' }}>
-                      {bank.verificationStatus}
-                    </span>
-                  </td>
-                  <td style={{ padding: '15px', color: 'var(--text-muted)' }}>{new Date(bank.createdAt).toLocaleDateString()}</td>
-                </tr>
+        <h2 className="text-massive" style={{ fontSize: '2rem', marginBottom: '30px' }}>Recent Emergency Broadcasts</h2>
+        
+        <div className="liquid-glass" style={{ borderRadius: '20px', overflow: 'hidden' }}>
+          {stats.requests.length === 0 ? (
+            <p style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>No active emergency broadcasts at this time.</p>
+          ) : (
+            <div style={{ padding: '20px' }}>
+              {stats.requests.map(req => (
+                <div key={req.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', borderBottom: '1px solid var(--glass-border)' }}>
+                  <div>
+                    <h4 style={{ fontSize: '1.2rem', marginBottom: '5px', color: 'var(--text-light)' }}>{req.patientName}</h4>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Contact: {req.contactNumber}</p>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <span style={{ display: 'inline-block', background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', padding: '5px 12px', borderRadius: '50px', fontWeight: 'bold', marginBottom: '5px' }}>{req.unitsRequired} Units {req.bloodGroupRequired}</span>
+                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem' }}>Status: {req.status}</p>
+                  </div>
+                </div>
               ))}
-            </tbody>
-          </table>
-        )}
+            </div>
+          )}
+        </div>
       </div>
-
-    </div>
-  )
+    </main>
+  );
 }

@@ -1,20 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 
 const Map = dynamic(() => import('../components/Map'), { ssr: false });
 
 export default function Home() {
-  const [showSplash, setShowSplash] = useState(true);
-
-  // Splash Screen Timer
-  useEffect(() => {
-    const splashTimer = setTimeout(() => setShowSplash(false), 2000);
-    return () => clearTimeout(splashTimer);
-  }, []);
-
   const staggerContainer = {
     hidden: { opacity: 0 },
     show: {
@@ -30,19 +22,11 @@ export default function Home() {
 
   return (
     <>
-      {/* Centered Logo Splash Screen */}
-      <div className={`splash-screen ${!showSplash ? 'hidden' : ''}`}>
-        <div className="splash-logo-container">
-          <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '80px', height: '80px', borderRadius: '15px' }} />
-          <h1 className="text-massive" style={{ fontSize: '3rem', margin: 0, letterSpacing: '-1px' }}>PulseGrid</h1>
-        </div>
-      </div>
-
       <main style={{ position: 'relative' }}>
         
-        {/* Photographic Hero Background with Fade Overlay */}
+        {/* Vibrant Futuristic Background */}
         <div className="hero-bg-container">
-          <div className="hero-bg-image"></div>
+          <div className="hero-bg-image" style={{ backgroundImage: "url('/vibrant_bg.jpg')", filter: 'brightness(1.2)' }}></div>
           <div className="hero-overlay" style={{ background: 'linear-gradient(to right, var(--dark-bg) 0%, rgba(11,17,26,0.5) 100%)' }}></div>
         </div>
 
@@ -113,6 +97,26 @@ export default function Home() {
                   <p style={{ fontSize: '0.9rem', color: 'var(--text-muted)' }}>Emergency transports completed.</p>
                 </div>
               </motion.div>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* Live Network Map Section */}
+        <section style={{ padding: '50px', position: 'relative', zIndex: 1, background: 'var(--dark-surface)' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ maxWidth: '1400px', margin: '0 auto' }}
+          >
+            <div style={{ marginBottom: '40px' }}>
+              <h2 className="text-massive" style={{ fontSize: '3rem' }}>Live <span style={{ color: 'var(--primary-red)' }}>Grid</span></h2>
+              <p style={{ color: 'var(--text-muted)' }}>Real-time visualization of active facilities and emergency routing.</p>
+            </div>
+            
+            <div style={{ height: '500px', borderRadius: '30px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
+              <Map />
             </div>
           </motion.div>
         </section>

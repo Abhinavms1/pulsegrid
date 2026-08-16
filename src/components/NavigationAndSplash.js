@@ -56,18 +56,20 @@ export default function NavigationAndSplash() {
       >
         <div className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           {!showSplash ? (
-            <motion.img 
-              layoutId="pulsegrid-logo"
-              src="/logo.jpg" 
-              alt="PulseGrid Logo" 
-              style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
-              transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
-            />
+            <>
+              <motion.img 
+                layoutId="pulsegrid-logo"
+                src="/logo.jpg" 
+                alt="PulseGrid Logo" 
+                style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
+                transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
+              />
+              <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-light)', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
+            </>
           ) : (
             // Placeholder space while logo is animating from center
-            <div style={{ width: '45px', height: '45px' }}></div>
+            <div style={{ width: '150px', height: '45px' }}></div>
           )}
-          <span style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-dark)', letterSpacing: '-0.5px' }}>PulseGrid</span>
         </div>
         
         <div className="nav-links">
