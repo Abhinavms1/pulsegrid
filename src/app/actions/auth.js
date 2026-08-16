@@ -16,7 +16,8 @@ export async function loginAdmin(formData) {
 }
 
 export async function logoutAdmin() {
-  cookies().delete('admin_auth');
+  const cookieStore = await cookies();
+  cookieStore.delete('admin_auth');
   redirect('/admin-login');
 }
 
@@ -26,6 +27,7 @@ export async function loginDonor(formData) {
 }
 
 export async function logoutDonor() {
-  cookies().delete('donor_auth');
+  const cookieStore = await cookies();
+  cookieStore.delete('donor_auth');
   redirect('/login');
 }

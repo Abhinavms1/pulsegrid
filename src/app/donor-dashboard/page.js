@@ -6,7 +6,7 @@ import { redirect } from 'next/navigation';
 export const dynamic = 'force-dynamic';
 
 export default async function DonorDashboard() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const donorName = cookieStore.get('donor_auth')?.value;
 
   if (!donorName) {

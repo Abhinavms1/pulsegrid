@@ -1,16 +1,24 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
 
 export default function NavigationAndSplash() {
   const [showSplash, setShowSplash] = useState(true);
+  const pathname = usePathname();
 
   useEffect(() => {
     // Hold splash screen for 2.5 seconds
     const timer = setTimeout(() => setShowSplash(false), 2500);
     return () => clearTimeout(timer);
   }, []);
+
+  // Hide the global navigation and splash on portal routes
+  const hideNavigationRoutes = ['/admin', '/admin-login', '/login', '/register', '/donor-dashboard'];
+  if (hideNavigationRoutes.includes(pathname)) {
+    return null;
+  }
 
   return (
     <LayoutGroup>
