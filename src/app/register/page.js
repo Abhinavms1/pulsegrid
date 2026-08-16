@@ -1,66 +1,95 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { registerDonorAction } from '../actions';
+import { motion } from 'framer-motion';
 
 export default function Register() {
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // Simulate API Call
-    setTimeout(() => {
+    setError('');
+
+    const formData = new FormData(e.target);
+    const result = await registerDonorAction(formData);
+
+    if (result.error) {
+      setError(result.error);
       setLoading(false);
-      setSuccess(true);
-    }, 1500);
+    } else if (result.success) {
+      router.push('/login?registered=true');
+    }
   };
 
-  if (success) {
-    return (
-      <main style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '50px' }}>
-        <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '50px', textAlign: 'center' }}>
-          <div style={{ width: '80px', height: '80px', background: 'rgba(230,57,70,0.1)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', fontSize: '2rem', color: 'var(--primary-red)' }}>✓</div>
-          <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: 'var(--text-light)' }}>Registration Successful!</h1>
-          <p style={{ color: 'var(--text-muted)', marginBottom: '30px' }}>Thank you for joining PulseGrid as a donor. You are now part of our life-saving network.</p>
-          <a href="/" className="btn-primary" style={{ display: 'inline-block' }}>Return to Map</a>
-        </div>
-      </main>
-    );
-  }
-
   return (
-    <main style={{ minHeight: '80vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '50px' }}>
-      <div className="glass-panel" style={{ width: '100%', maxWidth: '500px', padding: '50px' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '10px', color: 'var(--text-light)', textAlign: 'center' }}>Register as Donor</h1>
-        <p style={{ color: 'var(--text-muted)', marginBottom: '30px', textAlign: 'center' }}>Join the grid and save lives locally.</p>
+    <main style={{ minHeight: '100vh', display: 'flex', background: 'var(--dark-bg)' }}>
+      {/* Left Side - Visual */}
+      <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: "url('/vibrant_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', filter: 'brightness(0.9) contrast(1.1)', zIndex: 0 }}></div>
+        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(11,17,26,0.8) 0%, rgba(11,17,26,0.4) 100%)', zIndex: 1 }}></div>
         
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column' }}>
-          <input type="text" placeholder="Full Name" className="input-glass" required />
-          <input type="email" placeholder="Email Address" className="input-glass" required />
-          
-          <select className="input-glass" required style={{ appearance: 'none', backgroundColor: 'var(--dark-surface)' }}>
-            <option value="" disabled selected>Select Blood Group</option>
-            <option value="A+">A+</option>
-            <option value="A-">A-</option>
-            <option value="B+">B+</option>
-            <option value="B-">B-</option>
-            <option value="O+">O+</option>
-            <option value="O-">O-</option>
-            <option value="AB+">AB+</option>
-            <option value="AB-">AB-</option>
-          </select>
-          
-          <input type="password" placeholder="Password" className="input-glass" required />
-          
-          <button type="submit" className="btn-primary" style={{ marginTop: '10px' }} disabled={loading}>
-            {loading ? <div className="spinner" style={{ width: '20px', height: '20px', borderWidth: '2px' }}></div> : 'Complete Registration'}
-          </button>
-        </form>
+        <div style={{ position: 'relative', zIndex: 2, maxWidth: '500px' }}>
+          <h1 className="text-massive" style={{ fontSize: '4rem', color: 'var(--text-light)', lineHeight: '1.1' }}>
+            Become a <span style={{ color: 'var(--primary-red)' }}>Lifeline</span>
+          </h1>
+          <p style={{ color: 'var(--text-light)', opacity: 0.8, fontSize: '1.2rem', marginTop: '20px' }}>
+            Join the most advanced emergency blood network. Your registration directly connects you to verified facilities and active emergencies in your sector.
+          </p>
+        </div>
+      </div>
 
-        <p style={{ marginTop: '30px', color: 'var(--text-muted)', textAlign: 'center' }}>
-          Already registered? <a href="/login" style={{ color: 'var(--primary-red)', fontWeight: 'bold' }}>Login Here</a>
-        </p>
+      {/* Right Side - Form */}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px', background: 'var(--dark-surface)' }}>
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} style={{ width: '100%', maxWidth: '450px' }}>
+          
+          <div style={{ marginBottom: '40px' }}>
+            <h2 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '10px' }}>Register</h2>
+            <p style={{ color: 'var(--text-muted)' }}>Secure donor enrollment.</p>
+          </div>
+
+          {error && <div style={{ background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', padding: '15px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.9rem', border: '1px solid rgba(211,47,47,0.2)' }}>{error}</div>}
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Full Legal Name</label>
+              <input type="text" name="name" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none' }} placeholder="John Doe" />
+            </div>
+            
+            <div>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Email Address</label>
+              <input type="email" name="email" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none' }} placeholder="john@example.com" />
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Blood Group</label>
+              <select name="bloodGroup" required style={{ width: '100%', padding: '16px', background: 'var(--dark-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none', appearance: 'none' }}>
+                <option value="" disabled selected>Select Group</option>
+                <option value="A+">A+</option><option value="A-">A-</option>
+                <option value="B+">B+</option><option value="B-">B-</option>
+                <option value="O+">O+</option><option value="O-">O-</option>
+                <option value="AB+">AB+</option><option value="AB-">AB-</option>
+              </select>
+            </div>
+
+            <div>
+              <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Secure Password</label>
+              <input type="password" name="password" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none' }} placeholder="Create password" />
+            </div>
+
+            <button type="submit" disabled={loading} className="btn-primary" style={{ padding: '18px', fontSize: '1.1rem', marginTop: '10px', display: 'flex', justifyContent: 'center' }}>
+              {loading ? 'Processing...' : 'Complete Enrollment'}
+            </button>
+          </form>
+
+          <p style={{ marginTop: '30px', color: 'var(--text-muted)', textAlign: 'center' }}>
+            Already registered? <a href="/login" style={{ color: 'var(--primary-red)', fontWeight: 'bold' }}>Access Portal</a>
+          </p>
+        </motion.div>
       </div>
     </main>
   );

@@ -14,14 +14,23 @@ export default function AdminLogin() {
     setLoading(true);
     setError('');
     
-    const formData = new FormData(e.target);
-    const result = await loginAdmin(formData);
-    
-    if (result.error) {
-      setError(result.error);
+    try {
+      const formData = new FormData(e.target);
+      const result = await loginAdmin(formData);
+      
+      if (result && result.error) {
+        setError(result.error);
+        setLoading(false);
+      } else if (result && result.success) {
+        router.push('/admin');
+      } else {
+        setError('An unexpected error occurred during authentication.');
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Connection to server lost. Please try again.');
       setLoading(false);
-    } else if (result.success) {
-      router.push('/admin');
     }
   };
 

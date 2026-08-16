@@ -28,6 +28,10 @@ export default async function AdminDashboard() {
             <p className="text-massive" style={{ fontSize: '3rem', color: 'var(--text-light)', margin: 0 }}>{stats.totalBanks}</p>
           </div>
           <div className="liquid-glass" style={{ padding: '30px', borderRadius: '20px' }}>
+            <h3 style={{ color: 'var(--text-muted)', marginBottom: '10px' }}>Registered Donors</h3>
+            <p className="text-massive" style={{ fontSize: '3rem', color: '#0ea5e9', margin: 0 }}>{stats.totalDonors}</p>
+          </div>
+          <div className="liquid-glass" style={{ padding: '30px', borderRadius: '20px' }}>
             <h3 style={{ color: 'var(--text-muted)', marginBottom: '10px' }}>Active Emergencies</h3>
             <p className="text-massive" style={{ fontSize: '3rem', color: 'var(--primary-red)', margin: 0 }}>{stats.activeRequests}</p>
           </div>

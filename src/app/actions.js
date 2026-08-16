@@ -17,6 +17,50 @@ let globalBloodBanks = [
 let globalRequests = [];
 let requestCounter = 1;
 
+let globalDonors = [];
+let donorCounter = 1;
+
+export async function registerDonorAction(formData) {
+  try {
+    const name = formData.get('name');
+    const email = formData.get('email');
+    const bloodGroup = formData.get('bloodGroup');
+    const password = formData.get('password');
+
+    // Basic validation
+    if (globalDonors.find(d => d.email === email)) {
+      return { error: 'Email is already registered.' };
+    }
+
+    const newDonor = {
+      id: `DNR-${donorCounter++}`,
+      name,
+      email,
+      bloodGroup,
+      password, // Plain text for prototype only!
+      createdAt: new Date().toISOString()
+    };
+
+    globalDonors.push(newDonor);
+    return { success: true };
+  } catch (err) {
+    console.error("Registration Error:", err);
+    return { error: 'Failed to register. Please try again.' };
+  }
+}
+
+export async function loginDonorAction(formData) {
+  const email = formData.get('email');
+  const password = formData.get('password');
+
+  const donor = globalDonors.find(d => d.email === email && d.password === password);
+  if (donor) {
+    return { success: true, donorId: donor.id, name: donor.name };
+  } else {
+    return { error: 'Invalid email or password.' };
+  }
+}
+
 export async function getBloodBanks() {
   try {
     return globalBloodBanks;
@@ -53,9 +97,14 @@ export async function submitEmergencyRequest(formData) {
   }
 }
 
+export async function getActiveRequests() {
+  return globalRequests.filter(req => req.status === 'OPEN');
+}
+
 export async function getDashboardStats() {
   return {
     totalBanks: globalBloodBanks.length,
+    totalDonors: globalDonors.length,
     activeRequests: globalRequests.length,
     requests: globalRequests
   };
