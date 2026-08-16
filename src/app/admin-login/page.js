@@ -22,6 +22,7 @@ export default function AdminLogin() {
         setError(result.error);
         setLoading(false);
       } else if (result && result.success) {
+        document.cookie = "admin_auth=true; path=/; max-age=86400";
         router.push('/admin');
       } else {
         setError('An unexpected error occurred during authentication.');
