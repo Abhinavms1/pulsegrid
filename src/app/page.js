@@ -116,7 +116,7 @@ export default function Home() {
             </div>
             
             <div style={{ height: '500px', borderRadius: '30px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
-              <Map />
+              <Map center={{ lat: 9.9312, lng: 76.2673 }} />
             </div>
           </motion.div>
         </section>
