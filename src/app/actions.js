@@ -11,7 +11,7 @@ export async function registerDonorAction(formData) {
 
     // Basic validation
     const { data: existingUser } = await supabase
-      .from('donors')
+      .from('User')
       .select('id')
       .eq('email', email)
       .single();
@@ -21,9 +21,9 @@ export async function registerDonorAction(formData) {
     }
 
     const { data, error } = await supabase
-      .from('donors')
+      .from('User')
       .insert([
-        { name, email, blood_group: bloodGroup, password } // Plain text prototype ONLY
+        { id: crypto.randomUUID(), name, email, bloodGroup, password } // Plain text prototype ONLY
       ])
       .select()
       .single();
@@ -41,7 +41,7 @@ export async function loginDonorAction(formData) {
   const password = formData.get('password');
 
   const { data: donor, error } = await supabase
-    .from('donors')
+    .from('User')
     .select('id, name')
     .eq('email', email)
     .eq('password', password)
@@ -56,15 +56,15 @@ export async function loginDonorAction(formData) {
 
 export async function getBloodBanks() {
   try {
-    const { data, error } = await supabase.from('blood_banks').select('*');
+    const { data, error } = await supabase.from('BloodBank').select('*');
     if (error) throw error;
     return (data || []).map(bank => ({
       id: bank.id,
       name: bank.name,
       address: bank.address,
       contact: bank.contact,
-      capacity: bank.capacity,
-      isVerified: bank.is_verified
+      capacity: bank.capacity || 100,
+      isVerified: bank.verificationStatus === 'APPROVED'
     }));
   } catch (error) {
     console.error("Error fetching blood banks:", error);
@@ -80,14 +80,14 @@ export async function submitEmergencyRequest(formData) {
     const contactNumber = formData.get('contactNumber');
 
     const { data, error } = await supabase
-      .from('requests')
+      .from('EmergencyRequest')
       .insert([
         {
-          requester_id: "anonymous_requester_123",
-          patient_name: patientName,
-          blood_group_required: bloodGroupRequired,
-          units_required: unitsRequired,
-          contact_number: contactNumber,
+          id: crypto.randomUUID(),
+          requesterId: "anonymous_requester_123",
+          patientName: patientName,
+          bloodGroupRequired: bloodGroupRequired,
+          unitsRequired: unitsRequired,
           status: "OPEN"
         }
       ])
@@ -104,7 +104,7 @@ export async function submitEmergencyRequest(formData) {
 
 export async function getActiveRequests() {
   const { data, error } = await supabase
-    .from('requests')
+    .from('EmergencyRequest')
     .select('*')
     .eq('status', 'OPEN');
   
@@ -114,21 +114,20 @@ export async function getActiveRequests() {
   }
   return (data || []).map(req => ({
     id: req.id,
-    requesterId: req.requester_id,
-    patientName: req.patient_name,
-    bloodGroupRequired: req.blood_group_required,
-    unitsRequired: req.units_required,
-    contactNumber: req.contact_number,
+    requesterId: req.requesterId,
+    patientName: req.patientName,
+    bloodGroupRequired: req.bloodGroupRequired,
+    unitsRequired: req.unitsRequired,
     status: req.status,
-    createdAt: req.created_at
+    createdAt: req.createdAt
   }));
 }
 
 export async function getDashboardStats() {
   try {
     // Fetch counts from Supabase
-    const { count: banksCount } = await supabase.from('blood_banks').select('*', { count: 'exact', head: true });
-    const { count: donorsCount } = await supabase.from('donors').select('*', { count: 'exact', head: true });
+    const { count: banksCount } = await supabase.from('BloodBank').select('*', { count: 'exact', head: true });
+    const { count: donorsCount } = await supabase.from('User').select('*', { count: 'exact', head: true });
     
     const requestsData = await getActiveRequests();
 
