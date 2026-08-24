@@ -94,7 +94,7 @@ export default function NavigationAndSplash() {
                   style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
                   transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
                 />
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-light)', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: '#0b111a', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
               </motion.a>
             </>
           ) : (
