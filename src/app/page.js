@@ -5,8 +5,6 @@ import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import ParticleNetwork from '../components/ParticleNetwork';
 
-const Map = dynamic(() => import('../components/Map'), { ssr: false });
-
 export default function Home() {
   const staggerContainer = {
     hidden: { opacity: 0 },
@@ -23,12 +21,11 @@ export default function Home() {
 
   return (
     <>
-      <main style={{ position: 'relative', overflow: 'hidden' }}>
+      <main style={{ position: 'relative', overflow: 'hidden', background: '#050505' }}>
         
         {/* Vibrant Futuristic Background */}
         <div className="hero-bg-container" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-          <div className="hero-bg-image" style={{ backgroundImage: "url('/vibrant_network_bg_1786904925655.jpg')", filter: 'brightness(1.2)' }}></div>
-          <div className="hero-overlay" style={{ background: 'linear-gradient(to right, var(--dark-bg) 0%, rgba(11,17,26,0.6) 100%)' }}></div>
+          <div className="hero-overlay" style={{ background: 'radial-gradient(circle at 50% 0%, rgba(211,47,47,0.15) 0%, #050505 80%)' }}></div>
           <ParticleNetwork />
         </div>
 
@@ -38,29 +35,39 @@ export default function Home() {
             initial={{ opacity: 0, x: -50 }} 
             animate={{ opacity: 1, x: 0 }} 
             transition={{ duration: 1, delay: 0.5 }}
-            style={{ maxWidth: '800px' }}
+            style={{ maxWidth: '1000px', margin: '0 auto', textAlign: 'center' }}
           >
-            <h1 className="text-massive" style={{ fontSize: '5.5rem', lineHeight: '1.1' }}>
-              Blood <span style={{ color: 'var(--primary-red)' }}>donation,</span><br/>
-              reimagined.
+            <h1 className="text-massive" style={{ fontSize: '6rem', lineHeight: '1.1', background: 'linear-gradient(to right, #ffffff, #aaaaaa)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+              The future of <br/><span style={{ color: 'var(--primary-red)', WebkitTextFillColor: 'var(--primary-red)' }}>emergency routing.</span>
             </h1>
-            <hr className="elegant-line" style={{ width: '60px', borderTop: '2px solid var(--primary-red)', marginTop: '20px' }} />
-            <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', maxWidth: '600px', marginTop: '30px' }}>
-              An ultra-modern infrastructure connecting willing donors, verified blood banks, and emergency recipients instantly across the grid.
-            </p>
-            <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/register" className="btn-primary">
-                Join the Grid
-              </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="liquid-glass" style={{ padding: '12px 28px', fontSize: '1rem', borderRadius: '50px', color: 'var(--text-light)', fontWeight: '600', textDecoration: 'none' }}>
-                Find Banks
+            <hr className="elegant-line" style={{ width: '60px', borderTop: '2px solid var(--primary-red)', margin: '40px auto' }} />
+            
+            {/* 500-Word Overview replacing the Registration Layout */}
+            <div style={{ fontSize: '1.1rem', color: 'var(--text-muted)', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '40px', marginTop: '50px' }}>
+              <p style={{ marginBottom: '20px' }}>
+                PulseGrid represents a paradigm shift in how we handle emergency medical logistics. At its core, the platform operates as a highly specialized, location-based network engineered specifically to bridge the critical gap between voluntary blood donors, verified blood banks, and patients in immediate, life-threatening need. In emergency medical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases, localized phone trees, and physical inquiries that consume precious hours. PulseGrid eliminates this latency entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
+              </p>
+              <p style={{ marginBottom: '20px' }}>
+                When an emergency request is triggered, our infrastructure does not blindly broadcast messages. Instead, it utilizes advanced geolocation algorithms and precise routing logic to immediately identify the nearest verified facilities possessing the exact blood type required. By pinging the exact coordinates of active donors and cross-referencing them with hospital inventory levels, we drastically compress the time it takes to transport life-saving resources.
+              </p>
+              <p style={{ marginBottom: '20px' }}>
+                The architecture of PulseGrid is designed with absolute reliability and security in mind. Our backend, powered by highly resilient databases, ensures that all donor data, medical histories, and facility inventories are persistently stored, encrypted, and accessible only to authorized medical personnel. We have integrated seamless mapping technologies to provide a visual, interactive layer to our network—allowing dispatchers to physically see the flow of resources across regions like Kerala and orchestrate complex logistics effortlessly.
+              </p>
+              <p style={{ marginBottom: '20px' }}>
+                Beyond logistics, PulseGrid fosters a community of willing heroes. By providing a secure portal for donors to register their availability, track their impact, and receive instant alerts when their specific blood type is needed nearby, we transform passive willingness into actionable, life-saving intervention. Whether you are a large-scale government hospital in Ernakulam or an individual donor in a remote district, PulseGrid ensures you are part of an unbreakable, synchronized heartbeat that refuses to let a single life slip away due to systemic delays. Welcome to the grid.
+              </p>
+            </div>
+            
+            <div style={{ marginTop: '50px', display: 'flex', gap: '20px', justifyContent: 'center' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>
+                Access The Grid
               </motion.a>
             </div>
           </motion.div>
         </section>
 
-        {/* Platform Impact Section */}
-        <section style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'var(--dark-bg)' }}>
+        {/* Platform Impact Section (Fixed Image Placeholders) */}
+        <section style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: '#080808' }}>
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
@@ -74,24 +81,36 @@ export default function Home() {
             </motion.div>
             <motion.hr variants={itemVariant} className="elegant-line" />
             
-            <div className="photo-grid" style={{ marginTop: '40px' }}>
-              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                <img src="/pulsegrid_hospital_1786390246425.jpg" alt="Verified Banks" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0', background: 'linear-gradient(to top, rgba(11,17,26,0.9), transparent)' }}>
+            <div className="photo-grid" style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
+              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '400px', background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 100%)', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '30px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(211,47,47,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-red)' }}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                  </div>
+                </div>
+                <div>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '5px' }}>482 Banks</h3>
                   <p style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>Verified medical facilities active.</p>
                 </div>
               </motion.div>
-              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                <img src="/pulsegrid_humanity_1786390260230.jpg" alt="Active Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0', background: 'linear-gradient(to top, rgba(11,17,26,0.9), transparent)' }}>
+              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '400px', background: 'linear-gradient(135deg, #2b1010 0%, #1a0505 100%)', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '30px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(211,47,47,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-red)' }}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                  </div>
+                </div>
+                <div>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '5px' }}>12K Donors</h3>
                   <p style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>Willing donors ready to assist.</p>
                 </div>
               </motion.div>
-              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }}>
-                <img src="/pulsegrid_logistics_1786390274441.jpg" alt="Logistics" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                <div className="photo-card-content liquid-glass" style={{ border: 'none', borderRadius: '0', background: 'linear-gradient(to top, rgba(11,17,26,0.9), transparent)' }}>
+              <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '400px', background: 'linear-gradient(135deg, #111 0%, #000 100%)', borderRadius: '20px', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end', padding: '30px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ flexGrow: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <div style={{ width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(211,47,47,0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--primary-red)' }}>
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                  </div>
+                </div>
+                <div>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '5px' }}>1.5M Lives</h3>
                   <p style={{ fontSize: '1rem', color: 'var(--text-muted)' }}>Emergency transports completed.</p>
                 </div>
@@ -100,48 +119,8 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* About Bridge Section */}
-        <section style={{ padding: '120px 50px', position: 'relative', zIndex: 1, background: 'var(--dark-bg)', display: 'flex', justifyContent: 'center' }}>
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            className="liquid-glass"
-            style={{ maxWidth: '900px', width: '100%', padding: '60px', borderRadius: '30px', textAlign: 'center', border: '1px solid rgba(255,255,255,0.1)' }}
-          >
-            <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px' }}>Experience <span style={{ color: 'var(--primary-red)' }}>The Vision</span></h2>
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
-              Dive deep into the architecture and mission behind PulseGrid. Discover how we're redefining global emergency response infrastructure.
-            </p>
-            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem' }}>
-              Explore About Us
-            </motion.a>
-          </motion.div>
-        </section>
-
-        {/* Live Network Map Section */}
-        <section style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'var(--dark-surface)' }}>
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            style={{ maxWidth: '1400px', margin: '0 auto' }}
-          >
-            <div style={{ marginBottom: '40px' }}>
-              <h2 className="text-massive" style={{ fontSize: '3.5rem' }}>Live <span style={{ color: 'var(--primary-red)' }}>Grid</span></h2>
-              <p style={{ color: 'var(--text-muted)' }}>Real-time visualization of active facilities and emergency routing.</p>
-            </div>
-            
-            <div style={{ height: '500px', borderRadius: '30px', overflow: 'hidden', border: '1px solid var(--glass-border)' }}>
-              <Map center={{ lat: 9.9312, lng: 76.2673 }} />
-            </div>
-          </motion.div>
-        </section>
-
         {/* Footer */}
-        <footer className="liquid-glass" style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, borderLeft: 'none', borderRight: 'none', borderBottom: 'none', borderRadius: '0' }}>
+        <footer className="liquid-glass" style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, borderLeft: 'none', borderRight: 'none', borderBottom: 'none', borderRadius: '0', background: '#030303' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <hr className="elegant-line" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginTop: '50px' }}>
@@ -163,8 +142,8 @@ export default function Home() {
               <div>
                 <h4 style={{ color: 'var(--text-light)', marginBottom: '20px', fontWeight: '600' }}>Legal & System</h4>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
-                  <a href="#" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
+                  <a href="/privacy-policy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
+                  <a href="/terms-of-service" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
                   <a href="/admin-login" style={{ color: 'var(--text-muted)', textDecoration: 'none', fontSize: '0.8rem', opacity: 0.5, marginTop: '10px' }}>System Access</a>
                 </div>
               </div>

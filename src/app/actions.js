@@ -63,6 +63,8 @@ export async function getBloodBanks() {
       name: bank.name,
       address: bank.address,
       contact: bank.contact,
+      latitude: bank.latitude,
+      longitude: bank.longitude,
       capacity: bank.capacity || 100,
       isVerified: bank.verificationStatus === 'APPROVED'
     }));
