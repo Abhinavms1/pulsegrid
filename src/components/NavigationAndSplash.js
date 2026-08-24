@@ -9,16 +9,37 @@ export default function NavigationAndSplash() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Hold splash screen for 2.5 seconds
-    const timer = setTimeout(() => setShowSplash(false), 2500);
-    return () => clearTimeout(timer);
-  }, []);
+    // Only run splash on homepage
+    if (pathname === '/') {
+      setShowSplash(true);
+      const timer = setTimeout(() => setShowSplash(false), 2500);
+      return () => clearTimeout(timer);
+    } else {
+      setShowSplash(false);
+    }
+  }, [pathname]);
 
   // Hide the global navigation and splash on portal routes
   const hideNavigationRoutes = ['/admin', '/admin-login', '/login', '/register', '/donor-dashboard'];
   if (hideNavigationRoutes.includes(pathname)) {
     return null;
   }
+
+  // Magnetic hover effect wrapper
+  const MagneticButton = ({ children, href, className, style }) => {
+    return (
+      <motion.a 
+        href={href}
+        className={className}
+        style={style}
+        whileHover={{ scale: 1.05, y: -2 }}
+        whileTap={{ scale: 0.95 }}
+        transition={{ type: "spring", stiffness: 400, damping: 10 }}
+      >
+        {children}
+      </motion.a>
+    )
+  };
 
   return (
     <LayoutGroup>
@@ -58,21 +79,23 @@ export default function NavigationAndSplash() {
 
       <motion.nav 
         className="liquid-glass nav-bar"
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: pathname === '/' ? 0 : 1, y: pathname === '/' ? -20 : 0 }}
         animate={{ opacity: showSplash ? 0 : 1, y: showSplash ? -20 : 0 }}
         transition={{ duration: 0.8, delay: showSplash ? 0 : 0.4 }}
       >
         <div className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
           {!showSplash ? (
             <>
-              <motion.img 
-                layoutId="pulsegrid-logo"
-                src="/logo.jpg" 
-                alt="PulseGrid Logo" 
-                style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
-                transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
-              />
-              <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-light)', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
+              <motion.a href="/" style={{ display: 'flex', alignItems: 'center', gap: '20px', textDecoration: 'none' }}>
+                <motion.img 
+                  layoutId={pathname === '/' ? "pulsegrid-logo" : undefined}
+                  src="/logo.jpg" 
+                  alt="PulseGrid Logo" 
+                  style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
+                  transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
+                />
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-light)', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
+              </motion.a>
             </>
           ) : (
             // Placeholder space while logo is animating from center
@@ -81,10 +104,10 @@ export default function NavigationAndSplash() {
         </div>
         
         <div className="nav-links">
-          <a href="/" className="nav-link" style={{ color: 'var(--text-dark)' }}>Home</a>
-          <a href="/blood-banks" className="nav-link" style={{ color: 'var(--text-dark)' }}>Find Donors</a>
-          <a href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</a>
-          <a href="/admin-login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Admin Login</a>
+          <MagneticButton href="/" className="nav-link" style={{ color: 'var(--text-dark)' }}>Home</MagneticButton>
+          <MagneticButton href="/blood-banks" className="nav-link" style={{ color: 'var(--text-dark)' }}>Find Donors</MagneticButton>
+          <MagneticButton href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</MagneticButton>
+          <MagneticButton href="/login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Register / Login</MagneticButton>
         </div>
       </motion.nav>
     </LayoutGroup>
