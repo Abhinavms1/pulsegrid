@@ -64,7 +64,7 @@ export default function BloodBanks() {
       {/* Abstract Background Mesh */}
       <div style={{ position: 'absolute', top: '10%', left: '10%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(211,47,47,0.15) 0%, rgba(255,255,255,0) 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>
       
-      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 50px', position: 'relative', zIndex: 1 }}>
+      <div className="section-padding" style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 50px', position: 'relative', zIndex: 1 }}>
         <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} style={{ textAlign: 'center', marginBottom: '60px' }}>
           <h1 className="text-massive" style={{ fontSize: '3.5rem', color: 'var(--text-light)' }}>Verified <span style={{ color: 'var(--primary-red)' }}>Donors & Banks</span></h1>
           <p style={{ color: 'var(--text-muted)', fontSize: '1.2rem', marginTop: '15px' }}>Access our secure network of registered medical facilities and willing donors. Sorted by nearest to you.</p>

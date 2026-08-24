@@ -42,6 +42,7 @@ export default function Home() {
         <AnimatePresence>
           {!preloaderActive && (
             <motion.div
+              className="mobile-side-branding"
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
@@ -64,12 +65,13 @@ export default function Home() {
         </AnimatePresence>
 
         {/* Illoca-Style Hero Section */}
-        <section style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 50px', marginLeft: '80px' }}>
+        <section className="mobile-hero-section" style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 50px', marginLeft: '80px' }}>
           <motion.div 
+            className="mobile-hero-text"
             initial={{ opacity: 0, x: -50 }} 
             animate={{ opacity: preloaderActive ? 0 : 1, x: preloaderActive ? -50 : 0 }} 
             transition={{ duration: 1, delay: 0.5 }}
-            style={{ maxWidth: '500px' }} // Restrict width to keep it on the left like Illoca
+            style={{ maxWidth: '500px', display: 'flex', flexDirection: 'column' }}
           >
             <p style={{ fontFamily: 'monospace', color: 'var(--text-muted)', marginBottom: '20px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
               (1) EMERGENCY LOGISTICS!
@@ -82,11 +84,11 @@ export default function Home() {
               Transform passive willingness into actionable, life-saving intervention with the most advanced blood supply chain grid in Kerala.
             </p>
             
-            <div style={{ display: 'flex', gap: '20px' }}>
+            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
               <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', background: '#0b111a', color: '#fff', border: '1px solid #0b111a', borderRadius: '8px' }}>
                 Access The Grid
               </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" style={{ padding: '12px 30px', fontSize: '1rem', color: '#0b111a', border: '1px solid #0b111a', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" style={{ padding: '12px 30px', fontSize: '1rem', color: '#0b111a', border: '1px solid #0b111a', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Explore Features
               </motion.a>
             </div>
@@ -109,7 +111,7 @@ export default function Home() {
               <h2 className="text-massive" style={{ fontSize: '3.5rem', color: '#0b111a' }}>The Core <br/>Infrastructure</h2>
             </div>
 
-            <div style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '60px' }}>
+            <div className="mobile-overview" style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '60px' }}>
               <p style={{ marginBottom: '20px' }}>
                 PulseGrid represents a paradigm shift in how we handle emergency medical logistics. At its core, the platform operates as a highly specialized, location-based network engineered specifically to bridge the critical gap between voluntary blood donors, verified blood banks, and patients in immediate, life-threatening need all across Kerala. In emergency medical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases, localized phone trees, and physical inquiries that consume precious hours. PulseGrid eliminates this latency entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
               </p>
@@ -135,9 +137,9 @@ export default function Home() {
             viewport={{ once: true, margin: "-100px" }}
             style={{ maxWidth: '1400px', margin: '0 auto' }}
           >
-            <motion.div variants={itemVariant} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '20px' }}>
-              <h2 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: '1.1', color: '#0b111a' }}>Platform<br/>Impact</h2>
-              <p style={{ textAlign: 'right', color: '#4a5568', maxWidth: '300px' }}>Building the most advanced blood network in the world, one facility at a time across Kerala.</p>
+            <motion.div variants={itemVariant} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '20px' }}>
+              <h2 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: '1.1', color: '#0b111a', marginBottom: '20px' }}>Platform<br/>Impact</h2>
+              <p style={{ color: '#4a5568', maxWidth: '300px' }}>Building the most advanced blood network in the world, one facility at a time across Kerala.</p>
             </motion.div>
             <motion.hr variants={itemVariant} className="elegant-line" style={{ borderTopColor: 'rgba(11,17,26,0.1)' }} />
             
@@ -197,9 +199,9 @@ export default function Home() {
         <footer style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, background: '#0b111a', color: '#ffffff' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             <hr className="elegant-line" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginTop: '50px' }}>
+            <div className="mobile-footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginTop: '50px' }}>
               <div style={{ gridColumn: 'span 2' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
+                <div className="mobile-footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
                   <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
                   <h1 className="text-massive" style={{ fontSize: '2rem', color: '#ffffff' }}>PulseGrid</h1>
                 </div>

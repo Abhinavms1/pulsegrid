@@ -160,10 +160,66 @@ hr.elegant-line {
 
 @media (max-width: 768px) {
   .nav-bar {
-    flex-direction: column;
-    padding: 15px; margin: 10px; gap: 15px; position: relative;
+    flex-direction: column !important;
+    padding: 15px !important;
+    margin: 10px !important;
+    gap: 15px !important;
+    position: relative !important;
+    border-radius: 20px !important;
   }
-  .nav-links { flex-wrap: wrap; justify-content: center; }
-  .photo-grid { grid-template-columns: 1fr; }
-  .text-massive { font-size: 3.5rem !important; }
+  .nav-brand {
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  .nav-links { 
+    flex-wrap: wrap !important; 
+    justify-content: center !important; 
+    gap: 15px !important; 
+  }
+  .nav-link, .btn-primary {
+    font-size: 0.9rem !important;
+  }
+  
+  .photo-grid { 
+    grid-template-columns: 1fr !important; 
+  }
+  
+  .text-massive { 
+    font-size: 3rem !important; 
+  }
+
+  /* Specific Layout Overrides for page.js */
+  .mobile-hero-section {
+    padding: 0 20px !important;
+    margin-left: 0 !important;
+    align-items: center !important;
+    text-align: center !important;
+  }
+  
+  .mobile-hero-text {
+    align-items: center !important;
+  }
+  
+  .mobile-side-branding {
+    display: none !important;
+  }
+
+  .mobile-overview {
+    column-count: 1 !important;
+    padding: 20px !important;
+  }
+
+  .mobile-footer-grid {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 30px !important;
+  }
+  
+  .mobile-footer-logo {
+    justify-content: center !important;
+  }
+  
+  .section-padding {
+    padding: 0 20px !important;
+  }
 }
