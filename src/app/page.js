@@ -63,21 +63,53 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        {/* Hero Section */}
-        <section style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0 50px', paddingTop: '100px', marginLeft: '80px' }}>
+        {/* Illoca-Style Hero Section */}
+        <section style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 50px', marginLeft: '80px' }}>
           <motion.div 
             initial={{ opacity: 0, x: -50 }} 
             animate={{ opacity: preloaderActive ? 0 : 1, x: preloaderActive ? -50 : 0 }} 
             transition={{ duration: 1, delay: 0.5 }}
-            style={{ maxWidth: '1000px' }}
+            style={{ maxWidth: '500px' }} // Restrict width to keep it on the left like Illoca
           >
-            <h1 className="text-massive" style={{ fontSize: '6rem', lineHeight: '1.1', color: '#0b111a' }}>
-              The future of <br/><span style={{ color: 'var(--primary-red)' }}>emergency routing.</span>
+            <p style={{ fontFamily: 'monospace', color: 'var(--text-muted)', marginBottom: '20px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
+              (1) EMERGENCY LOGISTICS!
+            </p>
+            <h1 className="text-massive" style={{ fontSize: '5rem', lineHeight: '1', color: '#0b111a', marginBottom: '30px' }}>
+              Routing <br/>Redefined
             </h1>
-            <hr className="elegant-line" style={{ width: '60px', borderTop: '2px solid var(--primary-red)', margin: '40px 0' }} />
             
-            {/* 500-Word Overview replacing the Registration Layout */}
-            <div style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '40px', marginTop: '50px', background: 'rgba(255,255,255,0.7)', padding: '40px', borderRadius: '24px', backdropFilter: 'blur(10px)' }}>
+            <p style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.6', marginBottom: '40px' }}>
+              Transform passive willingness into actionable, life-saving intervention with the most advanced blood supply chain grid in Kerala.
+            </p>
+            
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', background: '#0b111a', color: '#fff', border: '1px solid #0b111a', borderRadius: '8px' }}>
+                Access The Grid
+              </motion.a>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" style={{ padding: '12px 30px', fontSize: '1rem', color: '#0b111a', border: '1px solid #0b111a', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center' }}>
+                Explore Features
+              </motion.a>
+            </div>
+          </motion.div>
+        </section>
+
+        {/* 500-Word Overview Section (Moved to Mid Website) */}
+        <section style={{ position: 'relative', zIndex: 1, padding: '100px 50px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(0,0,0,0.05)', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            style={{ maxWidth: '1200px', margin: '0 auto' }}
+          >
+            <div style={{ marginBottom: '50px' }}>
+              <p style={{ fontFamily: 'monospace', color: 'var(--primary-red)', marginBottom: '10px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
+                (2) ARCHITECTURE, EXPLAINED
+              </p>
+              <h2 className="text-massive" style={{ fontSize: '3.5rem', color: '#0b111a' }}>The Core <br/>Infrastructure</h2>
+            </div>
+
+            <div style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '60px' }}>
               <p style={{ marginBottom: '20px' }}>
                 PulseGrid represents a paradigm shift in how we handle emergency medical logistics. At its core, the platform operates as a highly specialized, location-based network engineered specifically to bridge the critical gap between voluntary blood donors, verified blood banks, and patients in immediate, life-threatening need all across Kerala. In emergency medical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases, localized phone trees, and physical inquiries that consume precious hours. PulseGrid eliminates this latency entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
               </p>
@@ -91,31 +123,6 @@ export default function Home() {
                 Beyond logistics, PulseGrid fosters a community of willing heroes. By providing a secure portal for donors to register their availability, track their impact, and receive instant alerts when their specific blood type is needed nearby, we transform passive willingness into actionable intervention. Whether you are a large-scale government hospital or an individual donor in a remote district in Kerala, PulseGrid ensures you are part of an unbreakable, synchronized heartbeat that refuses to let a single life slip away due to systemic delays. Welcome to the grid.
               </p>
             </div>
-            
-            <div style={{ marginTop: '50px', display: 'flex', gap: '20px' }}>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', boxShadow: '0 10px 20px rgba(211,47,47,0.3)' }}>
-                Access The Grid
-              </motion.a>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* About Bridge Section directly underneath 3D intro */}
-        <section style={{ padding: '120px 50px', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center' }}>
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1 }}
-            style={{ maxWidth: '900px', width: '100%', padding: '60px', borderRadius: '30px', textAlign: 'center', background: '#ffffff', boxShadow: '0 20px 40px rgba(11,17,26,0.05)' }}
-          >
-            <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px', color: '#0b111a' }}>Experience <span style={{ color: 'var(--primary-red)' }}>The Vision</span></h2>
-            <p style={{ fontSize: '1.2rem', color: '#4a5568', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
-              Dive deep into the architecture and mission behind PulseGrid. Discover how we're redefining global emergency response infrastructure through advanced WebGL technology.
-            </p>
-            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', background: '#0b111a' }}>
-              Explore About Us
-            </motion.a>
           </motion.div>
         </section>
 
@@ -164,6 +171,25 @@ export default function Home() {
               </motion.div>
               
             </div>
+          </motion.div>
+        </section>
+
+        {/* About Bridge Section */}
+        <section style={{ padding: '120px 50px', position: 'relative', zIndex: 1, display: 'flex', justifyContent: 'center' }}>
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            style={{ maxWidth: '900px', width: '100%', padding: '60px', borderRadius: '30px', textAlign: 'center', background: '#ffffff', boxShadow: '0 20px 40px rgba(11,17,26,0.05)' }}
+          >
+            <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px', color: '#0b111a' }}>Experience <span style={{ color: 'var(--primary-red)' }}>The Vision</span></h2>
+            <p style={{ fontSize: '1.2rem', color: '#4a5568', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
+              Dive deep into the architecture and mission behind PulseGrid. Discover how we're redefining global emergency response infrastructure through advanced WebGL technology.
+            </p>
+            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', background: '#0b111a' }}>
+              Explore About Us
+            </motion.a>
           </motion.div>
         </section>
 
