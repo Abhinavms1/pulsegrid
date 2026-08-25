@@ -175,7 +175,7 @@ export default function Home() {
         <section style={{ padding: '100px 5vw', background: 'transparent', position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
             
-            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={containerVariant}>
+            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '60px' }}>
                 <div style={{ maxWidth: '600px' }}>
                   <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px' }}>Impact</h2>
