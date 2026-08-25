@@ -115,7 +115,7 @@ export default function Home() {
               
               {/* Feature 1: Verified Banks */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" alt="Verified Banks" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop" alt="Verified Banks" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>482 Banks</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Verified medical facilities active across Kerala.</p>
@@ -124,7 +124,7 @@ export default function Home() {
               
               {/* Feature 2: Willing Donors */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1578496479531-32e296d5c6e1?q=80&w=1974&auto=format&fit=crop" alt="Active Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" alt="Active Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>12K Donors</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Willing donors ready to assist in any district.</p>
@@ -151,47 +151,47 @@ export default function Home() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 1 }}
-            style={{ maxWidth: '900px', width: '100%', padding: '60px', borderRadius: '30px', textAlign: 'center', background: '#ffffff', boxShadow: '0 20px 40px rgba(11,17,26,0.05)' }}
+            style={{ maxWidth: '900px', width: '100%', padding: '60px', borderRadius: '30px', textAlign: 'center', background: 'var(--bg-secondary)', boxShadow: 'var(--glass-shadow)' }}
           >
-            <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px', color: '#0b111a' }}>Experience <span style={{ color: 'var(--primary-red)' }}>The Vision</span></h2>
-            <p style={{ fontSize: '1.2rem', color: '#4a5568', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
+            <h2 className="text-massive" style={{ fontSize: '3rem', marginBottom: '20px', color: 'var(--text-primary)' }}>Experience <span style={{ color: 'var(--primary-red)' }}>The Vision</span></h2>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
               Dive deep into the architecture and mission behind PulseGrid. Discover how we're redefining global emergency response infrastructure through advanced WebGL technology.
             </p>
-            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', background: '#0b111a' }}>
+            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', background: 'var(--text-primary)', color: 'var(--bg-primary)' }}>
               Explore About Us
             </motion.a>
           </motion.div>
         </section>
 
         {/* Footer */}
-        <footer style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, background: '#0b111a', color: '#ffffff' }}>
+        <footer style={{ padding: '100px 50px 50px', position: 'relative', zIndex: 1, background: 'var(--bg-secondary)', color: 'var(--text-primary)', borderTop: '1px solid var(--glass-border)' }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <hr className="elegant-line" style={{ borderTop: '1px solid rgba(255,255,255,0.1)' }} />
+            <hr className="elegant-line" style={{ borderTop: '1px solid var(--glass-border)' }} />
             <div className="mobile-footer-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '40px', marginTop: '50px' }}>
               <div style={{ gridColumn: 'span 2' }}>
                 <div className="mobile-footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '20px' }}>
                   <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '40px', height: '40px', borderRadius: '8px' }} />
-                  <h1 className="text-massive" style={{ fontSize: '2rem', color: '#ffffff' }}>PulseGrid</h1>
+                  <h1 className="text-massive" style={{ fontSize: '2rem', color: 'var(--text-primary)' }}>PulseGrid</h1>
                 </div>
-                <p style={{ color: 'rgba(255,255,255,0.6)', maxWidth: '300px' }}>Redefining the standard for emergency blood network infrastructure all across Kerala.</p>
+                <p style={{ color: 'var(--text-muted)', maxWidth: '300px' }}>Redefining the standard for emergency blood network infrastructure all across Kerala.</p>
               </div>
-              <div>
-                <h4 style={{ color: '#ffffff', marginBottom: '20px', fontWeight: '600' }}>Platform</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="/register" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Donor Network</a>
-                  <a href="/blood-banks" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Blood Banks</a>
-                  <a href="/about" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>About Us</a>
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <h4 style={{ color: 'var(--text-primary)', marginBottom: '20px', fontWeight: '600' }}>Platform</h4>
+                <a href="/" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Home</a>
+                <a href="/register" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Donor Network</a>
+                <a href="/blood-banks" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Blood Banks</a>
+                <a href="/about" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>About Us</a>
               </div>
-              <div>
-                <h4 style={{ color: '#ffffff', marginBottom: '20px', fontWeight: '600' }}>Legal & System</h4>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                  <a href="/privacy-policy" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Privacy Policy</a>
-                  <a href="/terms-of-service" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Terms of Service</a>
-                  <a href="/admin-login" style={{ color: 'rgba(255,255,255,0.3)', textDecoration: 'none', fontSize: '0.8rem', marginTop: '10px' }}>System Access</a>
-                </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <h4 style={{ color: 'var(--text-primary)', marginBottom: '20px', fontWeight: '600' }}>Legal & System</h4>
+                <a href="/privacy-policy" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Privacy Policy</a>
+                <a href="/terms-of-service" style={{ color: 'var(--text-muted)', textDecoration: 'none' }}>Terms of Service</a>
+                <a href="/admin-login" style={{ color: 'var(--text-muted)', opacity: 0.5, textDecoration: 'none', fontSize: '0.8rem', marginTop: '10px' }}>System Access</a>
               </div>
             </div>
+            <p style={{ textAlign: 'center', marginTop: '80px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
+              © {new Date().getFullYear()} PulseGrid Technologies. Built for Kerala. All rights reserved.
+            </p>
           </div>
         </footer>
 

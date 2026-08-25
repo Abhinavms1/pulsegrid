@@ -6,7 +6,16 @@ import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet } from 'lucide-react';
 
-const ICONS = [Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet];
+const FEATURE_DATA = [
+  { icon: Activity, slug: 'real-time-monitoring' },
+  { icon: Heart, slug: 'donor-matching' },
+  { icon: Shield, slug: 'verified-security' },
+  { icon: Users, slug: 'community-network' },
+  { icon: MapPin, slug: 'geolocation-routing' },
+  { icon: Truck, slug: 'emergency-logistics' },
+  { icon: Zap, slug: 'instant-alerts' },
+  { icon: Droplet, slug: 'inventory-tracking' }
+];
 
 function IconSphere() {
   const group = useRef();
@@ -27,7 +36,7 @@ function IconSphere() {
       
       pts.push({
         position: [x * 4, y * 4, z * 4],
-        Icon: ICONS[i % ICONS.length]
+        feature: FEATURE_DATA[i % FEATURE_DATA.length]
       });
     }
     return pts;
@@ -42,38 +51,47 @@ function IconSphere() {
 
   return (
     <group ref={group}>
-      {points.map((p, i) => (
-        <Html 
-          key={i} 
-          position={p.position} 
-          center 
-          zIndexRange={[100, 0]}
-        >
-          <div 
-            style={{ 
-              color: 'var(--primary-red)', 
-              background: 'var(--glass-bg)',
-              backdropFilter: 'blur(10px)',
-              padding: '16px', 
-              borderRadius: '50%', 
-              border: '1px solid var(--glass-border)',
-              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-              cursor: 'pointer',
-              transition: 'transform 0.2s, background 0.2s',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scale(1.2)';
-              e.currentTarget.style.background = 'var(--bg-secondary)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scale(1)';
-              e.currentTarget.style.background = 'var(--glass-bg)';
-            }}
+      {points.map((p, i) => {
+        const IconComponent = p.feature.icon;
+        return (
+          <Html 
+            key={i} 
+            position={p.position} 
+            center 
+            zIndexRange={[100, 0]}
           >
-            <p.Icon size={32} />
-          </div>
-        </Html>
-      ))}
+            <a 
+              href={`/features/${p.feature.slug}`}
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              style={{ 
+                display: 'flex',
+                color: 'var(--primary-red)', 
+                background: 'var(--glass-bg)',
+                backdropFilter: 'blur(10px)',
+                padding: '16px', 
+                borderRadius: '50%', 
+                border: '1px solid var(--glass-border)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+                cursor: 'pointer',
+                transition: 'transform 0.2s, background 0.2s',
+                textDecoration: 'none',
+                userSelect: 'none'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scale(1.2)';
+                e.currentTarget.style.background = 'var(--bg-secondary)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scale(1)';
+                e.currentTarget.style.background = 'var(--glass-bg)';
+              }}
+            >
+              <IconComponent size={32} />
+            </a>
+          </Html>
+        );
+      })}
     </group>
   );
 }
