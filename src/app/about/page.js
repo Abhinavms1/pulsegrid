@@ -1,141 +1,111 @@
 "use client";
 
-import { useMemo, useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { useRouter } from 'next/navigation';
 import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet } from 'lucide-react';
 
 const FEATURE_DATA = [
-  { icon: Activity, slug: 'real-time-monitoring' },
-  { icon: Heart, slug: 'donor-matching' },
-  { icon: Shield, slug: 'verified-security' },
-  { icon: Users, slug: 'community-network' },
-  { icon: MapPin, slug: 'geolocation-routing' },
-  { icon: Truck, slug: 'emergency-logistics' },
-  { icon: Zap, slug: 'instant-alerts' },
-  { icon: Droplet, slug: 'inventory-tracking' }
+  { icon: Activity, slug: 'real-time-monitoring', title: 'Real-Time Monitoring', desc: 'Track blood inventories and donor availability instantly with zero latency.' },
+  { icon: Heart, slug: 'donor-matching', title: 'Intelligent Matching', desc: 'Proprietary algorithm pairs emergency requests with willing donors.' },
+  { icon: Shield, slug: 'verified-security', title: 'Verified Security', desc: 'Rigorous multi-factor authentication and HIPAA-level compliance.' },
+  { icon: Users, slug: 'community-network', title: 'Community Network', desc: 'A scalable emergency response team of thousands of willing heroes.' },
+  { icon: MapPin, slug: 'geolocation-routing', title: 'Geolocation Routing', desc: 'Ping donors and facilities based on exact travel time and traffic.' },
+  { icon: Truck, slug: 'emergency-logistics', title: 'Emergency Logistics', desc: 'Orchestrating the complete supply chain from request to arrival.' },
+  { icon: Zap, slug: 'instant-alerts', title: 'Instant Push Alerts', desc: 'Immediate push notifications bypassing traditional email latency.' },
+  { icon: Droplet, slug: 'inventory-tracking', title: 'Inventory Tracking', desc: 'Automatically track expiration dates, volume levels, and components.' }
 ];
 
-function IconSphere() {
-  const group = useRef();
-  
-  // Create points on a sphere using Fibonacci lattice
-  const points = useMemo(() => {
-    const N = 24; // Less points for a cleaner look
-    const pts = [];
-    const phi = Math.PI * (3 - Math.sqrt(5)); // golden angle
-    
-    for (let i = 0; i < N; i++) {
-      const y = 1 - (i / (N - 1)) * 2;
-      const radius = Math.sqrt(1 - y * y);
-      const theta = phi * i;
-      
-      const x = Math.cos(theta) * radius;
-      const z = Math.sin(theta) * radius;
-      
-      pts.push({
-        position: [x * 4, y * 4, z * 4],
-        feature: FEATURE_DATA[i % FEATURE_DATA.length]
-      });
+export default function AboutPage() {
+  const carouselRef = useRef(null);
+  const [width, setWidth] = useState(0);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (carouselRef.current) {
+      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
     }
-    return pts;
   }, []);
 
-  useFrame((state, delta) => {
-    if (group.current) {
-      group.current.rotation.y += delta * 0.15;
-      group.current.rotation.x += delta * 0.08;
-    }
-  });
-
   return (
-    <group ref={group}>
-      {points.map((p, i) => {
-        const IconComponent = p.feature.icon;
-        return (
-          <Html 
-            key={i} 
-            position={p.position} 
-            center 
-            zIndexRange={[100, 0]}
-          >
-            <a 
-              href={`/features/${p.feature.slug}`}
-              draggable={false}
-              onDragStart={(e) => e.preventDefault()}
-              style={{ 
-                display: 'flex',
-                color: 'var(--primary-red)', 
-                background: 'var(--glass-bg)',
-                backdropFilter: 'blur(10px)',
-                padding: '16px', 
-                borderRadius: '50%', 
-                border: '1px solid var(--glass-border)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
-                cursor: 'pointer',
-                transition: 'transform 0.2s, background 0.2s',
-                textDecoration: 'none',
-                userSelect: 'none'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.2)';
-                e.currentTarget.style.background = 'var(--bg-secondary)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.background = 'var(--glass-bg)';
-              }}
-            >
-              <IconComponent size={32} />
-            </a>
-          </Html>
-        );
-      })}
-    </group>
-  );
-}
-
-export default function AboutPage() {
-  return (
-    <main style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: 'var(--bg-primary)' }}>
-      {/* 3D Interactive Sphere Canvas */}
-      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
-          <ambientLight intensity={0.5} />
-          <IconSphere />
-          <OrbitControls enableZoom={false} enablePan={false} />
-        </Canvas>
-      </div>
+    <main style={{ position: 'relative', width: '100vw', minHeight: '100vh', overflow: 'hidden', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
       
-      {/* Interactive Content Overlay */}
-      <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', pointerEvents: 'none' }}>
+      {/* Decorative Background */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.3, background: 'radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 70%)', zIndex: 0 }} />
+
+      {/* Header Section */}
+      <div style={{ position: 'relative', zIndex: 1, padding: '120px 50px 40px', textAlign: 'center' }}>
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-          style={{ textAlign: 'center', maxWidth: '800px', padding: '0 20px', pointerEvents: 'auto' }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          style={{ maxWidth: '800px', margin: '0 auto' }}
         >
-          <div className="liquid-glass" style={{ padding: '40px', borderRadius: '30px' }}>
-            <h1 className="text-massive" style={{ fontSize: '4.5rem', marginBottom: '20px', color: 'var(--text-primary)' }}>
-              The Pulse Behind <span style={{ color: 'var(--primary-red)' }}>The Grid</span>
-            </h1>
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
-              PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. We leverage edge networks and real-time mapping to ensure that when seconds matter, the grid delivers.
-            </p>
+          <h1 className="text-massive" style={{ fontSize: '4.5rem', marginBottom: '20px', color: 'var(--text-primary)', lineHeight: 1.1 }}>
+            The Pulse Behind <span style={{ color: 'var(--primary-red)' }}>The Grid</span>
+          </h1>
+          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
+            PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. Explore our core advantages below.
+          </p>
+          <div style={{ marginTop: '20px', fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
+            <span>← Drag to explore →</span>
           </div>
         </motion.div>
       </div>
       
-      {/* Instruction text for interactions */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.5 }}
-        transition={{ delay: 2, duration: 1 }}
-        style={{ position: 'absolute', bottom: '30px', width: '100%', textAlign: 'center', zIndex: 1, color: 'var(--text-muted)', fontSize: '0.9rem', pointerEvents: 'none' }}
-      >
-        [ Drag to spin the grid ]
-      </motion.div>
+      {/* Draggable Carousel */}
+      <div style={{ position: 'relative', zIndex: 1, padding: '20px 50px', flex: 1, display: 'flex', alignItems: 'center' }}>
+        <motion.div ref={carouselRef} style={{ cursor: 'grab', overflow: 'hidden', width: '100%' }} whileTap={{ cursor: 'grabbing' }}>
+          <motion.div 
+            drag="x" 
+            dragConstraints={{ right: 0, left: -width }} 
+            style={{ display: 'flex', gap: '30px', padding: '20px 0' }}
+          >
+            {FEATURE_DATA.map((feature, index) => {
+              const Icon = feature.icon;
+              return (
+                <motion.div
+                  key={feature.slug}
+                  whileHover={{ scale: 1.02, y: -10 }}
+                  whileTap={{ scale: 0.98 }}
+                  initial={{ opacity: 0, x: 50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.1, duration: 0.5 }}
+                  onClick={() => router.push(`/features/${feature.slug}`)}
+                  style={{
+                    minWidth: '350px',
+                    height: '350px',
+                    background: 'var(--glass-bg)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid var(--glass-border)',
+                    borderRadius: '24px',
+                    padding: '40px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: 'var(--glass-shadow)',
+                    userSelect: 'none'
+                  }}
+                >
+                  <div style={{ background: 'var(--bg-secondary)', width: '60px', height: '60px', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', border: '1px solid var(--glass-border)', color: 'var(--primary-red)' }}>
+                    <Icon size={30} />
+                  </div>
+                  <h3 className="text-massive" style={{ fontSize: '1.8rem', color: 'var(--text-primary)', marginBottom: '15px', lineHeight: 1.2 }}>
+                    {feature.title}
+                  </h3>
+                  <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.6, flex: 1 }}>
+                    {feature.desc}
+                  </p>
+                  
+                  <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', fontWeight: 'bold', fontSize: '0.9rem' }}>
+                    View Details <span>→</span>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </motion.div>
+      </div>
+
     </main>
   );
 }

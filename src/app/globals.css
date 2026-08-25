@@ -18,11 +18,11 @@
 }
 
 [data-theme='dark'] {
-  --bg-primary: #0B111A;
-  --bg-secondary: #121A26;
+  --bg-primary: #061224;
+  --bg-secondary: #0d1e38;
   --text-primary: #FAF9F6;
   --text-muted: #8E9BAE;
-  --glass-bg: rgba(11, 17, 26, 0.6);
+  --glass-bg: rgba(6, 18, 36, 0.6);
   --glass-border: rgba(255, 255, 255, 0.08);
 }
 
