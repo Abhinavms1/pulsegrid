@@ -8,7 +8,7 @@ const featureData = {
     description: 'Our real-time monitoring infrastructure tracks blood inventories and donor availability instantly. Data is pushed over WebSockets directly to emergency response dashboards, ensuring zero latency during critical scenarios. Hospital staff can view live heatmaps of blood availability across districts, allowing for rapid decision-making before an emergency even escalates.',
     icon: Activity,
   },
-  'intelligent-matching': {
+  'donor-matching': {
     title: 'Intelligent Donor Matching',
     description: 'PulseGrid uses a proprietary matching algorithm that pairs emergency requests with willing donors based on exact blood type, proximity, and past donation history to guarantee the highest probability of response. The system accounts for donor eligibility periods and avoids contacting those who have recently donated.',
     icon: Heart,
@@ -33,13 +33,13 @@ const featureData = {
     description: 'We orchestrate the complete supply chain, from the moment a unit of blood is requested to the moment it arrives at the hospital. Dedicated logistics tracking ensures that sensitive medical transports are monitored, temperature-controlled, and expedited through designated emergency corridors.',
     icon: Truck,
   },
-  'instant-push-alerts': {
+  'instant-alerts': {
     title: 'Instant Push Alerts',
     description: 'Donors and facilities receive immediate push notifications and SMS alerts the moment a localized emergency occurs. The system bypasses email latency and ensures that critical alerts cut through the noise, reaching those who can help in milliseconds.',
     icon: Zap,
   },
-  'immutable-records': {
-    title: 'Immutable Records',
+  'inventory-tracking': {
+    title: 'Automated Inventory Tracking',
     description: 'Blood banks can ditch manual spreadsheets. PulseGrid automatically tracks blood unit expiration dates, volume levels, and specific component availability (plasma, platelets, whole blood). The system automatically rebalances inventory data when a unit is dispatched.',
     icon: Droplet,
   }
@@ -63,10 +63,10 @@ export default async function FeaturePage({ params }) {
   const IconComponent = feature.icon;
 
   return (
-    <main style={{ minHeight: '100vh', padding: '120px 20px', background: 'var(--bg-primary)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+    <main style={{ minHeight: '100vh', padding: '60px 20px', background: 'var(--bg-primary)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       
       <div style={{ maxWidth: '800px', width: '100%' }}>
-        <Link href="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--text-muted)', textDecoration: 'none', marginBottom: '40px', fontWeight: 'bold' }}>
+        <Link href="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', background: 'var(--bg-secondary)', padding: '12px 24px', borderRadius: '50px', textDecoration: 'none', marginBottom: '40px', fontWeight: 'bold', boxShadow: 'var(--glass-shadow)', border: '1px solid var(--primary-red)' }}>
           <ArrowLeft size={20} /> Back to About
         </Link>
         
