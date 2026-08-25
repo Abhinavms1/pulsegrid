@@ -1,12 +1,21 @@
 "use client";
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion';
+import { useTheme } from 'next-themes';
+import { Sun, Moon, ArrowLeft } from 'lucide-react';
 
 export default function NavigationAndSplash() {
   const [showSplash, setShowSplash] = useState(true);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     // Only run splash on homepage
@@ -20,24 +29,26 @@ export default function NavigationAndSplash() {
   }, [pathname]);
 
   // Hide the global navigation and splash on portal routes
-  const hideNavigationRoutes = ['/admin', '/admin-login', '/login', '/register', '/donor-dashboard'];
+  const hideNavigationRoutes = ['/admin', '/admin-login', '/donor-dashboard'];
   if (hideNavigationRoutes.includes(pathname)) {
     return null;
   }
 
   // Magnetic hover effect wrapper
-  const MagneticButton = ({ children, href, className, style }) => {
+  const MagneticButton = ({ children, href, className, style, onClick }) => {
+    const Wrapper = href ? motion.a : motion.button;
     return (
-      <motion.a 
+      <Wrapper 
         href={href}
+        onClick={onClick}
         className={className}
-        style={style}
+        style={{ ...style, cursor: 'pointer', background: 'transparent', border: 'none' }}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
       >
         {children}
-      </motion.a>
+      </Wrapper>
     )
   };
 
@@ -50,7 +61,7 @@ export default function NavigationAndSplash() {
             exit={{ opacity: 0, transition: { duration: 0.8, ease: "easeInOut" } }}
             style={{
               position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh',
-              background: 'var(--bg-cream)', display: 'flex', justifyContent: 'center', alignItems: 'center',
+              background: 'var(--bg-primary)', display: 'flex', justifyContent: 'center', alignItems: 'center',
               zIndex: 9999
             }}
           >
@@ -68,7 +79,7 @@ export default function NavigationAndSplash() {
                 exit={{ opacity: 0, scale: 0.9 }}
                 transition={{ duration: 0.5 }}
                 className="text-massive" 
-                style={{ fontSize: '3rem', margin: 0, letterSpacing: '-1px' }}
+                style={{ fontSize: '3rem', margin: 0, letterSpacing: '-1px', color: 'var(--text-primary)' }}
               >
                 PulseGrid
               </motion.h1>
@@ -83,9 +94,14 @@ export default function NavigationAndSplash() {
         animate={{ opacity: showSplash ? 0 : 1, y: showSplash ? -20 : 0 }}
         transition={{ duration: 0.8, delay: showSplash ? 0 : 0.4 }}
       >
-        <div className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div className="nav-brand" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
           {!showSplash ? (
             <>
+              {pathname !== '/' && (
+                <MagneticButton onClick={() => router.back()} style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px' }}>
+                  <ArrowLeft size={24} />
+                </MagneticButton>
+              )}
               <motion.a href="/" style={{ display: 'flex', alignItems: 'center', gap: '20px', textDecoration: 'none' }}>
                 <motion.img 
                   layoutId={pathname === '/' ? "pulsegrid-logo" : undefined}
@@ -94,7 +110,7 @@ export default function NavigationAndSplash() {
                   style={{ width: '45px', height: '45px', borderRadius: '10px', objectFit: 'contain' }} 
                   transition={{ duration: 0.8, ease: [0.43, 0.13, 0.23, 0.96] }}
                 />
-                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: '#0b111a', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
+                <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ fontWeight: 'bold', fontSize: '1.4rem', color: 'var(--text-primary)', letterSpacing: '-0.5px' }}>PulseGrid</motion.span>
               </motion.a>
             </>
           ) : (
@@ -104,10 +120,17 @@ export default function NavigationAndSplash() {
         </div>
         
         <div className="nav-links">
-          <MagneticButton href="/" className="nav-link" style={{ color: 'var(--text-dark)' }}>Home</MagneticButton>
-          <MagneticButton href="/blood-banks" className="nav-link" style={{ color: 'var(--text-dark)' }}>Find Donors</MagneticButton>
+          <MagneticButton href="/" className="nav-link" style={{ color: 'var(--text-primary)' }}>Home</MagneticButton>
+          <MagneticButton href="/blood-banks" className="nav-link" style={{ color: 'var(--text-primary)' }}>Find Donors</MagneticButton>
           <MagneticButton href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</MagneticButton>
-          <MagneticButton href="/login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Register / Login</MagneticButton>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+            {mounted && (
+              <MagneticButton onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center' }}>
+                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+              </MagneticButton>
+            )}
+            <MagneticButton href="/login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Register / Login</MagneticButton>
+          </div>
         </div>
       </motion.nav>
     </LayoutGroup>

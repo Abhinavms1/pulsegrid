@@ -16,7 +16,7 @@ export default async function DonorDashboard() {
   const activeRequests = await getActiveRequests();
 
   return (
-    <main style={{ minHeight: '100vh', background: 'var(--dark-bg)', color: 'var(--text-light)', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
+    <main style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', paddingTop: '150px', paddingBottom: '100px', position: 'relative' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
         
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '50px' }}>
@@ -52,7 +52,7 @@ export default async function DonorDashboard() {
               {activeRequests.map(req => (
                 <div key={req.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', borderBottom: '1px solid var(--glass-border)' }}>
                   <div>
-                    <h4 style={{ fontSize: '1.2rem', marginBottom: '5px', color: 'var(--text-light)' }}>{req.patientName}</h4>
+                    <h4 style={{ fontSize: '1.2rem', marginBottom: '5px', color: 'var(--text-primary)' }}>{req.patientName}</h4>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Contact: {req.contactNumber}</p>
                     <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem', marginTop: '5px' }}>Broadcast ID: {req.id}</p>
                   </div>

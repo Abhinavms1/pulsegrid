@@ -47,7 +47,7 @@ function LoginForm() {
   return (
     <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} style={{ width: '100%', maxWidth: '450px' }}>
       <div style={{ marginBottom: '40px' }}>
-        <h2 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-light)', marginBottom: '10px' }}>Donor Portal</h2>
+        <h2 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '10px' }}>Donor Portal</h2>
         <p style={{ color: 'var(--text-muted)' }}>Secure access to your grid dashboard.</p>
       </div>
 
@@ -57,18 +57,35 @@ function LoginForm() {
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <div>
           <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Email Address</label>
-          <input type="email" name="email" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none' }} placeholder="john@example.com" />
+          <input type="email" name="email" required style={{ width: '100%', padding: '16px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} placeholder="john@example.com" />
         </div>
 
         <div>
           <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Secure Password</label>
-          <input type="password" name="password" required style={{ width: '100%', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-light)', outline: 'none' }} placeholder="Enter password" />
+          <input type="password" name="password" required style={{ width: '100%', padding: '16px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} placeholder="Enter password" />
         </div>
 
         <button type="submit" disabled={loading} className="btn-primary" style={{ padding: '18px', fontSize: '1.1rem', marginTop: '10px', display: 'flex', justifyContent: 'center', background: '#0ea5e9', borderColor: '#0ea5e9' }}>
           {loading ? 'Authenticating...' : 'Secure Login'}
         </button>
       </form>
+
+      <div style={{ marginTop: '20px', textAlign: 'center' }}>
+        <p style={{ color: 'var(--text-muted)', marginBottom: '15px', fontSize: '0.9rem' }}>— or —</p>
+        <button 
+          onClick={async () => {
+            const { supabase } = await import('../../lib/supabase');
+            await supabase.auth.signInWithOAuth({ 
+              provider: 'google',
+              options: { redirectTo: `${window.location.origin}/donor-dashboard` }
+            });
+          }}
+          style={{ width: '100%', padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 'bold' }}
+        >
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style={{ width: '20px', height: '20px' }} />
+          Continue with Google
+        </button>
+      </div>
 
       <p style={{ marginTop: '30px', color: 'var(--text-muted)', textAlign: 'center' }}>
         Not registered yet? <a href="/register" style={{ color: '#0ea5e9', fontWeight: 'bold' }}>Enroll Now</a>
@@ -79,25 +96,25 @@ function LoginForm() {
 
 export default function Login() {
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', background: 'var(--dark-bg)' }}>
+    <main style={{ minHeight: '100vh', display: 'flex', background: 'var(--bg-primary)' }}>
       {/* Left Side - Visual */}
       <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px', overflow: 'hidden' }}>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: "url('/vibrant_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', filter: 'brightness(0.9) contrast(1.1) hue-rotate(180deg)', zIndex: 0 }}></div>
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(11,17,26,0.8) 0%, rgba(11,17,26,0.4) 100%)', zIndex: 1 }}></div>
         
         <div style={{ position: 'relative', zIndex: 2, maxWidth: '500px' }}>
-          <h1 className="text-massive" style={{ fontSize: '4rem', color: 'var(--text-light)', lineHeight: '1.1' }}>
+          <h1 className="text-massive" style={{ fontSize: '4rem', color: 'var(--text-primary)', lineHeight: '1.1' }}>
             Welcome <span style={{ color: '#0ea5e9' }}>Back</span>
           </h1>
-          <p style={{ color: 'var(--text-light)', opacity: 0.8, fontSize: '1.2rem', marginTop: '20px' }}>
+          <p style={{ color: 'var(--text-primary)', opacity: 0.8, fontSize: '1.2rem', marginTop: '20px' }}>
             Access your secure donor portal to view active emergencies and manage your availability status.
           </p>
         </div>
       </div>
 
       {/* Right Side - Form */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px', background: 'var(--dark-surface)' }}>
-        <Suspense fallback={<div style={{ color: 'var(--text-light)' }}>Loading portal...</div>}>
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px', background: 'var(--bg-secondary)' }}>
+        <Suspense fallback={<div style={{ color: 'var(--text-primary)' }}>Loading portal...</div>}>
           <LoginForm />
         </Suspense>
       </div>

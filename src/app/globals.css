@@ -3,15 +3,27 @@
 :root {
   --primary-red: #D32F2F; 
   --primary-red-hover: #B71C1C;
-  --dark-bg: #0B111A; /* Dark Bluish Theme restored */
-  --dark-surface: #121A26;
-  --text-light: #FAF9F6;
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --font-inter: 'Inter', sans-serif;
+  --font-playfair: 'Playfair Display', serif;
+}
+
+[data-theme='light'] {
+  --bg-primary: #f5f7fa;
+  --bg-secondary: #ffffff;
+  --text-primary: #0b111a;
+  --text-muted: #4a5568;
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme='dark'] {
+  --bg-primary: #0B111A;
+  --bg-secondary: #121A26;
+  --text-primary: #FAF9F6;
   --text-muted: #8E9BAE;
   --glass-bg: rgba(11, 17, 26, 0.6);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --font-inter: 'Inter', sans-serif;
-  --font-playfair: 'Playfair Display', serif;
 }
 
 * {
@@ -21,12 +33,13 @@
 }
 
 body {
-  background-color: var(--dark-bg);
-  color: var(--text-light);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   font-family: var(--font-inter);
   line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, .text-massive {

@@ -33,36 +33,10 @@ export default function Home() {
 
   return (
     <>
-      <main style={{ position: 'relative', overflow: 'hidden', background: '#f5f7fa', color: '#0b111a' }}>
+      <main style={{ position: 'relative', overflow: 'hidden', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
         
         {/* Illoca-Inspired 3D Scrolling Background */}
         <ThreeScene />
-
-        {/* Illoca-Style Dynamic Side Branding */}
-        <AnimatePresence>
-          {!preloaderActive && (
-            <motion.div
-              className="mobile-side-branding"
-              initial={{ x: -100, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: 'fixed',
-                top: '50%',
-                left: '40px',
-                transform: 'translateY(-50%)',
-                zIndex: 10,
-                writingMode: 'vertical-rl',
-                transformOrigin: 'left center',
-                pointerEvents: 'none'
-              }}
-            >
-              <h2 style={{ margin: 0, fontSize: '1.2rem', letterSpacing: '8px', color: 'var(--primary-red)', textTransform: 'uppercase', fontWeight: 'bold' }}>
-                PulseGrid Network
-              </h2>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Illoca-Style Hero Section */}
         <section className="mobile-hero-section" style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 50px', marginLeft: '80px' }}>
@@ -76,27 +50,27 @@ export default function Home() {
             <p style={{ fontFamily: 'monospace', color: 'var(--text-muted)', marginBottom: '20px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
               (1) EMERGENCY LOGISTICS!
             </p>
-            <h1 className="text-massive" style={{ fontSize: '5rem', lineHeight: '1', color: '#0b111a', marginBottom: '30px' }}>
+            <h1 className="text-massive" style={{ fontSize: '5rem', lineHeight: '1', color: 'var(--text-primary)', marginBottom: '30px' }}>
               Routing <br/>Redefined
             </h1>
             
-            <p style={{ fontSize: '1.2rem', color: '#4a5568', lineHeight: '1.6', marginBottom: '40px' }}>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '40px' }}>
               Transform passive willingness into actionable, life-saving intervention with the most advanced blood supply chain grid in Kerala.
             </p>
             
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', background: '#0b111a', color: '#fff', border: '1px solid #0b111a', borderRadius: '8px' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', background: 'var(--text-primary)', color: 'var(--bg-primary)', border: '1px solid var(--text-primary)', borderRadius: '8px' }}>
                 Access The Grid
               </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" style={{ padding: '12px 30px', fontSize: '1rem', color: '#0b111a', border: '1px solid #0b111a', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#platform-impact" style={{ padding: '12px 30px', fontSize: '1rem', color: 'var(--text-primary)', border: '1px solid var(--text-primary)', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', scrollBehavior: 'smooth' }}>
                 Explore Features
               </motion.a>
             </div>
           </motion.div>
         </section>
 
-        {/* 500-Word Overview Section (Moved to Mid Website) */}
-        <section style={{ position: 'relative', zIndex: 1, padding: '100px 50px', background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', borderTop: '1px solid rgba(0,0,0,0.05)', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
+        {/* 150-Word Overview Section (Moved to Mid Website) */}
+        <section style={{ position: 'relative', zIndex: 1, padding: '100px 50px', background: 'var(--glass-bg)', backdropFilter: 'blur(10px)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -108,28 +82,22 @@ export default function Home() {
               <p style={{ fontFamily: 'monospace', color: 'var(--primary-red)', marginBottom: '10px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
                 (2) ARCHITECTURE, EXPLAINED
               </p>
-              <h2 className="text-massive" style={{ fontSize: '3.5rem', color: '#0b111a' }}>The Core <br/>Infrastructure</h2>
+              <h2 className="text-massive" style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>The Core <br/>Infrastructure</h2>
             </div>
 
-            <div className="mobile-overview" style={{ fontSize: '1.1rem', color: '#4a5568', lineHeight: '1.8', textAlign: 'justify', columnCount: 2, columnGap: '60px' }}>
-              <p style={{ marginBottom: '20px' }}>
-                PulseGrid represents a paradigm shift in how we handle emergency medical logistics. At its core, the platform operates as a highly specialized, location-based network engineered specifically to bridge the critical gap between voluntary blood donors, verified blood banks, and patients in immediate, life-threatening need all across Kerala. In emergency medical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases, localized phone trees, and physical inquiries that consume precious hours. PulseGrid eliminates this latency entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
+            <div className="mobile-overview" style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.8', textAlign: 'justify', columnCount: 1, maxWidth: '800px' }}>
+              <p>
+                PulseGrid represents a paradigm shift in how we handle emergency medical logistics. In critical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases and localized inquiries that consume precious hours. PulseGrid eliminates this entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
               </p>
-              <p style={{ marginBottom: '20px' }}>
-                When an emergency request is triggered, our infrastructure does not blindly broadcast messages. Instead, it utilizes advanced geolocation algorithms and precise routing logic to immediately identify the nearest verified facilities possessing the exact blood type required. By pinging the exact coordinates of active donors and cross-referencing them with hospital inventory levels, we drastically compress the time it takes to transport life-saving resources to any remote district in Kerala.
-              </p>
-              <p style={{ marginBottom: '20px' }}>
-                The architecture of PulseGrid is designed with absolute reliability and security in mind. Our backend, powered by highly resilient databases, ensures that all donor data, medical histories, and facility inventories are persistently stored, encrypted, and accessible only to authorized medical personnel. We have integrated seamless mapping technologies to provide a visual, interactive layer to our network—allowing dispatchers to physically see the flow of resources and orchestrate complex logistics effortlessly.
-              </p>
-              <p style={{ marginBottom: '0' }}>
-                Beyond logistics, PulseGrid fosters a community of willing heroes. By providing a secure portal for donors to register their availability, track their impact, and receive instant alerts when their specific blood type is needed nearby, we transform passive willingness into actionable intervention. Whether you are a large-scale government hospital or an individual donor in a remote district in Kerala, PulseGrid ensures you are part of an unbreakable, synchronized heartbeat that refuses to let a single life slip away due to systemic delays. Welcome to the grid.
+              <p style={{ marginTop: '20px' }}>
+                When an emergency request is triggered, our infrastructure utilizes advanced geolocation algorithms to immediately identify the nearest verified facilities possessing the exact blood type required. By pinging the precise coordinates of active donors and cross-referencing them with hospital inventory levels, we drastically compress the time it takes to transport life-saving resources anywhere in Kerala. Whether you are a government hospital or an individual donor, PulseGrid ensures you are part of an unbreakable, synchronized heartbeat that refuses to let a single life slip away due to systemic delays. Welcome to the grid.
               </p>
             </div>
           </motion.div>
         </section>
 
         {/* Platform Impact Section (High Quality Image Feature Blocks) */}
-        <section style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: '#ffffff' }}>
+        <section id="platform-impact" style={{ padding: '100px 50px', position: 'relative', zIndex: 1, background: 'var(--bg-secondary)' }}>
           <motion.div 
             variants={staggerContainer}
             initial="hidden"
@@ -138,10 +106,10 @@ export default function Home() {
             style={{ maxWidth: '1400px', margin: '0 auto' }}
           >
             <motion.div variants={itemVariant} style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginBottom: '20px' }}>
-              <h2 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: '1.1', color: '#0b111a', marginBottom: '20px' }}>Platform<br/>Impact</h2>
-              <p style={{ color: '#4a5568', maxWidth: '300px' }}>Building the most advanced blood network in the world, one facility at a time across Kerala.</p>
+              <h2 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: '1.1', color: 'var(--text-primary)', marginBottom: '20px' }}>Platform<br/>Impact</h2>
+              <p style={{ color: 'var(--text-muted)', maxWidth: '300px' }}>Building the most advanced blood network in the world, one facility at a time across Kerala.</p>
             </motion.div>
-            <motion.hr variants={itemVariant} className="elegant-line" style={{ borderTopColor: 'rgba(11,17,26,0.1)' }} />
+            <motion.hr variants={itemVariant} className="elegant-line" style={{ borderTopColor: 'var(--glass-border)' }} />
             
             <div className="photo-grid" style={{ marginTop: '40px', display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '30px' }}>
               
@@ -163,9 +131,9 @@ export default function Home() {
                 </div>
               </motion.div>
               
-              {/* Feature 3: Completed Transports */}
+              {/* Feature 3: Completed Transports (Ambulance Image) */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=2070&auto=format&fit=crop" alt="Logistics" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1587556930799-8dca6a6358ce?q=80&w=2070&auto=format&fit=crop" alt="Logistics" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>1.5M Lives</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Emergency transports completed.</p>

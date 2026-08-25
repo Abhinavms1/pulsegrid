@@ -1,71 +1,94 @@
 "use client";
 
-import { useEffect, useRef } from 'react';
+import { useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { OrbitControls, Html } from '@react-three/drei';
+import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet } from 'lucide-react';
 
-export default function AboutPage() {
-  const canvasRef = useRef(null);
+const ICONS = [Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet];
 
-  useEffect(() => {
-    let fluid;
-    if (typeof window !== 'undefined') {
-      import('webgl-fluid').then(module => {
-        fluid = module.default;
-        if (canvasRef.current) {
-          fluid(canvasRef.current, {
-            IMMEDIATE: true,
-            TRIGGER: 'hover',
-            SIM_RESOLUTION: 128,
-            DYE_RESOLUTION: 1024,
-            CAPTURE_RESOLUTION: 512,
-            DENSITY_DISSIPATION: 1,
-            VELOCITY_DISSIPATION: 0.2,
-            PRESSURE: 0.8,
-            PRESSURE_ITERATIONS: 20,
-            CURL: 30,
-            SPLAT_RADIUS: 0.25,
-            SPLAT_FORCE: 6000,
-            SHADING: true,
-            COLORFUL: true,
-            COLOR_UPDATE_SPEED: 10,
-            PAUSED: false,
-            BACK_COLOR: { r: 11, g: 17, b: 26 }, // var(--dark-bg)
-            TRANSPARENT: false,
-            BLOOM: true,
-            BLOOM_ITERATIONS: 8,
-            BLOOM_RESOLUTION: 256,
-            BLOOM_INTENSITY: 0.8,
-            BLOOM_THRESHOLD: 0.6,
-            BLOOM_SOFT_KNEE: 0.7,
-            SUNRAYS: true,
-            SUNRAYS_RESOLUTION: 196,
-            SUNRAYS_WEIGHT: 1.0,
-          });
-        }
+function IconSphere() {
+  const group = useRef();
+  
+  // Create points on a sphere using Fibonacci lattice
+  const points = useMemo(() => {
+    const N = 24; // Less points for a cleaner look
+    const pts = [];
+    const phi = Math.PI * (3 - Math.sqrt(5)); // golden angle
+    
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2;
+      const radius = Math.sqrt(1 - y * y);
+      const theta = phi * i;
+      
+      const x = Math.cos(theta) * radius;
+      const z = Math.sin(theta) * radius;
+      
+      pts.push({
+        position: [x * 4, y * 4, z * 4],
+        Icon: ICONS[i % ICONS.length]
       });
     }
-    
-    // Fallback cleanup if canvas is destroyed
-    return () => {
-      // webgl-fluid doesn't have a built-in destroy method, 
-      // but it clears itself when the canvas is unmounted.
-    };
+    return pts;
   }, []);
 
+  useFrame((state, delta) => {
+    if (group.current) {
+      group.current.rotation.y += delta * 0.15;
+      group.current.rotation.x += delta * 0.08;
+    }
+  });
+
   return (
-    <main style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: 'var(--dark-bg)' }}>
-      {/* WebGL Shader Canvas */}
-      <canvas 
-        ref={canvasRef} 
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0
-        }}
-      />
+    <group ref={group}>
+      {points.map((p, i) => (
+        <Html 
+          key={i} 
+          position={p.position} 
+          center 
+          zIndexRange={[100, 0]}
+        >
+          <div 
+            style={{ 
+              color: 'var(--primary-red)', 
+              background: 'var(--glass-bg)',
+              backdropFilter: 'blur(10px)',
+              padding: '16px', 
+              borderRadius: '50%', 
+              border: '1px solid var(--glass-border)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+              cursor: 'pointer',
+              transition: 'transform 0.2s, background 0.2s',
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.transform = 'scale(1.2)';
+              e.currentTarget.style.background = 'var(--bg-secondary)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.transform = 'scale(1)';
+              e.currentTarget.style.background = 'var(--glass-bg)';
+            }}
+          >
+            <p.Icon size={32} />
+          </div>
+        </Html>
+      ))}
+    </group>
+  );
+}
+
+export default function AboutPage() {
+  return (
+    <main style={{ position: 'relative', width: '100vw', height: '100vh', overflow: 'hidden', background: 'var(--bg-primary)' }}>
+      {/* 3D Interactive Sphere Canvas */}
+      <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+        <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
+          <ambientLight intensity={0.5} />
+          <IconSphere />
+          <OrbitControls enableZoom={false} enablePan={false} />
+        </Canvas>
+      </div>
       
       {/* Interactive Content Overlay */}
       <div style={{ position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100%', pointerEvents: 'none' }}>
@@ -75,22 +98,13 @@ export default function AboutPage() {
           transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
           style={{ textAlign: 'center', maxWidth: '800px', padding: '0 20px', pointerEvents: 'auto' }}
         >
-          <h1 className="text-massive" style={{ fontSize: '4.5rem', marginBottom: '20px', mixBlendMode: 'difference', color: '#ffffff' }}>
-            The Pulse Behind <span style={{ color: 'var(--primary-red)' }}>The Grid</span>
-          </h1>
-          <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.8)', mixBlendMode: 'difference' }}>
-            PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. We leverage edge networks and real-time mapping to ensure that when seconds matter, the grid delivers.
-          </p>
-          <div style={{ marginTop: '40px' }}>
-            <motion.a 
-              whileHover={{ scale: 1.05 }} 
-              whileTap={{ scale: 0.95 }} 
-              href="/" 
-              className="liquid-glass" 
-              style={{ display: 'inline-block', padding: '12px 30px', borderRadius: '50px', textDecoration: 'none', color: '#fff', fontWeight: 'bold' }}
-            >
-              Return to Grid
-            </motion.a>
+          <div className="liquid-glass" style={{ padding: '40px', borderRadius: '30px' }}>
+            <h1 className="text-massive" style={{ fontSize: '4.5rem', marginBottom: '20px', color: 'var(--text-primary)' }}>
+              The Pulse Behind <span style={{ color: 'var(--primary-red)' }}>The Grid</span>
+            </h1>
+            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
+              PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. We leverage edge networks and real-time mapping to ensure that when seconds matter, the grid delivers.
+            </p>
           </div>
         </motion.div>
       </div>
@@ -100,9 +114,9 @@ export default function AboutPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 0.5 }}
         transition={{ delay: 2, duration: 1 }}
-        style={{ position: 'absolute', bottom: '30px', width: '100%', textAlign: 'center', zIndex: 1, color: '#fff', fontSize: '0.9rem', pointerEvents: 'none', mixBlendMode: 'difference' }}
+        style={{ position: 'absolute', bottom: '30px', width: '100%', textAlign: 'center', zIndex: 1, color: 'var(--text-muted)', fontSize: '0.9rem', pointerEvents: 'none' }}
       >
-        [ Move your cursor to interact with the fluid mesh ]
+        [ Drag to spin the grid ]
       </motion.div>
     </main>
   );
