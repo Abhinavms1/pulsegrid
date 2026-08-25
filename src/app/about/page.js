@@ -1,30 +1,46 @@
 "use client";
 
-import { useRef, useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet } from 'lucide-react';
+import Link from 'next/link';
 
 const FEATURE_DATA = [
-  { icon: Activity, slug: 'real-time-monitoring', title: 'Real-Time Monitoring', desc: 'Track blood inventories and donor availability instantly with zero latency.' },
-  { icon: Heart, slug: 'donor-matching', title: 'Intelligent Matching', desc: 'Proprietary algorithm pairs emergency requests with willing donors.' },
-  { icon: Shield, slug: 'verified-security', title: 'Verified Security', desc: 'Rigorous multi-factor authentication and HIPAA-level compliance.' },
-  { icon: Users, slug: 'community-network', title: 'Community Network', desc: 'A scalable emergency response team of thousands of willing heroes.' },
-  { icon: MapPin, slug: 'geolocation-routing', title: 'Geolocation Routing', desc: 'Ping donors and facilities based on exact travel time and traffic.' },
-  { icon: Truck, slug: 'emergency-logistics', title: 'Emergency Logistics', desc: 'Orchestrating the complete supply chain from request to arrival.' },
-  { icon: Zap, slug: 'instant-alerts', title: 'Instant Push Alerts', desc: 'Immediate push notifications bypassing traditional email latency.' },
-  { icon: Droplet, slug: 'inventory-tracking', title: 'Inventory Tracking', desc: 'Automatically track expiration dates, volume levels, and components.' }
+  { icon: Activity, slug: 'real-time-monitoring', title: 'Real-Time Monitoring' },
+  { icon: Heart, slug: 'donor-matching', title: 'Intelligent Matching' },
+  { icon: Shield, slug: 'verified-security', title: 'Verified Security' },
+  { icon: Users, slug: 'community-network', title: 'Community Network' },
+  { icon: MapPin, slug: 'geolocation-routing', title: 'Geolocation Routing' },
+  { icon: Truck, slug: 'emergency-logistics', title: 'Emergency Logistics' },
+  { icon: Zap, slug: 'instant-alerts', title: 'Instant Push Alerts' },
+  { icon: Droplet, slug: 'inventory-tracking', title: 'Inventory Tracking' }
 ];
 
 export default function AboutPage() {
-  const carouselRef = useRef(null);
-  const [width, setWidth] = useState(0);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (carouselRef.current) {
-      setWidth(carouselRef.current.scrollWidth - carouselRef.current.offsetWidth);
+  const radius = 250;
+  
+  // Distribute 8 points roughly on a sphere
+  const points = useMemo(() => {
+    const N = FEATURE_DATA.length;
+    const pts = [];
+    const phi = Math.PI * (3 - Math.sqrt(5));
+    
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2; // y goes from 1 to -1
+      const r = Math.sqrt(1 - y * y);
+      const theta = phi * i;
+      
+      const x = Math.cos(theta) * r;
+      const z = Math.sin(theta) * r;
+      
+      pts.push({
+        feature: FEATURE_DATA[i],
+        tx: x * radius,
+        ty: y * radius,
+        tz: z * radius
+      });
     }
+    return pts;
   }, []);
 
   return (
@@ -47,64 +63,92 @@ export default function AboutPage() {
           <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)' }}>
             PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. Explore our core advantages below.
           </p>
-          <div style={{ marginTop: '20px', fontSize: '0.9rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px' }}>
-            <span>← Drag to explore →</span>
-          </div>
         </motion.div>
       </div>
       
-      {/* Draggable Carousel */}
-      <div style={{ position: 'relative', zIndex: 1, padding: '20px 50px', flex: 1, display: 'flex', alignItems: 'center' }}>
-        <motion.div ref={carouselRef} style={{ cursor: 'grab', overflow: 'hidden', width: '100%' }} whileTap={{ cursor: 'grabbing' }}>
-          <motion.div 
-            drag="x" 
-            dragConstraints={{ right: 0, left: -width }} 
-            style={{ display: 'flex', gap: '30px', padding: '20px 0' }}
-          >
-            {FEATURE_DATA.map((feature, index) => {
-              const Icon = feature.icon;
+      {/* CSS 3D Elliptical Rotation Section */}
+      <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '600px' }}>
+        <div className="sphere-container">
+          <div className="sphere">
+            {points.map((p, index) => {
+              const Icon = p.feature.icon;
               return (
-                <motion.div
-                  key={feature.slug}
-                  whileHover={{ scale: 1.02, y: -10 }}
-                  whileTap={{ scale: 0.98 }}
-                  initial={{ opacity: 0, x: 50 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: index * 0.1, duration: 0.5 }}
-                  onClick={() => router.push(`/features/${feature.slug}`)}
+                <Link 
+                  key={index}
+                  href={`/features/${p.feature.slug}`} 
+                  className="sphere-item"
                   style={{
-                    minWidth: '350px',
-                    height: '350px',
-                    background: 'var(--glass-bg)',
-                    backdropFilter: 'blur(10px)',
-                    border: '1px solid var(--glass-border)',
-                    borderRadius: '24px',
-                    padding: '40px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    boxShadow: 'var(--glass-shadow)',
-                    userSelect: 'none'
+                    transform: `translate3d(${p.tx}px, ${p.ty}px, ${p.tz}px)`
                   }}
                 >
-                  <div style={{ background: 'var(--bg-secondary)', width: '60px', height: '60px', borderRadius: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '30px', border: '1px solid var(--glass-border)', color: 'var(--primary-red)' }}>
-                    <Icon size={30} />
-                  </div>
-                  <h3 className="text-massive" style={{ fontSize: '1.8rem', color: 'var(--text-primary)', marginBottom: '15px', lineHeight: 1.2 }}>
-                    {feature.title}
-                  </h3>
-                  <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.6, flex: 1 }}>
-                    {feature.desc}
-                  </p>
-                  
-                  <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', fontWeight: 'bold', fontSize: '0.9rem' }}>
-                    View Details <span>→</span>
-                  </div>
-                </motion.div>
+                  <Icon size={32} style={{ marginBottom: '10px' }} />
+                  <span style={{ fontWeight: 'bold' }}>{p.feature.title}</span>
+                </Link>
               );
             })}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
+
+      <style dangerouslySetInnerHTML={{__html: `
+        .sphere-container {
+          perspective: 1200px;
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .sphere {
+          width: 0px;
+          height: 0px;
+          position: relative;
+          transform-style: preserve-3d;
+          animation: sphere-rotate 25s infinite linear;
+        }
+
+        @keyframes sphere-rotate {
+          from {
+            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+          }
+          to {
+            transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg);
+          }
+        }
+
+        .sphere-item {
+          position: absolute;
+          width: 150px;
+          height: 150px;
+          left: -75px;
+          top: -75px;
+          background: var(--glass-bg);
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          border: 1px solid var(--glass-border);
+          border-radius: 50%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          color: var(--text-primary);
+          text-decoration: none;
+          font-size: 14px;
+          text-align: center;
+          padding: 15px;
+          box-shadow: var(--glass-shadow);
+          transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        }
+
+        .sphere-item:hover {
+          background: var(--bg-secondary);
+          color: var(--primary-red);
+          border-color: var(--primary-red);
+          box-shadow: 0 10px 30px rgba(211,47,47,0.3);
+          z-index: 10;
+        }
+      `}} />
 
     </main>
   );
