@@ -7,19 +7,7 @@
   --font-inter: 'Inter', sans-serif;
   --font-playfair: 'Playfair Display', serif;
   
-  /* Light Theme Defaults */
-  --bg-primary: #f5f7fa;
-  --bg-secondary: #ffffff;
-  --text-primary: #0b111a;
-  --text-muted: #4a5568;
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(0, 0, 0, 0.05);
-  --hero-grad-start: rgba(250,249,246,0.95);
-  --hero-grad-end: rgba(250,249,246,0.4);
-  --hero-bg: url('/hero-bg.jpg');
-}
-
-.dark, [data-theme='dark'] {
+  /* Hardcoded Dark Theme Defaults */
   --bg-primary: #061224;
   --bg-secondary: #0d1e38;
   --text-primary: #FAF9F6;
