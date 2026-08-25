@@ -25,8 +25,8 @@ export default function Home() {
           VELOCITY_DISSIPATION: 0.99,
           PRESSURE: 0.8,
           SPLAT_RADIUS: 0.25,
-          BACK_COLOR: '#0B111A',
-          TRANSPARENT: false
+          BACK_COLOR: '#061224',
+          TRANSPARENT: true
         });
       }
     });
@@ -93,7 +93,7 @@ export default function Home() {
             </p>
             
             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', background: 'var(--text-primary)', color: 'var(--bg-primary)', border: '1px solid var(--text-primary)', borderRadius: '8px' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', borderRadius: '8px', border: 'none' }}>
                 Access The Grid
               </motion.a>
               <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#platform-impact" style={{ padding: '12px 30px', fontSize: '1rem', color: 'var(--text-primary)', border: '1px solid var(--text-primary)', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', scrollBehavior: 'smooth' }}>
@@ -232,7 +232,7 @@ export default function Home() {
             <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', marginBottom: '40px', maxWidth: '600px', margin: '0 auto 40px auto' }}>
               Dive deep into the architecture and mission behind PulseGrid. Discover how we're redefining global emergency response infrastructure through advanced WebGL technology.
             </p>
-            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', background: 'var(--text-primary)', color: 'var(--bg-primary)' }}>
+            <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/about" className="btn-primary" style={{ padding: '15px 40px', fontSize: '1.1rem', border: 'none' }}>
               Explore About Us
             </motion.a>
           </motion.div>
