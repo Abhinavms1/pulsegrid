@@ -75,10 +75,7 @@ export default function Home() {
         {/* Illoca-Style Hero Section */}
         <section className="mobile-hero-section" style={{ position: 'relative', zIndex: 1, minHeight: '100vh', display: 'flex', alignItems: 'center', padding: '0 5vw', maxWidth: '1400px', margin: '0 auto' }}>
           
-          {/* Branding Sidebar */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 1 }} style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', display: 'flex', alignItems: 'center', gap: '30px', marginRight: '50px' }}>
-            <span style={{ fontSize: '0.9rem', letterSpacing: '4px', color: 'var(--primary-red)', fontWeight: 'bold' }}>PULSEGRID NETWORK</span>
-          </motion.div>
+
 
           <motion.div 
             className="mobile-hero-text"
@@ -109,43 +106,11 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* 150-Word Overview Section (Moved to Mid Website) */}
-        <section style={{ position: 'relative', zIndex: 1, padding: '100px 50px', background: 'var(--glass-bg)', backdropFilter: 'blur(10px)', borderTop: '1px solid var(--glass-border)', borderBottom: '1px solid var(--glass-border)' }}>
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            style={{ maxWidth: '1200px', margin: '0 auto' }}
-          >
-            <div style={{ marginBottom: '50px' }}>
-              <p style={{ fontFamily: 'monospace', color: 'var(--primary-red)', marginBottom: '10px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
-                (2) ARCHITECTURE, EXPLAINED
-              </p>
-              <h2 className="text-massive" style={{ fontSize: '3.5rem', color: 'var(--text-primary)' }}>The Core <br/>Infrastructure</h2>
-            </div>
-
-            <div className="mobile-overview" style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.8', textAlign: 'justify', columnCount: 1, maxWidth: '800px' }}>
-              <p>
-                PulseGrid represents a paradigm shift in how we handle emergency medical logistics. In critical scenarios, latency is the enemy. Traditional methods of sourcing blood rely on fragmented databases and localized inquiries that consume precious hours. PulseGrid eliminates this entirely by mapping the complete blood supply chain onto a real-time, interactive grid.
-              </p>
-              <p style={{ marginTop: '20px' }}>
-                When an emergency request is triggered, our infrastructure utilizes advanced geolocation algorithms to immediately identify the nearest verified facilities possessing the exact blood type required. By pinging the precise coordinates of active donors and cross-referencing them with hospital inventory levels, we drastically compress the time it takes to transport life-saving resources anywhere in Kerala. Whether you are a government hospital or an individual donor, PulseGrid ensures you are part of an unbreakable, synchronized heartbeat that refuses to let a single life slip away due to systemic delays. Welcome to the grid.
-              </p>
-            </div>
-          </motion.div>
-        </section>
-
-
-
         {/* Impact Section */}
         <section style={{ padding: '100px 5vw', background: 'transparent', position: 'relative', zIndex: 2 }}>
           <div style={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', gap: '50px' }}>
             
-            {/* Branding Sidebar */}
-            <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 1 }} style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', display: 'flex', alignItems: 'center', gap: '30px', paddingTop: '100px' }}>
-              <span style={{ fontSize: '0.9rem', letterSpacing: '4px', color: 'var(--primary-red)', fontWeight: 'bold' }}>PULSEGRID NETWORK</span>
-            </motion.div>
+
 
             <motion.div initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} variants={staggerContainer} style={{ flex: 1 }}>
               <div style={{ marginBottom: '60px', position: 'relative' }}>
@@ -158,7 +123,7 @@ export default function Home() {
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))', gap: '30px' }}>
                 
                 {/* Feature 1: Verified Banks */}
-                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ aspectRatio: '1 / 1', height: 'auto', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
                   <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070&auto=format&fit=crop" alt="Verified Banks" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                     <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>482 Banks</h3>
@@ -167,7 +132,7 @@ export default function Home() {
                 </motion.div>
 
                 {/* Feature 2: Willing Donors */}
-                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ aspectRatio: '1 / 1', height: 'auto', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
                   <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Blood_donation_in_Taiwan.jpg" alt="Willing Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                     <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>12K Donors</h3>
@@ -176,7 +141,7 @@ export default function Home() {
                 </motion.div>
 
                 {/* Feature 3: Completed Transports (Ambulance Image) */}
-                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+                <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ aspectRatio: '1 / 1', height: 'auto', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
                   <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Ambulance_in_London.jpg" alt="Emergency Transports" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                     <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>1.5M Lives</h3>
