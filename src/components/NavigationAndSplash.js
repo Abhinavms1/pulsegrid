@@ -29,7 +29,7 @@ export default function NavigationAndSplash() {
   }, [pathname]);
 
   // Hide the global navigation and splash on portal routes
-  const hideNavigationRoutes = ['/admin', '/admin-login', '/donor-dashboard'];
+  const hideNavigationRoutes = ['/admin', '/admin-login', '/donor-dashboard', '/login', '/register'];
   if (hideNavigationRoutes.includes(pathname)) {
     return null;
   }

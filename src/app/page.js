@@ -124,7 +124,7 @@ export default function Home() {
               
               {/* Feature 2: Willing Donors */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1615461066841-6116e6e02410?q=80&w=2070&auto=format&fit=crop" alt="Active Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?q=80&w=2025&auto=format&fit=crop" alt="Willing Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>12K Donors</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Willing donors ready to assist in any district.</p>
@@ -133,7 +133,7 @@ export default function Home() {
               
               {/* Feature 3: Completed Transports (Ambulance Image) */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1587556930799-8dca6a6358ce?q=80&w=2070&auto=format&fit=crop" alt="Logistics" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1511174511562-5f7f18bfbc41?q=80&w=2070&auto=format&fit=crop" alt="Emergency Transports" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
                   <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>1.5M Lives</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Emergency transports completed.</p>
