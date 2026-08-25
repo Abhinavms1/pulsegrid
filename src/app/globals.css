@@ -8,7 +8,7 @@
   --font-playfair: 'Playfair Display', serif;
 }
 
-[data-theme='light'] {
+.light, [data-theme='light'], [data-theme='light'] body {
   --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
   --text-primary: #0b111a;
@@ -17,7 +17,7 @@
   --glass-border: rgba(0, 0, 0, 0.05);
 }
 
-[data-theme='dark'] {
+.dark, [data-theme='dark'], [data-theme='dark'] body {
   --bg-primary: #061224;
   --bg-secondary: #0d1e38;
   --text-primary: #FAF9F6;

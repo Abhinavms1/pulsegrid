@@ -17,31 +17,8 @@ const FEATURE_DATA = [
 ];
 
 export default function AboutPage() {
-  const radius = 250;
-  
-  // Distribute 8 points roughly on a sphere
-  const points = useMemo(() => {
-    const N = FEATURE_DATA.length;
-    const pts = [];
-    const phi = Math.PI * (3 - Math.sqrt(5));
-    
-    for (let i = 0; i < N; i++) {
-      const y = 1 - (i / (N - 1)) * 2; // y goes from 1 to -1
-      const r = Math.sqrt(1 - y * y);
-      const theta = phi * i;
-      
-      const x = Math.cos(theta) * r;
-      const z = Math.sin(theta) * r;
-      
-      pts.push({
-        feature: FEATURE_DATA[i],
-        tx: x * radius,
-        ty: y * radius,
-        tz: z * radius
-      });
-    }
-    return pts;
-  }, []);
+  const radius = 350;
+  const N = FEATURE_DATA.length;
 
   return (
     <main style={{ position: 'relative', width: '100vw', minHeight: '100vh', overflow: 'hidden', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
@@ -66,24 +43,31 @@ export default function AboutPage() {
         </motion.div>
       </div>
       
-      {/* CSS 3D Elliptical Rotation Section */}
+      {/* CSS 3D Orbital Rotation Section */}
       <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '600px' }}>
-        <div className="sphere-container">
-          <div className="sphere">
-            {points.map((p, index) => {
-              const Icon = p.feature.icon;
+        <div className="orbit-container">
+          <div className="orbit-system">
+            {FEATURE_DATA.map((feature, index) => {
+              const Icon = feature.icon;
+              const angle = (360 / N) * index;
               return (
-                <Link 
+                <div 
                   key={index}
-                  href={`/features/${p.feature.slug}`} 
-                  className="sphere-item"
-                  style={{
-                    transform: `translate3d(${p.tx}px, ${p.ty}px, ${p.tz}px)`
-                  }}
+                  className="orbit-arm"
+                  style={{ transform: `rotateY(${angle}deg)` }}
                 >
-                  <Icon size={32} style={{ marginBottom: '10px' }} />
-                  <span style={{ fontWeight: 'bold' }}>{p.feature.title}</span>
-                </Link>
+                  <div className="orbit-distance" style={{ transform: `translateZ(${radius}px)` }}>
+                    <div className="orbit-item-wrapper" style={{ transform: `rotateY(${-angle}deg)` }}>
+                      <Link 
+                        href={`/features/${feature.slug}`} 
+                        className="orbit-item counter-rotate"
+                      >
+                        <Icon size={32} style={{ marginBottom: '10px' }} />
+                        <span style={{ fontWeight: 'bold' }}>{feature.title}</span>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
@@ -91,8 +75,8 @@ export default function AboutPage() {
       </div>
 
       <style dangerouslySetInnerHTML={{__html: `
-        .sphere-container {
-          perspective: 1200px;
+        .orbit-container {
+          perspective: 1600px;
           width: 100%;
           height: 100%;
           display: flex;
@@ -100,29 +84,46 @@ export default function AboutPage() {
           align-items: center;
         }
 
-        .sphere {
+        .orbit-system {
           width: 0px;
           height: 0px;
           position: relative;
           transform-style: preserve-3d;
-          animation: sphere-rotate 15s infinite linear;
+          /* Tilt the orbit so we look down at it slightly */
+          transform: rotateX(-15deg);
+          animation: orbit-rotate 25s infinite linear;
           animation-play-state: paused;
         }
         
-        .sphere-container:hover .sphere {
+        .orbit-container:hover .orbit-system,
+        .orbit-container:hover .counter-rotate {
           animation-play-state: running;
         }
 
-        @keyframes sphere-rotate {
-          from {
-            transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-          }
-          to {
-            transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-          }
+        .orbit-arm, .orbit-distance, .orbit-item-wrapper {
+          position: absolute;
+          width: 0;
+          height: 0;
+          transform-style: preserve-3d;
         }
 
-        .sphere-item {
+        .counter-rotate {
+          animation: counter-rotate 25s infinite linear;
+          animation-play-state: paused;
+          transform-style: preserve-3d;
+        }
+
+        @keyframes orbit-rotate {
+          from { transform: rotateX(-15deg) rotateY(0deg); }
+          to { transform: rotateX(-15deg) rotateY(360deg); }
+        }
+
+        @keyframes counter-rotate {
+          from { transform: rotateY(0deg); }
+          to { transform: rotateY(-360deg); }
+        }
+
+        .orbit-item {
           position: absolute;
           width: 160px;
           height: 160px;
@@ -143,10 +144,11 @@ export default function AboutPage() {
           text-align: center;
           padding: 15px;
           box-shadow: var(--glass-shadow);
+          user-select: none;
           transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
 
-        .sphere-item:hover {
+        .orbit-item:hover {
           background: var(--bg-secondary);
           color: var(--primary-red);
           border-color: var(--primary-red);

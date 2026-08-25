@@ -42,7 +42,12 @@ export default function NavigationAndSplash() {
         href={href}
         onClick={onClick}
         className={className}
-        style={{ ...style, cursor: 'pointer', background: 'transparent', border: 'none' }}
+        style={{ 
+          ...style, 
+          cursor: 'pointer',
+          background: className && className.includes('btn') ? undefined : 'transparent',
+          border: className && className.includes('btn') ? undefined : 'none'
+        }}
         whileHover={{ scale: 1.05, y: -2 }}
         whileTap={{ scale: 0.95 }}
         transition={{ type: "spring", stiffness: 400, damping: 10 }}
