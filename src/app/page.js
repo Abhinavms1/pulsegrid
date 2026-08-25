@@ -117,25 +117,25 @@ export default function Home() {
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
                 <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070&auto=format&fit=crop" alt="Verified Banks" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
-                  <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>482 Banks</h3>
+                  <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>482 Banks</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Verified medical facilities active across Kerala.</p>
                 </div>
               </motion.div>
               
               {/* Feature 2: Willing Donors */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1615461066841-6116e6e02410?q=80&w=2070&auto=format&fit=crop" alt="Willing Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1594824476967-48c8b964273f?q=80&w=2070&auto=format&fit=crop" alt="Willing Donors" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
-                  <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>12K Donors</h3>
+                  <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>12K Donors</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Willing donors ready to assist in any district.</p>
                 </div>
               </motion.div>
               
               {/* Feature 3: Completed Transports (Ambulance Image) */}
               <motion.div variants={itemVariant} className="photo-card" whileHover={{ y: -15, scale: 1.02 }} transition={{ type: 'spring', stiffness: 300 }} style={{ height: '450px', borderRadius: '24px', overflow: 'hidden', position: 'relative', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-                <img src="https://images.unsplash.com/photo-1599700403969-f77b3fa748eb?q=80&w=2070&auto=format&fit=crop" alt="Emergency Transports" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2070&auto=format&fit=crop" alt="Emergency Transports" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 <div style={{ position: 'absolute', bottom: 0, left: 0, width: '100%', padding: '40px', background: 'linear-gradient(to top, rgba(11,17,26,0.95), transparent)' }}>
-                  <h3 className="text-massive" style={{ fontSize: '2.5rem', color: '#ffffff', marginBottom: '5px' }}>1.5M Lives</h3>
+                  <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '5px', color: '#ffffff' }}>1.5M Lives</h3>
                   <p style={{ fontSize: '1rem', color: 'rgba(255,255,255,0.8)' }}>Emergency transports completed.</p>
                 </div>
               </motion.div>

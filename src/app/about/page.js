@@ -2,7 +2,7 @@
 
 import { useMemo } from 'react';
 import { motion } from 'framer-motion';
-import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet } from 'lucide-react';
+import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 const FEATURE_DATA = [
@@ -23,6 +23,13 @@ export default function AboutPage() {
   return (
     <main style={{ position: 'relative', width: '100vw', minHeight: '100vh', overflow: 'hidden', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
       
+      {/* Back to Home Button */}
+      <div style={{ position: 'absolute', top: '40px', left: '40px', zIndex: 100 }}>
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', background: 'var(--bg-secondary)', padding: '12px 24px', borderRadius: '50px', textDecoration: 'none', fontWeight: 'bold', boxShadow: 'var(--glass-shadow)', border: '1px solid var(--primary-red)' }}>
+          <ArrowLeft size={20} /> Back to Home
+        </Link>
+      </div>
+
       {/* Decorative Background */}
       <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.3, background: 'radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 70%)', zIndex: 0 }} />
 

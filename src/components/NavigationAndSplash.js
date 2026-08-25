@@ -29,7 +29,7 @@ export default function NavigationAndSplash() {
   }, [pathname]);
 
   // Hide the global navigation and splash on portal routes
-  const hideNavigationRoutes = ['/admin', '/admin-login', '/donor-dashboard', '/login', '/register'];
+  const hideNavigationRoutes = ['/admin', '/admin-login', '/donor-dashboard', '/login', '/register', '/about'];
   if (hideNavigationRoutes.includes(pathname) || pathname.startsWith('/features/')) {
     return null;
   }
@@ -129,11 +129,6 @@ export default function NavigationAndSplash() {
           <MagneticButton href="/blood-banks" className="nav-link" style={{ color: 'var(--text-primary)' }}>Find Donors</MagneticButton>
           <MagneticButton href="/request-blood" className="nav-link" style={{ color: 'var(--primary-red)' }}>Request Blood</MagneticButton>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-            {mounted && (
-              <MagneticButton onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')} style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center' }}>
-                {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-              </MagneticButton>
-            )}
             <MagneticButton href="/login" className="btn-primary" style={{ padding: '8px 24px', fontSize: '0.9rem' }}>Register / Login</MagneticButton>
           </div>
         </div>

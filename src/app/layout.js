@@ -15,8 +15,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
-      <body>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <body className={inter.className}>
+        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
           <SmoothScroll>
             <NavigationAndSplash />
             
