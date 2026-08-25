@@ -105,7 +105,12 @@ export default function AboutPage() {
           height: 0px;
           position: relative;
           transform-style: preserve-3d;
-          animation: sphere-rotate 25s infinite linear;
+          animation: sphere-rotate 15s infinite linear;
+          animation-play-state: paused;
+        }
+        
+        .sphere-container:hover .sphere {
+          animation-play-state: running;
         }
 
         @keyframes sphere-rotate {
@@ -113,21 +118,21 @@ export default function AboutPage() {
             transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
           }
           to {
-            transform: rotateX(360deg) rotateY(360deg) rotateZ(180deg);
+            transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
           }
         }
 
         .sphere-item {
           position: absolute;
-          width: 150px;
-          height: 150px;
-          left: -75px;
-          top: -75px;
+          width: 160px;
+          height: 160px;
+          left: -80px;
+          top: -80px;
           background: var(--glass-bg);
-          backdrop-filter: blur(8px);
-          -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
           border: 1px solid var(--glass-border);
-          border-radius: 50%;
+          border-radius: 16px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -138,14 +143,15 @@ export default function AboutPage() {
           text-align: center;
           padding: 15px;
           box-shadow: var(--glass-shadow);
-          transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+          transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
         }
 
         .sphere-item:hover {
           background: var(--bg-secondary);
           color: var(--primary-red);
           border-color: var(--primary-red);
-          box-shadow: 0 10px 30px rgba(211,47,47,0.3);
+          box-shadow: 0 10px 40px rgba(211,47,47,0.4);
+          transform: scale(1.1) !important;
           z-index: 10;
         }
       `}} />
