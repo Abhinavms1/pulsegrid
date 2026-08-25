@@ -8,7 +8,7 @@ const featureData = {
     description: 'Our real-time monitoring infrastructure tracks blood inventories and donor availability instantly. Data is pushed over WebSockets directly to emergency response dashboards, ensuring zero latency during critical scenarios. Hospital staff can view live heatmaps of blood availability across districts, allowing for rapid decision-making before an emergency even escalates.',
     icon: Activity,
   },
-  'donor-matching': {
+  'intelligent-matching': {
     title: 'Intelligent Donor Matching',
     description: 'PulseGrid uses a proprietary matching algorithm that pairs emergency requests with willing donors based on exact blood type, proximity, and past donation history to guarantee the highest probability of response. The system accounts for donor eligibility periods and avoids contacting those who have recently donated.',
     icon: Heart,
@@ -33,27 +33,27 @@ const featureData = {
     description: 'We orchestrate the complete supply chain, from the moment a unit of blood is requested to the moment it arrives at the hospital. Dedicated logistics tracking ensures that sensitive medical transports are monitored, temperature-controlled, and expedited through designated emergency corridors.',
     icon: Truck,
   },
-  'instant-alerts': {
+  'instant-push-alerts': {
     title: 'Instant Push Alerts',
     description: 'Donors and facilities receive immediate push notifications and SMS alerts the moment a localized emergency occurs. The system bypasses email latency and ensures that critical alerts cut through the noise, reaching those who can help in milliseconds.',
     icon: Zap,
   },
-  'inventory-tracking': {
-    title: 'Automated Inventory Tracking',
+  'immutable-records': {
+    title: 'Immutable Records',
     description: 'Blood banks can ditch manual spreadsheets. PulseGrid automatically tracks blood unit expiration dates, volume levels, and specific component availability (plasma, platelets, whole blood). The system automatically rebalances inventory data when a unit is dispatched.',
     icon: Droplet,
   }
 };
 
-export default function FeaturePage({ params }) {
-  const { slug } = params;
+export default async function FeaturePage({ params }) {
+  const { slug } = await params;
   const feature = featureData[slug];
 
   if (!feature) {
     return (
       <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
         <div style={{ textAlign: 'center' }}>
-          <h1>Feature Not Found</h1>
+          <h1>Feature Not Found: {slug}</h1>
           <Link href="/about" style={{ color: 'var(--primary-red)', marginTop: '20px', display: 'inline-block' }}>Return to About</Link>
         </div>
       </main>

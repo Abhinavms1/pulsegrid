@@ -6,9 +6,8 @@
   --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   --font-inter: 'Inter', sans-serif;
   --font-playfair: 'Playfair Display', serif;
-}
-
-.light, [data-theme='light'], [data-theme='light'] body {
+  
+  /* Light Theme Defaults */
   --bg-primary: #f5f7fa;
   --bg-secondary: #ffffff;
   --text-primary: #0b111a;
@@ -20,7 +19,7 @@
   --hero-bg: url('/hero-bg.jpg');
 }
 
-.dark, [data-theme='dark'], [data-theme='dark'] body {
+.dark, [data-theme='dark'] {
   --bg-primary: #061224;
   --bg-secondary: #0d1e38;
   --text-primary: #FAF9F6;
@@ -51,7 +50,7 @@ body {
 h1, h2, h3, .text-massive {
   font-family: var(--font-playfair) !important;
   font-weight: 600;
-  color: var(--text-light);
+  color: var(--text-primary);
 }
 
 a {

@@ -94,8 +94,6 @@ export default function AboutPage() {
           height: 0px;
           position: relative;
           transform-style: preserve-3d;
-          /* Tilt the orbit so we look down at it slightly */
-          transform: rotateX(-15deg);
           animation: orbit-rotate 25s infinite linear;
           animation-play-state: paused;
         }
@@ -119,8 +117,8 @@ export default function AboutPage() {
         }
 
         @keyframes orbit-rotate {
-          from { transform: rotateX(-15deg) rotateY(0deg); }
-          to { transform: rotateX(-15deg) rotateY(360deg); }
+          from { transform: rotateY(0deg); }
+          to { transform: rotateY(360deg); }
         }
 
         @keyframes counter-rotate {
