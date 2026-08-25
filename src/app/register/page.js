@@ -86,23 +86,6 @@ export default function Register() {
             </button>
           </form>
 
-          <div style={{ marginTop: '20px', textAlign: 'center' }}>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '15px', fontSize: '0.9rem' }}>— or —</p>
-            <button 
-              onClick={async () => {
-                const { supabase } = await import('../../lib/supabase');
-                await supabase.auth.signInWithOAuth({ 
-                  provider: 'google',
-                  options: { redirectTo: `${window.location.origin}/donor-dashboard` }
-                });
-              }}
-              style={{ width: '100%', padding: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', background: 'var(--bg-secondary)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', cursor: 'pointer', fontWeight: 'bold' }}
-            >
-              <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" style={{ width: '20px', height: '20px' }} />
-              Continue with Google
-            </button>
-          </div>
-
           <p style={{ marginTop: '30px', color: 'var(--text-muted)', textAlign: 'center' }}>
             Already registered? <a href="/login" style={{ color: 'var(--primary-red)', fontWeight: 'bold' }}>Access Portal</a>
           </p>
