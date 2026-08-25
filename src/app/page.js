@@ -79,24 +79,33 @@ export default function Home() {
             initial={{ opacity: 0, x: -50 }} 
             animate={{ opacity: preloaderActive ? 0 : 1, x: preloaderActive ? -50 : 0 }} 
             transition={{ duration: 1, delay: 0.5 }}
-            style={{ maxWidth: '500px', display: 'flex', flexDirection: 'column' }}
+            style={{ 
+              maxWidth: '600px', 
+              display: 'flex', 
+              flexDirection: 'column',
+              background: 'rgba(6, 18, 36, 0.8)', // Slight blue background
+              padding: '40px',
+              borderRadius: '24px',
+              backdropFilter: 'blur(10px)',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
+            }}
           >
-            <p style={{ fontFamily: 'monospace', color: 'var(--text-muted)', marginBottom: '20px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
+            <p style={{ fontFamily: 'monospace', color: '#ffffff', marginBottom: '20px', letterSpacing: '2px', textTransform: 'uppercase', fontWeight: 'bold' }}>
               (1) EMERGENCY LOGISTICS!
             </p>
-            <h1 className="text-massive" style={{ fontSize: '5rem', lineHeight: '1', color: 'var(--text-primary)', marginBottom: '30px' }}>
+            <h1 className="text-massive" style={{ fontSize: '5rem', lineHeight: '1', color: '#ffffff', marginBottom: '30px' }}>
               Routing <br/>Redefined
             </h1>
             
-            <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '40px' }}>
+            <p style={{ fontSize: '1.2rem', color: 'rgba(255,255,255,0.9)', lineHeight: '1.6', marginBottom: '40px' }}>
               Transform passive willingness into actionable, life-saving intervention with the most advanced blood supply chain grid in Kerala.
             </p>
             
-            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
               <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="/blood-banks" className="btn-primary" style={{ padding: '12px 30px', fontSize: '1rem', borderRadius: '8px', border: 'none' }}>
                 Access The Grid
               </motion.a>
-              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#platform-impact" style={{ padding: '12px 30px', fontSize: '1rem', color: 'var(--text-primary)', border: '1px solid var(--text-primary)', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', scrollBehavior: 'smooth' }}>
+              <motion.a whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} href="#platform-impact" style={{ padding: '12px 30px', fontSize: '1rem', color: '#ffffff', border: '1px solid rgba(255,255,255,0.3)', borderRadius: '8px', textDecoration: 'none', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center', scrollBehavior: 'smooth' }}>
                 Explore Features
               </motion.a>
             </div>
@@ -130,46 +139,7 @@ export default function Home() {
           </motion.div>
         </section>
 
-        {/* Platform Impact Section (High Quality Image Feature Blocks) */}
-        <section style={{ position: 'relative', zIndex: 1, background: 'transparent', padding: '100px 0' }}>
-          <div style={{ width: '100%', maxWidth: '1400px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0 5vw' }}>
-            
-            <div style={{ display: 'flex', alignItems: 'center', gap: '60px', width: '100%' }}>
-              
-              {/* Branding Sidebar */}
-              <motion.div initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.5, duration: 1 }} style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)', display: 'flex', alignItems: 'center', gap: '30px', borderLeft: '1px solid rgba(255,255,255,0.2)', paddingLeft: '20px' }}>
-                <span style={{ fontSize: '0.9rem', letterSpacing: '4px', color: 'var(--text-muted)' }}>EST. 2026</span>
-                <div style={{ height: '60px', width: '1px', background: 'var(--primary-red)' }}></div>
-                <span style={{ fontSize: '0.9rem', letterSpacing: '4px', color: 'var(--primary-red)', fontWeight: 'bold' }}>SYSTEM ONLINE</span>
-              </motion.div>
 
-              {/* Main Hero Content */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', flex: 1 }}>
-                <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, ease: "easeOut" }} style={{ flex: '1 1 500px', zIndex: 1 }}>
-                  <p style={{ color: 'var(--primary-red)', fontWeight: 'bold', letterSpacing: '2px', marginBottom: '10px' }}>(1) EMERGENCY LOGISTICS!</p>
-                  <h1 className="text-massive" style={{ fontSize: '4rem', marginBottom: '20px', lineHeight: 1.1 }}>
-                    Routing Redefined
-                  </h1>
-                  <p style={{ fontSize: '1.25rem', color: 'var(--text-muted)', marginBottom: '40px', maxWidth: '80%' }}>
-                    Transform passive willingness into actionable, life-saving intervention with the most advanced blood supply chain grid in Kerala.
-                  </p>
-                  <div style={{ display: 'flex', gap: '20px' }}>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Link href="/about" className="btn-primary" style={{ padding: '15px 35px', fontSize: '1.2rem', borderRadius: '50px', textDecoration: 'none' }}>
-                        Access The Grid
-                      </Link>
-                    </motion.div>
-                    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                      <Link href="/features/real-time-monitoring" style={{ padding: '15px 35px', fontSize: '1.2rem', borderRadius: '50px', textDecoration: 'none', background: 'transparent', color: 'var(--text-primary)', border: '1px solid var(--glass-border)', display: 'flex', alignItems: 'center', gap: '10px' }}>
-                        Explore Features <ArrowRight size={20} />
-                      </Link>
-                    </motion.div>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </div>
-        </section>
 
         {/* Impact Section */}
         <section style={{ padding: '100px 5vw', background: 'transparent', position: 'relative', zIndex: 2 }}>
