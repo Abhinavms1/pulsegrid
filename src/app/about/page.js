@@ -1,6 +1,5 @@
 "use client";
 
-import { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Activity, Heart, Shield, Users, MapPin, Truck, Zap, Droplet, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
@@ -17,65 +16,128 @@ const FEATURE_DATA = [
 ];
 
 export default function AboutPage() {
-  const radius = 350;
+  const radius = 320;
   const N = FEATURE_DATA.length;
 
   return (
-    <main style={{ position: 'relative', width: '100vw', minHeight: '100vh', overflow: 'hidden', background: 'var(--bg-primary)', display: 'flex', flexDirection: 'column' }}>
-      
+    <main style={{
+      position: 'relative',
+      width: '100vw',
+      minHeight: '100vh',
+      overflow: 'hidden',
+      backgroundColor: '#FFFFFF',
+      display: 'flex',
+      flexDirection: 'column',
+      paddingTop: '100px'
+    }}>
+
       {/* Back to Home Button */}
-      <div style={{ position: 'absolute', top: '40px', left: '40px', zIndex: 100 }}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', background: 'var(--bg-secondary)', padding: '12px 24px', borderRadius: '50px', textDecoration: 'none', fontWeight: 'bold', boxShadow: 'var(--glass-shadow)', border: '1px solid var(--primary-red)' }}>
-          <ArrowLeft size={20} /> Back to Home
+      <div style={{ position: 'absolute', top: '24px', left: '24px', zIndex: 100 }}>
+        <Link
+          href="/"
+          className="btn-secondary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            padding: '10px 20px',
+            fontSize: '0.9rem'
+          }}
+        >
+          <ArrowLeft size={18} /> Back to Home
         </Link>
       </div>
 
-      {/* Decorative Background */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, opacity: 0.3, background: 'radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 70%)', zIndex: 0 }} />
-
       {/* Header Section */}
-      <div style={{ position: 'relative', zIndex: 1, padding: '80px 50px 20px', textAlign: 'center' }}>
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
+      <div style={{ position: 'relative', zIndex: 1, padding: '32px 24px 20px', textAlign: 'center' }}>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           style={{ maxWidth: '800px', margin: '0 auto' }}
         >
-          <h1 className="text-massive" style={{ fontSize: '3.5rem', marginBottom: '15px', color: 'var(--text-primary)', lineHeight: 1.1 }}>
-            The Pulse Behind <span style={{ color: 'var(--primary-red)' }}>The Grid</span>
+          <span style={{
+            display: 'inline-block',
+            backgroundColor: 'var(--primary-crimson-tint)',
+            color: 'var(--primary-crimson)',
+            fontFamily: 'var(--font-heading)',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
+            padding: '6px 16px',
+            borderRadius: '50px',
+            marginBottom: '16px'
+          }}>
+            Platform Architecture
+          </span>
+
+          <h1 style={{
+            fontSize: 'clamp(2.4rem, 5vw, 3.6rem)',
+            marginBottom: '16px',
+            color: 'var(--navy-primary)',
+            lineHeight: 1.15
+          }}>
+            The Pulse Behind <span style={{ color: 'var(--primary-crimson)' }}>The Grid</span>
           </h1>
-          <p style={{ fontSize: '1.1rem', color: 'var(--text-muted)' }}>
-            PulseGrid was architected with a singular vision: to eliminate latency between life-threatening emergencies and willing donors. Explore our core advantages below.
+
+          <p style={{ fontSize: '1.1rem', color: 'var(--text-body)', lineHeight: 1.6, maxWidth: '640px', margin: '0 auto' }}>
+            PulseGrid was architected with a singular mission: to eliminate latency between
+            life-threatening emergencies and willing blood donors. Hover over any node to inspect key capabilities.
           </p>
         </motion.div>
       </div>
-      
+
       {/* CSS 3D Orbital Rotation Section */}
-      <div style={{ position: 'relative', zIndex: 1, flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '500px' }}>
+      <div style={{
+        position: 'relative',
+        zIndex: 1,
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        minHeight: '520px'
+      }}>
         <div className="orbit-container">
           <div className="orbit-system">
             {FEATURE_DATA.map((feature, index) => {
               const Icon = feature.icon;
               const angle = (360 / N) * index;
-              // Generate a vibrant color for each feature
-              const colors = ['#FF4B4B', '#4B7BFF', '#4BFF7B', '#FFB74B', '#B74BFF', '#4BFFF0', '#FF4BB7', '#E5FF4B'];
-              const color = colors[index % colors.length];
 
               return (
-                <div 
+                <div
                   key={index}
                   className="orbit-arm"
                   style={{ transform: `rotateY(${angle}deg)` }}
                 >
                   <div className="orbit-distance" style={{ transform: `translateZ(${radius}px)` }}>
                     <div className="orbit-item-wrapper" style={{ transform: `rotateY(${-angle}deg)` }}>
-                      <Link 
-                        href={`/features/${feature.slug}`} 
+                      <Link
+                        href={`/features/${feature.slug}`}
                         className="orbit-item counter-rotate"
-                        style={{ borderBottom: `4px solid ${color}` }}
                       >
-                        <Icon size={32} style={{ marginBottom: '10px', color: color }} />
-                        <span style={{ fontWeight: 'bold' }}>{feature.title}</span>
+                        <div style={{
+                          width: '44px',
+                          height: '44px',
+                          borderRadius: '10px',
+                          backgroundColor: 'var(--primary-crimson-tint)',
+                          color: 'var(--primary-crimson)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          marginBottom: '10px'
+                        }}>
+                          <Icon size={24} />
+                        </div>
+                        <span style={{
+                          fontFamily: 'var(--font-heading)',
+                          fontWeight: 700,
+                          color: 'var(--navy-primary)',
+                          fontSize: '0.85rem',
+                          lineHeight: 1.2
+                        }}>
+                          {feature.title}
+                        </span>
                       </Link>
                     </div>
                   </div>
@@ -86,7 +148,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      <style dangerouslySetInnerHTML={{__html: `
+      <style jsx global>{`
         .orbit-container {
           perspective: 1600px;
           width: 100%;
@@ -101,10 +163,10 @@ export default function AboutPage() {
           height: 0px;
           position: relative;
           transform-style: preserve-3d;
-          animation: orbit-rotate 25s infinite linear;
+          animation: orbit-rotate 28s infinite linear;
           animation-play-state: paused;
         }
-        
+
         .orbit-container:hover .orbit-system,
         .orbit-container:hover .counter-rotate {
           animation-play-state: running;
@@ -118,7 +180,7 @@ export default function AboutPage() {
         }
 
         .counter-rotate {
-          animation: counter-rotate 25s infinite linear;
+          animation: counter-rotate 28s infinite linear;
           animation-play-state: paused;
           transform-style: preserve-3d;
         }
@@ -135,37 +197,33 @@ export default function AboutPage() {
 
         .orbit-item {
           position: absolute;
-          width: 160px;
-          height: 160px;
-          left: -80px;
-          top: -80px;
-          background: var(--glass-bg);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid var(--glass-border);
-          border-radius: 16px;
+          width: 150px;
+          height: 150px;
+          left: -75px;
+          top: -75px;
+          background-color: #FFFFFF;
+          border: 1px solid var(--border-color);
+          border-radius: var(--card-radius);
           display: flex;
           flex-direction: column;
           justify-content: center;
           align-items: center;
-          color: var(--text-primary);
           text-decoration: none;
-          font-size: 14px;
           text-align: center;
-          padding: 15px;
-          box-shadow: var(--glass-shadow);
+          padding: 14px;
+          box-shadow: var(--soft-shadow);
           user-select: none;
-          transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+          transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
         }
 
         .orbit-item:hover {
-          background: var(--bg-secondary);
-          color: var(--primary-red);
-          box-shadow: 0 10px 40px rgba(211,47,47,0.4);
-          transform: scale(1.1) !important;
+          background-color: #FFFFFF;
+          border-color: var(--primary-crimson);
+          box-shadow: var(--soft-shadow-hover);
+          transform: scale(1.08) !important;
           z-index: 10;
         }
-      `}} />
+      `}</style>
 
     </main>
   );

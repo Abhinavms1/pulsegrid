@@ -1,31 +1,37 @@
-import './globals.css'
+import './globals.css';
 import SmoothScroll from '../components/SmoothScroll';
 import NavigationAndSplash from '../components/NavigationAndSplash';
-import { Inter, Playfair_Display } from 'next/font/google';
-import { ThemeProvider } from 'next-themes';
+import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
-const playfair = Playfair_Display({ subsets: ['latin'], variable: '--font-playfair' });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  weight: ['600', '700', '800'],
+  variable: '--font-heading',
+  display: 'swap',
+});
 
 export const metadata = {
-  title: 'PulseGrid - Advanced Blood Network',
-  description: 'Emergency blood network infrastructure.',
-}
+  title: 'PulseGrid - Emergency Blood Network & Blood Bank Locator | Kerala',
+  description: 'Real-time emergency blood supply chain and verified blood bank locator across Kerala. Rapid donor coordination and hospital logistics.',
+};
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" forcedTheme="dark">
-          <SmoothScroll>
-            <NavigationAndSplash />
-            
-            <div>
-              {children}
-            </div>
-          </SmoothScroll>
-        </ThemeProvider>
+    <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
+      <body className={inter.className} style={{ backgroundColor: '#FFFFFF', color: '#475569' }}>
+        <SmoothScroll>
+          <NavigationAndSplash />
+          <div style={{ position: 'relative' }}>
+            {children}
+          </div>
+        </SmoothScroll>
       </body>
     </html>
-  )
+  );
 }

@@ -1,547 +1,554 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import dynamic from 'next/dynamic';
-import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { ArrowRight, Search, Droplets, Bell, Activity, Shield, Zap } from 'lucide-react';
-
-const ThreeScene = dynamic(() => import('../components/ThreeScene'), { ssr: false });
+import { ArrowRight, Search, Droplets, Bell, PhoneCall } from 'lucide-react';
 
 export default function Home() {
-  const [preloaderActive, setPreloaderActive] = useState(true);
-  const canvasRef = useRef(null);
-
-  useEffect(() => {
-    import('webgl-fluid').then((webGLFluidSimulation) => {
-      if (canvasRef.current) {
-        webGLFluidSimulation.default({
-          CANVAS: canvasRef.current,
-          COLOR_PALETTE: ['#7f1d1d', '#991b1b', '#dc2626', '#1e1b4b', '#0c0a09'],
-          HOVER: true,
-          DENSITY_DISSIPATION: 0.97,
-          VELOCITY_DISSIPATION: 0.98,
-          PRESSURE: 0.8,
-          SPLAT_RADIUS: 0.3,
-          BACK_COLOR: '#030712',
-          TRANSPARENT: true
-        });
-      }
-    });
-
-    const timer = setTimeout(() => setPreloaderActive(false), 2500);
-    return () => clearTimeout(timer);
-  }, []);
-
-  const staggerContainer = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.15, delayChildren: 0.1 }
-    }
-  };
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 40 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.25, 0.4, 0.25, 1] } }
-  };
-
-  const features = [
+  const architectureFeatures = [
     {
       icon: <Search size={24} />,
-      title: 'Real-Time Tracking',
-      description: 'Advanced geolocation algorithms instantly identify the nearest verified facilities with the exact blood type you need.'
+      title: 'Real-Time Inventory Tracking',
+      description: 'Advanced geolocation algorithms identify verified blood banks and hospitals with current units of the required blood group across all 14 districts in Kerala.'
     },
     {
       icon: <Droplets size={24} />,
-      title: 'Intelligent Matching',
-      description: 'Cross-reference hospital inventory levels with live donor coordinates to compress critical response times dramatically.'
+      title: 'Intelligent Donor Matching',
+      description: 'Cross-references active hospital emergency requests against willing community donors by travel time, blood group compatibility, and donation eligibility cycles.'
     },
     {
       icon: <Bell size={24} />,
-      title: 'Instant Push Alerts',
-      description: 'When an emergency is triggered, nearby donors and facilities receive immediate notifications to mobilize resources.'
+      title: 'Instant Emergency Alerts',
+      description: 'Bypasses slow communication channels with immediate SMS and push notifications to verified nearby donors, drastically reducing critical response latency.'
     }
   ];
 
-  const marqueeText = "REAL-TIME LOGISTICS • VERIFIED NETWORK • INTELLIGENT MATCHING • KERALA'S BLOOD GRID • ZERO LATENCY • EMERGENCY RESPONSE • ";
-
   return (
-    <>
-      <main style={{ position: 'relative', overflow: 'hidden', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+    <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', position: 'relative' }}>
 
-        {/* ═══ LIVE WEBGL FLUID BACKGROUND ═══ */}
-        <canvas
-          ref={canvasRef}
-          style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width: '100vw',
-            height: '100vh',
-            zIndex: 0,
-            pointerEvents: 'auto'
-          }}
-        />
+      {/* ══════════════════════════════════════════════════════════
+          HERO SECTION (Clean Light Theme, Normal Flow, No Overlap)
+          ══════════════════════════════════════════════════════════ */}
+      <section style={{
+        paddingTop: '116px', // Navbar height (68px) + 48px buffer
+        paddingBottom: '80px',
+        backgroundColor: '#FFFFFF',
+        position: 'relative'
+      }}>
+        <div className="content-container" style={{ textAlign: 'center' }}>
 
-        {/* ═══ THREE.JS SCENE ═══ */}
-        <ThreeScene />
-
-        {/* ══════════════════════════════════════════════════════
-            SECTION 1: CINEMATIC HERO
-            ══════════════════════════════════════════════════════ */}
-        <section style={{
-          position: 'relative',
-          zIndex: 1,
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          padding: '120px 20px 60px'
-        }}>
-          {/* Radial gradient overlay for depth */}
-          <div style={{
-            position: 'absolute',
-            inset: 0,
-            background: 'radial-gradient(ellipse at 50% 30%, rgba(220,38,38,0.08) 0%, transparent 60%)',
-            pointerEvents: 'none'
-          }} />
-
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: preloaderActive ? 0 : 1, y: preloaderActive ? 30 : 0 }}
-            transition={{ duration: 1.2, delay: 0.3, ease: [0.25, 0.4, 0.25, 1] }}
-            style={{ position: 'relative', zIndex: 2, maxWidth: '900px' }}
-          >
-            <p style={{
-              fontFamily: 'monospace',
-              color: 'var(--primary-red)',
-              marginBottom: '24px',
-              letterSpacing: '4px',
+          {/* Hero Category Badge */}
+          <div style={{ marginBottom: '20px' }}>
+            <span style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px',
+              backgroundColor: 'var(--primary-crimson-tint)',
+              color: 'var(--primary-crimson)',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.8rem',
+              fontWeight: 800,
               textTransform: 'uppercase',
-              fontWeight: '600',
-              fontSize: '0.85rem'
+              letterSpacing: '0.12em',
+              padding: '6px 18px',
+              borderRadius: '50px'
             }}>
-              Emergency Blood Network
-            </p>
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-crimson)' }}></span>
+              Emergency Blood Logistics Network
+            </span>
+          </div>
 
-            <h1 className="text-massive" style={{
-              fontSize: 'clamp(3rem, 8vw, 7rem)',
-              lineHeight: '0.95',
-              marginBottom: '20px',
-              color: '#ffffff'
-            }}>
+          {/* Hero Headline (Navy & Crimson, Line-height 1.15 to prevent descender clipping) */}
+          <div style={{ paddingBottom: '8px' }}>
+            <h1 className="hero-title-main">
               Saving Lives
             </h1>
-
-            <h2 className="text-massive glow-red" style={{
-              fontSize: 'clamp(3rem, 8vw, 7rem)',
-              lineHeight: '0.95',
-              marginBottom: '30px'
-            }}>
+            <h2 className="hero-title-sub">
               Through Technology
+            </h2>
+          </div>
+
+          {/* Hero Subtitle */}
+          <p style={{
+            fontSize: 'clamp(1rem, 2vw, 1.2rem)',
+            color: 'var(--text-body)',
+            lineHeight: 1.7,
+            maxWidth: '680px',
+            margin: '0 auto 36px',
+            opacity: 1
+          }}>
+            Transform passive willingness into actionable, life-saving intervention.
+            PulseGrid coordinates verified blood banks, hospitals, and voluntary donors
+            across Kerala with zero latency.
+          </p>
+
+          {/* Action CTAs in Normal Flow (CTAs FIRST) */}
+          <div className="hero-cta-group">
+            <Link href="/blood-banks" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem' }}>
+              Find Blood Banks
+            </Link>
+            <Link href="/request-blood" className="btn-secondary" style={{ padding: '14px 32px', fontSize: '1rem' }}>
+              Request Blood
+            </Link>
+          </div>
+
+          {/* Hero Stats Card (In Normal Flow, Below CTAs with >=48px gap, White card with border & soft shadow) */}
+          <div>
+            <div className="hero-stats-card">
+              <div className="hero-stat-col">
+                <span className="hero-stat-num">482+</span>
+                <span className="hero-stat-label">Verified Banks</span>
+              </div>
+              <div className="hero-stat-col">
+                <span className="hero-stat-num">12,000+</span>
+                <span className="hero-stat-label">Active Donors</span>
+              </div>
+              <div className="hero-stat-col">
+                <span className="hero-stat-num">1.5M+</span>
+                <span className="hero-stat-label">Lives Impacted</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          CORE INFRASTRUCTURE SECTION (Background #F8FAFC)
+          ══════════════════════════════════════════════════════════ */}
+      <section
+        id="core-infrastructure"
+        className="section-spacing"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderTop: '1px solid var(--border-color)',
+          borderBottom: '1px solid var(--border-color)'
+        }}
+      >
+        <div className="content-container">
+          {/* Section Header */}
+          <div style={{ maxWidth: '640px', marginBottom: '56px' }}>
+            <p style={{
+              color: 'var(--primary-crimson)',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 800,
+              fontSize: '0.85rem',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              marginBottom: '12px'
+            }}>
+              (02) Architecture
+            </p>
+            <h2 style={{
+              fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+              color: 'var(--navy-primary)',
+              lineHeight: 1.2,
+              marginBottom: '16px',
+              fontWeight: 700
+            }}>
+              The Core Infrastructure
+            </h2>
+            <p style={{
+              color: 'var(--text-body)',
+              fontSize: '1.1rem',
+              lineHeight: 1.6
+            }}>
+              PulseGrid is engineered to eliminate systemic bottlenecks in medical logistics.
+              Every component works together to accelerate emergency blood transport.
+            </p>
+          </div>
+
+          {/* Feature Cards Grid (3 white cards with #FEF2F2 rounded square icons) */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '28px'
+          }}>
+            {architectureFeatures.map((feat, idx) => (
+              <div key={idx} className="core-feature-card">
+                <div className="core-icon-box">
+                  {feat.icon}
+                </div>
+                <h3 style={{
+                  fontSize: '1.3rem',
+                  color: 'var(--navy-primary)',
+                  fontFamily: 'var(--font-heading)',
+                  fontWeight: 700,
+                  marginBottom: '12px',
+                  lineHeight: 1.3
+                }}>
+                  {feat.title}
+                </h3>
+                <p style={{
+                  color: 'var(--text-body)',
+                  fontSize: '0.95rem',
+                  lineHeight: 1.65,
+                  margin: 0
+                }}>
+                  {feat.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          PLATFORM IMPACT SECTION (Local Royalty-Free Images)
+          ══════════════════════════════════════════════════════════ */}
+      <section
+        id="platform-impact"
+        className="section-spacing"
+        style={{ backgroundColor: '#FFFFFF' }}
+      >
+        <div className="content-container">
+          {/* Section Header */}
+          <div style={{ maxWidth: '640px', marginBottom: '56px' }}>
+            <p style={{
+              color: 'var(--primary-crimson)',
+              fontFamily: 'var(--font-heading)',
+              fontWeight: 800,
+              fontSize: '0.85rem',
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              marginBottom: '12px'
+            }}>
+              (03) Impact
+            </p>
+            <h2 style={{
+              fontSize: 'clamp(2.2rem, 4vw, 3.2rem)',
+              color: 'var(--navy-primary)',
+              lineHeight: 1.2,
+              marginBottom: '16px',
+              fontWeight: 700
+            }}>
+              Platform Impact
+            </h2>
+            <p style={{
+              color: 'var(--text-body)',
+              fontSize: '1.1rem',
+              lineHeight: 1.6
+            }}>
+              Building the most dependable blood supply coordination network across Kerala,
+              connecting clinical institutions, donors, and emergency response teams.
+            </p>
+          </div>
+
+          {/* 3 Impact Cards with Local Images, Same Aspect Ratio & Dark Navy Bottom Gradient */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '28px'
+          }}>
+
+            {/* Card 1: 482 Banks */}
+            <div className="impact-card">
+              <img
+                src="/images/blood-bank.jpg"
+                alt="Verified Blood Bank Storage and Laboratory Facilities in Kerala"
+                className="impact-card-img"
+                loading="lazy"
+                width={600}
+                height={450}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div className="impact-card-overlay">
+                <div style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '2.5rem',
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  marginBottom: '6px',
+                  color: '#FFFFFF'
+                }}>
+                  482 Banks
+                </div>
+                <p style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  lineHeight: 1.4,
+                  margin: 0
+                }}>
+                  Verified medical facilities and licensed storage centers active across Kerala.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: 12K Donors */}
+            <div className="impact-card">
+              <img
+                src="/images/donor.jpg"
+                alt="Active Community Volunteers and Donors Donating Blood"
+                className="impact-card-img"
+                loading="lazy"
+                width={600}
+                height={450}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div className="impact-card-overlay">
+                <div style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '2.5rem',
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  marginBottom: '6px',
+                  color: '#FFFFFF'
+                }}>
+                  12K Donors
+                </div>
+                <p style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  lineHeight: 1.4,
+                  margin: 0
+                }}>
+                  Willing, eligible donors ready to assist on short notice in all 14 districts.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3: 1.5M Lives */}
+            <div className="impact-card">
+              <img
+                src="/images/ambulance.jpg"
+                alt="Emergency Ambulance Logistics and Medical Transports"
+                className="impact-card-img"
+                loading="lazy"
+                width={600}
+                height={450}
+                onError={(e) => {
+                  e.currentTarget.style.display = 'none';
+                }}
+              />
+              <div className="impact-card-overlay">
+                <div style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '2.5rem',
+                  fontWeight: 800,
+                  lineHeight: 1.1,
+                  marginBottom: '6px',
+                  color: '#FFFFFF'
+                }}>
+                  1.5M Lives
+                </div>
+                <p style={{
+                  fontSize: '1rem',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  lineHeight: 1.4,
+                  margin: 0
+                }}>
+                  Emergency transports and rapid transfusions facilitated statewide.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════
+          EXPERIENCE THE VISION / ABOUT BRIDGE SECTION
+          ══════════════════════════════════════════════════════════ */}
+      <section
+        className="section-spacing"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderTop: '1px solid var(--border-color)'
+        }}
+      >
+        <div className="content-container">
+          <div style={{
+            backgroundColor: '#FFFFFF',
+            border: '1px solid var(--border-color)',
+            borderRadius: 'var(--card-radius)',
+            boxShadow: 'var(--soft-shadow)',
+            padding: '64px 36px',
+            textAlign: 'center',
+            maxWidth: '860px',
+            margin: '0 auto'
+          }}>
+            <span style={{
+              display: 'inline-block',
+              backgroundColor: 'var(--primary-crimson-tint)',
+              color: 'var(--primary-crimson)',
+              fontFamily: 'var(--font-heading)',
+              fontSize: '0.8rem',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              letterSpacing: '0.12em',
+              padding: '6px 16px',
+              borderRadius: '50px',
+              marginBottom: '16px'
+            }}>
+              Mission & Technology
+            </span>
+
+            <h2 style={{
+              fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+              color: 'var(--navy-primary)',
+              lineHeight: 1.2,
+              marginBottom: '16px',
+              fontWeight: 700
+            }}>
+              Experience <span style={{ color: 'var(--primary-crimson)' }}>The Vision</span>
             </h2>
 
             <p style={{
-              fontSize: '1.15rem',
-              color: 'var(--text-muted)',
-              lineHeight: '1.7',
-              maxWidth: '600px',
-              margin: '0 auto 40px'
+              fontSize: '1.1rem',
+              color: 'var(--text-body)',
+              lineHeight: 1.7,
+              maxWidth: '620px',
+              margin: '0 auto 36px'
             }}>
-              Transform passive willingness into actionable, life-saving intervention
-              with the most advanced blood supply chain grid in Kerala.
+              Discover how PulseGrid brings together real-time geolocation, automated inventory
+              audits, and emergency alert routing to safeguard patients across Kerala.
             </p>
 
             <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <motion.a
-                whileHover={{ scale: 1.05, boxShadow: '0 8px 30px rgba(220,38,38,0.4)' }}
-                whileTap={{ scale: 0.95 }}
-                href="/blood-banks"
-                className="btn-primary"
-                style={{ padding: '16px 36px', fontSize: '1rem', textDecoration: 'none' }}
-              >
-                Access The Grid
-              </motion.a>
-              <motion.a
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                href="#how-it-works"
-                className="btn-glass"
-              >
-                Explore Features <ArrowRight size={18} />
-              </motion.a>
-            </div>
-          </motion.div>
-
-          {/* ── FLOATING STATS PILL ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: preloaderActive ? 0 : 1, y: preloaderActive ? 30 : 0 }}
-            transition={{ duration: 1, delay: 1.2 }}
-            style={{ position: 'absolute', bottom: '40px', zIndex: 10 }}
-          >
-            <div className="stats-pill">
-              <div className="stat-item">
-                <span className="stat-value">482+</span>
-                <span className="stat-label">Banks</span>
-              </div>
-              <div className="stat-divider" />
-              <div className="stat-item">
-                <span className="stat-value">12K+</span>
-                <span className="stat-label">Donors</span>
-              </div>
-              <div className="stat-divider" />
-              <div className="stat-item">
-                <span className="stat-value">1.5M+</span>
-                <span className="stat-label">Lives</span>
-              </div>
-            </div>
-          </motion.div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-            SECTION 2: HOW IT WORKS — FEATURE GRID
-            ══════════════════════════════════════════════════════ */}
-        <section id="how-it-works" style={{
-          position: 'relative',
-          zIndex: 2,
-          padding: '120px 5vw',
-          background: 'linear-gradient(180deg, transparent 0%, rgba(13,17,23,0.4) 100%)'
-        }}>
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={staggerContainer}
-            >
-              <motion.p variants={fadeUp} style={{
-                fontFamily: 'monospace',
-                color: 'var(--primary-red)',
-                marginBottom: '12px',
-                letterSpacing: '3px',
-                textTransform: 'uppercase',
-                fontWeight: '600',
-                fontSize: '0.8rem'
-              }}>
-                (02) Architecture
-              </motion.p>
-
-              <motion.h2 variants={fadeUp} className="text-massive" style={{
-                fontSize: 'clamp(2.5rem, 5vw, 4rem)',
-                marginBottom: '16px',
-                color: 'var(--text-primary)'
-              }}>
-                The Core <br />Infrastructure
-              </motion.h2>
-
-              <motion.p variants={fadeUp} style={{
-                fontSize: '1.1rem',
-                color: 'var(--text-muted)',
-                maxWidth: '500px',
-                marginBottom: '60px',
-                lineHeight: '1.7'
-              }}>
-                Every second counts. PulseGrid&apos;s architecture is engineered
-                to eliminate delays in the emergency blood supply chain.
-              </motion.p>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                gap: '24px'
-              }}>
-                {features.map((feature, i) => (
-                  <motion.div key={i} variants={fadeUp} className="feature-card">
-                    <div className="feature-icon">
-                      {feature.icon}
-                    </div>
-                    <h3 style={{
-                      fontSize: '1.3rem',
-                      fontWeight: '600',
-                      marginBottom: '12px',
-                      color: 'var(--text-primary)',
-                      fontFamily: 'var(--font-inter)'
-                    }}>
-                      {feature.title}
-                    </h3>
-                    <p style={{
-                      fontSize: '0.95rem',
-                      color: 'var(--text-muted)',
-                      lineHeight: '1.6'
-                    }}>
-                      {feature.description}
-                    </p>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-            SECTION 3: PLATFORM IMPACT — IMAGE CARDS
-            ══════════════════════════════════════════════════════ */}
-        <section id="platform-impact" style={{
-          position: 'relative',
-          zIndex: 2,
-          padding: '120px 5vw'
-        }}>
-          <div style={{ maxWidth: '1400px', margin: '0 auto' }}>
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }}
-              variants={staggerContainer}
-            >
-              <motion.p variants={fadeUp} style={{
-                fontFamily: 'monospace',
-                color: 'var(--primary-red)',
-                marginBottom: '12px',
-                letterSpacing: '3px',
-                textTransform: 'uppercase',
-                fontWeight: '600',
-                fontSize: '0.8rem'
-              }}>
-                (03) Impact
-              </motion.p>
-
-              <motion.h2 variants={fadeUp} className="text-massive" style={{
-                fontSize: 'clamp(2.5rem, 6vw, 5rem)',
-                lineHeight: '0.9',
-                marginBottom: '16px',
-                color: 'var(--text-primary)'
-              }}>
-                Platform <br />Impact
-              </motion.h2>
-
-              <motion.p variants={fadeUp} style={{
-                fontSize: '1.1rem',
-                color: 'var(--text-muted)',
-                maxWidth: '450px',
-                marginBottom: '60px',
-                lineHeight: '1.7'
-              }}>
-                Building the most advanced blood network in the world,
-                one facility at a time across Kerala.
-              </motion.p>
-
-              <div style={{
-                display: 'grid',
-                gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
-                gap: '24px'
-              }}>
-                {/* Card 1: 482 Banks */}
-                <motion.div variants={fadeUp} className="photo-card"
-                  style={{ height: '420px', borderRadius: '24px', position: 'relative' }}>
-                  <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2070&auto=format&fit=crop" alt="Verified Banks" />
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, width: '100%',
-                    padding: '40px',
-                    background: 'linear-gradient(to top, rgba(3,7,18,0.95) 0%, transparent 100%)'
-                  }}>
-                    <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '4px', color: '#ffffff' }}>482 Banks</h3>
-                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)' }}>Verified medical facilities active across Kerala.</p>
-                  </div>
-                </motion.div>
-
-                {/* Card 2: 12K Donors */}
-                <motion.div variants={fadeUp} className="photo-card"
-                  style={{ height: '420px', borderRadius: '24px', position: 'relative' }}>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Blood_donation_in_Taiwan.jpg" alt="Willing Donors" />
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, width: '100%',
-                    padding: '40px',
-                    background: 'linear-gradient(to top, rgba(3,7,18,0.95) 0%, transparent 100%)'
-                  }}>
-                    <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '4px', color: '#ffffff' }}>12K Donors</h3>
-                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)' }}>Willing donors ready to assist in any district.</p>
-                  </div>
-                </motion.div>
-
-                {/* Card 3: 1.5M Lives */}
-                <motion.div variants={fadeUp} className="photo-card"
-                  style={{ height: '420px', borderRadius: '24px', position: 'relative' }}>
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/Ambulance_in_London.jpg" alt="Emergency Transports" />
-                  <div style={{
-                    position: 'absolute', bottom: 0, left: 0, width: '100%',
-                    padding: '40px',
-                    background: 'linear-gradient(to top, rgba(3,7,18,0.95) 0%, transparent 100%)'
-                  }}>
-                    <h3 className="text-massive" style={{ fontSize: '2.5rem', marginBottom: '4px', color: '#ffffff' }}>1.5M Lives</h3>
-                    <p style={{ fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)' }}>Emergency transports completed.</p>
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-
-        {/* ══════════════════════════════════════════════════════
-            SECTION 4: SCROLLING MARQUEE
-            ══════════════════════════════════════════════════════ */}
-        <section style={{ position: 'relative', zIndex: 2, overflow: 'hidden' }}>
-          <div className="marquee-container">
-            <div className="marquee-track">
-              {[...Array(3)].map((_, i) => (
-                <span key={i}>
-                  REAL-TIME LOGISTICS <span className="dot">•</span> VERIFIED NETWORK <span className="dot">•</span> INTELLIGENT MATCHING <span className="dot">•</span> KERALA&apos;S BLOOD GRID <span className="dot">•</span> ZERO LATENCY <span className="dot">•</span> EMERGENCY RESPONSE <span className="dot">•</span>
-                </span>
-              ))}
+              <Link href="/about" className="btn-primary" style={{ padding: '14px 32px' }}>
+                Explore Platform Architecture <ArrowRight size={18} />
+              </Link>
+              <Link href="/register" className="btn-secondary" style={{ padding: '14px 32px' }}>
+                Join as a Donor
+              </Link>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* ══════════════════════════════════════════════════════
-            SECTION 5: EXPERIENCE THE VISION — ABOUT BRIDGE
-            ══════════════════════════════════════════════════════ */}
-        <section style={{
-          padding: '140px 5vw',
-          position: 'relative',
-          zIndex: 2,
-          display: 'flex',
-          justifyContent: 'center'
-        }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, ease: [0.25, 0.4, 0.25, 1] }}
-            style={{
-              maxWidth: '800px',
-              width: '100%',
-              padding: '70px 50px',
-              borderRadius: '32px',
-              textAlign: 'center',
-              background: 'rgba(13, 17, 23, 0.5)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(220, 38, 38, 0.15)',
-              boxShadow: '0 0 60px rgba(220, 38, 38, 0.08)'
-            }}
-          >
-            <p style={{
-              fontFamily: 'monospace',
-              color: 'var(--primary-red)',
-              marginBottom: '16px',
-              letterSpacing: '3px',
-              textTransform: 'uppercase',
-              fontWeight: '600',
-              fontSize: '0.8rem'
-            }}>
-              (05) Vision
-            </p>
-            <h2 className="text-massive" style={{
-              fontSize: 'clamp(2rem, 4vw, 3rem)',
-              marginBottom: '20px',
-              color: 'var(--text-primary)'
-            }}>
-              Experience <span className="glow-red">The Vision</span>
-            </h2>
-            <p style={{
-              fontSize: '1.1rem',
-              color: 'var(--text-muted)',
-              marginBottom: '40px',
-              maxWidth: '550px',
-              margin: '0 auto 40px auto',
-              lineHeight: '1.7'
-            }}>
-              Dive deep into the architecture and mission behind PulseGrid.
-              Discover how we&apos;re redefining emergency response infrastructure
-              through advanced technology.
-            </p>
-            <motion.a
-              whileHover={{ scale: 1.05, boxShadow: '0 8px 30px rgba(220,38,38,0.4)' }}
-              whileTap={{ scale: 0.95 }}
-              href="/about"
-              className="btn-primary"
-              style={{ padding: '16px 40px', fontSize: '1.05rem', textDecoration: 'none' }}
-            >
-              Explore About Us
-            </motion.a>
-          </motion.div>
-        </section>
+      {/* ══════════════════════════════════════════════════════════
+          FOOTER (Navy Background, Links, Helpline, Emergency Note)
+          ══════════════════════════════════════════════════════════ */}
+      <footer style={{
+        backgroundColor: 'var(--navy-footer)',
+        color: '#FFFFFF',
+        padding: '72px 0 36px',
+        borderTop: '1px solid rgba(255, 255, 255, 0.1)'
+      }}>
+        <div className="content-container">
 
-        {/* ══════════════════════════════════════════════════════
-            SECTION 6: PREMIUM DARK FOOTER
-            ══════════════════════════════════════════════════════ */}
-        <footer style={{
-          padding: '80px 5vw 40px',
-          position: 'relative',
-          zIndex: 2,
-          background: 'var(--bg-secondary)',
-          borderTop: '1px solid rgba(255,255,255,0.04)'
-        }}>
-          {/* Gradient line accent */}
+          {/* Emergency Helpline Banner */}
           <div style={{
-            position: 'absolute',
-            top: 0,
-            left: '10%',
-            width: '80%',
-            height: '1px',
-            background: 'linear-gradient(90deg, transparent, rgba(220,38,38,0.4), transparent)'
-          }} />
-
-          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-            <div className="mobile-footer-grid" style={{
-              display: 'grid',
-              gridTemplateColumns: '2fr 1fr 1fr',
-              gap: '60px',
-              marginBottom: '60px'
-            }}>
-              {/* Branding */}
+            backgroundColor: 'rgba(255, 255, 255, 0.06)',
+            border: '1px solid rgba(255, 255, 255, 0.12)',
+            borderRadius: '12px',
+            padding: '18px 24px',
+            marginBottom: '48px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            flexWrap: 'wrap',
+            gap: '16px'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+              <div style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '8px',
+                backgroundColor: 'var(--primary-crimson)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                flexShrink: 0
+              }}>
+                <PhoneCall size={20} color="#FFFFFF" />
+              </div>
               <div>
-                <div className="mobile-footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '16px' }}>
-                  <img src="/logo.jpg" alt="PulseGrid Logo" style={{ width: '36px', height: '36px', borderRadius: '10px' }} />
-                  <h3 className="text-massive" style={{ fontSize: '1.6rem', color: '#ffffff' }}>PulseGrid</h3>
+                <div style={{ fontSize: '0.85rem', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
+                  Emergency Assistance
                 </div>
-                <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem', maxWidth: '320px', lineHeight: '1.6' }}>
-                  Redefining the standard for emergency blood network
-                  infrastructure across Kerala. Every second matters.
-                </p>
-              </div>
-
-              {/* Platform Links */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h4 style={{ color: '#ffffff', marginBottom: '8px', fontWeight: '600', fontSize: '0.9rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Platform</h4>
-                <a href="/" style={{ color: 'var(--text-muted)', fontSize: '0.9rem', transition: 'color 0.2s' }}>Home</a>
-                <a href="/register" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Donor Network</a>
-                <a href="/blood-banks" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Blood Banks</a>
-                <a href="/about" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>About Us</a>
-              </div>
-
-              {/* Legal Links */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                <h4 style={{ color: '#ffffff', marginBottom: '8px', fontWeight: '600', fontSize: '0.9rem', letterSpacing: '0.05em', textTransform: 'uppercase' }}>Legal</h4>
-                <a href="/privacy-policy" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Privacy Policy</a>
-                <a href="/terms-of-service" style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Terms of Service</a>
-                <a href="/admin-login" style={{ color: 'var(--text-muted)', opacity: 0.4, fontSize: '0.8rem', marginTop: '8px' }}>System Access</a>
+                <div style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
+                  Kerala State Emergency Helpline: Dial 108 (Ambulance) • 104 (Health & Blood Information)
+                </div>
               </div>
             </div>
+            <a
+              href="tel:108"
+              className="btn-primary"
+              style={{ padding: '8px 20px', fontSize: '0.85rem' }}
+            >
+              Call 108 Now
+            </a>
+          </div>
 
-            {/* Bottom bar */}
-            <div style={{
-              borderTop: '1px solid rgba(255,255,255,0.06)',
-              paddingTop: '24px',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              flexWrap: 'wrap',
-              gap: '10px'
-            }}>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-                © {new Date().getFullYear()} PulseGrid Technologies. Built for Kerala.
+          {/* Links Grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '40px',
+            marginBottom: '48px'
+          }}>
+            {/* Branding Column */}
+            <div style={{ gridColumn: 'span 1' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+                <img
+                  src="/logo.jpg"
+                  alt="PulseGrid Logo"
+                  style={{ width: '36px', height: '36px', borderRadius: '8px', objectFit: 'contain' }}
+                />
+                <span style={{
+                  fontFamily: 'var(--font-heading)',
+                  fontSize: '1.4rem',
+                  fontWeight: 800,
+                  color: '#FFFFFF'
+                }}>
+                  PulseGrid
+                </span>
+              </div>
+              <p style={{ color: '#94A3B8', fontSize: '0.9rem', lineHeight: 1.6, maxWidth: '300px' }}>
+                Connecting verified blood facilities and voluntary donors to build
+                a resilient emergency medical network across Kerala.
               </p>
-              <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.75rem' }}>
-                All rights reserved.
-              </p>
+            </div>
+
+            {/* Platform Links */}
+            <div>
+              <h4 style={{ color: '#FFFFFF', fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px', letterSpacing: '0.05em' }}>
+                Platform
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <li><Link href="/" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Home</Link></li>
+                <li><Link href="/blood-banks" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Find Donors & Banks</Link></li>
+                <li><Link href="/request-blood" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Request Urgent Blood</Link></li>
+                <li><Link href="/about" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>About Platform</Link></li>
+              </ul>
+            </div>
+
+            {/* Support & Legal */}
+            <div>
+              <h4 style={{ color: '#FFFFFF', fontSize: '0.95rem', fontWeight: 700, marginBottom: '16px', letterSpacing: '0.05em' }}>
+                Legal & Security
+              </h4>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                <li><Link href="/privacy-policy" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Privacy Policy</Link></li>
+                <li><Link href="/terms-of-service" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Terms of Service</Link></li>
+                <li><Link href="/admin-login" style={{ color: '#64748B', fontSize: '0.85rem' }}>Hospital Portal Login</Link></li>
+              </ul>
             </div>
           </div>
-        </footer>
 
-      </main>
-    </>
+          {/* Medical Disclaimer & Copyright */}
+          <div style={{
+            borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+            paddingTop: '28px',
+            fontSize: '0.8rem',
+            color: '#64748B',
+            lineHeight: 1.6
+          }}>
+            <p style={{ marginBottom: '12px' }}>
+              <strong>Medical Disclaimer:</strong> PulseGrid connects willing donors and verified medical facilities to minimize response latency during emergencies. PulseGrid is a coordination and logistics technology platform and is not a substitute for direct medical diagnosis, emergency healthcare services, or professional medical advice. In life-threatening emergencies, always dial 108 or contact your local hospital immediately.
+            </p>
+            <p style={{ margin: 0 }}>
+              &copy; {new Date().getFullYear()} PulseGrid Technologies. Built for Kerala. All rights reserved.
+            </p>
+          </div>
+
+        </div>
+      </footer>
+
+    </main>
   );
 }

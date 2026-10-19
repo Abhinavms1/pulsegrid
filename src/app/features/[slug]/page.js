@@ -51,10 +51,10 @@ export default async function FeaturePage({ params }) {
 
   if (!feature) {
     return (
-      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--bg-primary)', color: 'var(--text-primary)' }}>
+      <main style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#FFFFFF', color: 'var(--navy-primary)' }}>
         <div style={{ textAlign: 'center' }}>
-          <h1>Feature Not Found: {slug}</h1>
-          <Link href="/about" style={{ color: 'var(--primary-red)', marginTop: '20px', display: 'inline-block' }}>Return to About</Link>
+          <h1 style={{ fontSize: '2rem', marginBottom: '16px' }}>Feature Not Found: {slug}</h1>
+          <Link href="/about" className="btn-primary">Return to About</Link>
         </div>
       </main>
     );
@@ -63,41 +63,83 @@ export default async function FeaturePage({ params }) {
   const IconComponent = feature.icon;
 
   return (
-    <main style={{ minHeight: '100vh', padding: '60px 20px', background: 'var(--bg-primary)', color: 'var(--text-primary)', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      
+    <main style={{
+      minHeight: '100vh',
+      padding: '48px 24px 96px',
+      backgroundColor: '#FFFFFF',
+      color: 'var(--text-body)',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
       <div style={{ maxWidth: '800px', width: '100%' }}>
-        <Link href="/about" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', color: 'var(--primary-red)', background: 'var(--bg-secondary)', padding: '12px 24px', borderRadius: '50px', textDecoration: 'none', marginBottom: '40px', fontWeight: 'bold', boxShadow: 'var(--glass-shadow)', border: '1px solid var(--primary-red)' }}>
-          <ArrowLeft size={20} /> Back to About
+        <Link
+          href="/about"
+          className="btn-secondary"
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '8px',
+            marginBottom: '36px'
+          }}
+        >
+          <ArrowLeft size={18} /> Back to About
         </Link>
-        
-        <div style={{ background: 'var(--bg-secondary)', padding: '60px', borderRadius: '30px', border: '1px solid var(--glass-border)', boxShadow: 'var(--glass-shadow)', position: 'relative', overflow: 'hidden' }}>
-          
-          {/* Decorative background icon */}
-          <div style={{ position: 'absolute', right: '-10%', top: '-10%', opacity: 0.05, pointerEvents: 'none' }}>
-            <IconComponent size={400} />
+
+        <div style={{
+          backgroundColor: '#FFFFFF',
+          padding: '48px 36px',
+          borderRadius: 'var(--card-radius)',
+          border: '1px solid var(--border-color)',
+          boxShadow: 'var(--soft-shadow)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '28px', position: 'relative', zIndex: 1 }}>
+            <div style={{
+              width: '64px',
+              height: '64px',
+              backgroundColor: 'var(--primary-crimson-tint)',
+              color: 'var(--primary-crimson)',
+              borderRadius: '16px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0
+            }}>
+              <IconComponent size={32} />
+            </div>
+            <h1 style={{
+              fontSize: 'clamp(2rem, 4vw, 2.8rem)',
+              color: 'var(--navy-primary)',
+              lineHeight: 1.2
+            }}>
+              {feature.title}
+            </h1>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px', position: 'relative', zIndex: 1 }}>
-            <div style={{ padding: '20px', background: 'var(--glass-bg)', borderRadius: '20px', color: 'var(--primary-red)', border: '1px solid var(--glass-border)' }}>
-              <IconComponent size={48} />
-            </div>
-            <h1 className="text-massive" style={{ fontSize: '3.5rem', lineHeight: 1.1 }}>{feature.title}</h1>
-          </div>
-          
           <div style={{ position: 'relative', zIndex: 1 }}>
-            <p style={{ fontSize: '1.25rem', lineHeight: 1.8, color: 'var(--text-muted)', textAlign: 'justify' }}>
+            <p style={{
+              fontSize: '1.15rem',
+              lineHeight: 1.8,
+              color: 'var(--text-body)',
+              textAlign: 'left',
+              marginBottom: '40px'
+            }}>
               {feature.description}
             </p>
           </div>
 
-          <div style={{ marginTop: '50px', position: 'relative', zIndex: 1 }}>
-            <Link href="/" className="btn-primary" style={{ padding: '15px 30px', background: 'var(--text-primary)', color: 'var(--bg-primary)', display: 'inline-block' }}>
-              Return to Grid
+          <div style={{ position: 'relative', zIndex: 1, display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+            <Link href="/blood-banks" className="btn-primary">
+              Find Blood Banks
+            </Link>
+            <Link href="/" className="btn-secondary">
+              Return to Home
             </Link>
           </div>
         </div>
       </div>
-      
     </main>
   );
 }

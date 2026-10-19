@@ -4,6 +4,8 @@ import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loginDonor } from '../actions/auth';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { CheckCircle2, AlertCircle, ArrowLeft } from 'lucide-react';
 
 function LoginForm() {
   const [loading, setLoading] = useState(false);
@@ -14,7 +16,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (searchParams.get('registered') === 'true') {
-      setSuccessMsg('Registration successful! Please log in.');
+      setSuccessMsg('Registration successful! Please sign in with your credentials.');
     }
   }, [searchParams]);
 
@@ -34,44 +36,108 @@ function LoginForm() {
         document.cookie = `donor_auth=${result.name}; path=/; max-age=86400`;
         router.push('/donor-dashboard');
       } else {
-        setError('An unexpected error occurred.');
+        setError('An unexpected authentication error occurred.');
         setLoading(false);
       }
     } catch (err) {
       console.error(err);
-      setError('Connection failed. Please try again.');
+      setError('Connection failed. Please verify your network and try again.');
       setLoading(false);
     }
   };
 
   return (
-    <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }} style={{ width: '100%', maxWidth: '450px' }}>
-      <div style={{ marginBottom: '40px' }}>
-        <h2 className="text-massive" style={{ fontSize: '2.5rem', color: 'var(--text-primary)', marginBottom: '10px' }}>Donor Portal</h2>
-        <p style={{ color: 'var(--text-muted)' }}>Secure access to your grid dashboard.</p>
+    <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} style={{ width: '100%', maxWidth: '440px' }}>
+      <div style={{ marginBottom: '32px' }}>
+        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', color: 'var(--text-muted)', fontSize: '0.85rem', marginBottom: '20px', textDecoration: 'none' }}>
+          <ArrowLeft size={16} /> Return to Home
+        </Link>
+        <h2 style={{ fontSize: '2.2rem', color: 'var(--navy-primary)', marginBottom: '8px', lineHeight: 1.2 }}>
+          Donor Portal
+        </h2>
+        <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>
+          Secure access to your personal donation status and local alerts.
+        </p>
       </div>
 
-      {successMsg && <div style={{ background: 'rgba(12, 240, 17, 0.1)', color: '#0cf011', padding: '15px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.9rem', border: '1px solid rgba(12, 240, 17, 0.2)' }}>{successMsg}</div>}
-      {error && <div style={{ background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', padding: '15px', borderRadius: '12px', marginBottom: '20px', fontSize: '0.9rem', border: '1px solid rgba(211,47,47,0.2)' }}>{error}</div>}
+      {successMsg && (
+        <div style={{
+          backgroundColor: 'var(--status-verified-bg)',
+          color: 'var(--status-verified)',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          marginBottom: '20px',
+          fontSize: '0.9rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontWeight: 600
+        }}>
+          <CheckCircle2 size={18} />
+          {successMsg}
+        </div>
+      )}
 
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {error && (
+        <div style={{
+          backgroundColor: 'var(--primary-crimson-tint)',
+          color: 'var(--primary-crimson)',
+          padding: '12px 16px',
+          borderRadius: '8px',
+          marginBottom: '20px',
+          fontSize: '0.9rem',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px',
+          fontWeight: 600
+        }}>
+          <AlertCircle size={18} />
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
         <div>
-          <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Email Address</label>
-          <input type="email" name="email" required style={{ width: '100%', padding: '16px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} placeholder="john@example.com" />
+          <label style={{ display: 'block', marginBottom: '6px', color: 'var(--navy-primary)', fontWeight: 700, fontSize: '0.875rem' }}>
+            Email Address
+          </label>
+          <input
+            type="email"
+            name="email"
+            required
+            style={{ width: '100%' }}
+            placeholder="name@example.com"
+          />
         </div>
 
         <div>
-          <label style={{ display: 'block', marginBottom: '8px', color: 'var(--text-muted)', fontSize: '0.9rem' }}>Secure Password</label>
-          <input type="password" name="password" required style={{ width: '100%', padding: '16px', background: 'var(--glass-bg)', border: '1px solid var(--glass-border)', borderRadius: '12px', color: 'var(--text-primary)', outline: 'none' }} placeholder="Enter password" />
+          <label style={{ display: 'block', marginBottom: '6px', color: 'var(--navy-primary)', fontWeight: 700, fontSize: '0.875rem' }}>
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            required
+            style={{ width: '100%' }}
+            placeholder="Enter your password"
+          />
         </div>
 
-        <button type="submit" disabled={loading} className="btn-primary" style={{ padding: '18px', fontSize: '1.1rem', marginTop: '10px', display: 'flex', justifyContent: 'center', background: '#0ea5e9', borderColor: '#0ea5e9' }}>
-          {loading ? 'Authenticating...' : 'Secure Login'}
+        <button
+          type="submit"
+          disabled={loading}
+          className="btn-primary"
+          style={{ width: '100%', padding: '14px', fontSize: '1rem', marginTop: '8px' }}
+        >
+          {loading ? 'Authenticating...' : 'Sign In to Portal'}
         </button>
       </form>
 
-      <p style={{ marginTop: '30px', color: 'var(--text-muted)', textAlign: 'center' }}>
-        Not registered yet? <a href="/register" style={{ color: '#0ea5e9', fontWeight: 'bold' }}>Enroll Now</a>
+      <p style={{ marginTop: '28px', color: 'var(--text-body)', textAlign: 'center', fontSize: '0.9rem' }}>
+        Not registered as a donor yet?{' '}
+        <Link href="/register" style={{ color: 'var(--primary-crimson)', fontWeight: 700 }}>
+          Enroll Now &rarr;
+        </Link>
       </p>
     </motion.div>
   );
@@ -79,25 +145,46 @@ function LoginForm() {
 
 export default function Login() {
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', background: 'var(--bg-primary)' }}>
-      {/* Left Side - Visual */}
-      <div style={{ flex: 1, position: 'relative', display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '60px', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', backgroundImage: "url('/vibrant_bg.jpg')", backgroundSize: 'cover', backgroundPosition: 'center', filter: 'brightness(0.9) contrast(1.1) hue-rotate(180deg)', zIndex: 0 }}></div>
-        <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to right, rgba(11,17,26,0.8) 0%, rgba(11,17,26,0.4) 100%)', zIndex: 1 }}></div>
-        
-        <div style={{ position: 'relative', zIndex: 2, maxWidth: '500px' }}>
-          <h1 className="text-massive" style={{ fontSize: '4rem', color: 'var(--text-primary)', lineHeight: '1.1' }}>
-            Welcome <span style={{ color: '#0ea5e9' }}>Back</span>
+    <main style={{ minHeight: '100vh', display: 'flex', backgroundColor: '#FFFFFF', paddingTop: '76px' }}>
+      {/* Left Visual Sidebar */}
+      <div style={{
+        flex: 1,
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: '60px 48px',
+        backgroundColor: 'var(--navy-primary)',
+        color: '#FFFFFF'
+      }}>
+        <div style={{ maxWidth: '480px' }}>
+          <span style={{
+            display: 'inline-block',
+            backgroundColor: 'rgba(255, 255, 255, 0.1)',
+            color: '#FFFFFF',
+            fontFamily: 'var(--font-heading)',
+            fontSize: '0.75rem',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '0.12em',
+            padding: '4px 12px',
+            borderRadius: '50px',
+            marginBottom: '20px'
+          }}>
+            Kerala Donor Grid
+          </span>
+          <h1 style={{ fontSize: 'clamp(2.4rem, 4vw, 3.4rem)', color: '#FFFFFF', lineHeight: 1.15, marginBottom: '20px' }}>
+            Welcome <span style={{ color: 'var(--primary-crimson)' }}>Back</span>
           </h1>
-          <p style={{ color: 'var(--text-primary)', opacity: 0.8, fontSize: '1.2rem', marginTop: '20px' }}>
-            Access your secure donor portal to view active emergencies and manage your availability status.
+          <p style={{ color: '#94A3B8', fontSize: '1.1rem', lineHeight: 1.6 }}>
+            Access your secure portal to verify active blood drives, manage donation availability, and respond to hospital emergency requests in your area.
           </p>
         </div>
       </div>
 
-      {/* Right Side - Form */}
-      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '40px', background: 'var(--bg-secondary)' }}>
-        <Suspense fallback={<div style={{ color: 'var(--text-primary)' }}>Loading portal...</div>}>
+      {/* Right Form */}
+      <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '48px 32px', backgroundColor: '#FFFFFF' }}>
+        <Suspense fallback={<div style={{ color: 'var(--text-muted)' }}>Loading donor portal...</div>}>
           <LoginForm />
         </Suspense>
       </div>
