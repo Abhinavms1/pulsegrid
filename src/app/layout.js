@@ -1,6 +1,7 @@
 import './globals.css';
 import SmoothScroll from '../components/SmoothScroll';
 import NavigationAndSplash from '../components/NavigationAndSplash';
+import LiveBackground from '../components/LiveBackground';
 import { Inter, Plus_Jakarta_Sans } from 'next/font/google';
 
 const inter = Inter({
@@ -21,13 +22,19 @@ export const metadata = {
   description: 'Real-time emergency blood supply chain and verified blood bank locator across Kerala. Rapid donor coordination and hospital logistics.',
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className={inter.className} style={{ backgroundColor: '#FFFFFF', color: '#475569' }}>
         <SmoothScroll>
+          <LiveBackground />
           <NavigationAndSplash />
-          <div style={{ position: 'relative' }}>
+          <div className="route-fade-transition" style={{ position: 'relative', zIndex: 1 }}>
             {children}
           </div>
         </SmoothScroll>

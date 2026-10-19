@@ -1,7 +1,63 @@
 "use client";
 
+import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Search, Droplets, Bell, PhoneCall } from 'lucide-react';
+
+function StatCounter({ target, suffix = '', decimals = 0 }) {
+  const [count, setCount] = useState(target);
+  const ref = useRef(null);
+  const animatedRef = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !animatedRef.current) {
+          animatedRef.current = true;
+          setCount(0);
+          const duration = 1200; // ms
+          const startTime = performance.now();
+
+          const animate = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            // easeOutExpo
+            const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+            const currentVal = ease * target;
+
+            setCount(currentVal);
+
+            if (progress < 1) {
+              requestAnimationFrame(animate);
+            } else {
+              setCount(target);
+            }
+          };
+
+          requestAnimationFrame(animate);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [target]);
+
+  const display = decimals > 0 
+    ? count.toFixed(decimals) 
+    : Math.floor(count).toLocaleString();
+
+  return (
+    <span ref={ref} className="hero-stat-num">
+      {display}{suffix}
+    </span>
+  );
+}
 
 export default function Home() {
   const architectureFeatures = [
@@ -29,7 +85,7 @@ export default function Home() {
           HERO SECTION (Clean Light Theme, Normal Flow, No Overlap)
           ══════════════════════════════════════════════════════════ */}
       <section style={{
-        paddingTop: '116px', // Navbar height (68px) + 48px buffer
+        paddingTop: '116px', // Floating pill buffer
         paddingBottom: '80px',
         backgroundColor: '#FFFFFF',
         position: 'relative'
@@ -38,21 +94,8 @@ export default function Home() {
 
           {/* Hero Category Badge */}
           <div style={{ marginBottom: '20px' }}>
-            <span style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '6px',
-              backgroundColor: 'var(--primary-crimson-tint)',
-              color: 'var(--primary-crimson)',
-              fontFamily: 'var(--font-heading)',
-              fontSize: '0.8rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.12em',
-              padding: '6px 18px',
-              borderRadius: '50px'
-            }}>
-              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-crimson)' }}></span>
+            <span className="hero-badge">
+              <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-crimson)', flexShrink: 0 }}></span>
               Emergency Blood Logistics Network
             </span>
           </div>
@@ -86,24 +129,24 @@ export default function Home() {
             <Link href="/blood-banks" className="btn-primary" style={{ padding: '14px 32px', fontSize: '1rem' }}>
               Find Blood Banks
             </Link>
-            <Link href="/request-blood" className="btn-secondary" style={{ padding: '14px 32px', fontSize: '1rem' }}>
+            <Link href="/request-blood" className="btn-secondary liquid-glass-btn" style={{ padding: '14px 32px', fontSize: '1rem' }}>
               Request Blood
             </Link>
           </div>
 
-          {/* Hero Stats Card (In Normal Flow, Below CTAs with >=48px gap, White card with border & soft shadow) */}
+          {/* Hero Stats Card (In Normal Flow, Below CTAs with >=48px gap, Liquid Glass) */}
           <div>
-            <div className="hero-stats-card">
+            <div className="hero-stats-card liquid-glass">
               <div className="hero-stat-col">
-                <span className="hero-stat-num">482+</span>
+                <StatCounter target={482} suffix="+" />
                 <span className="hero-stat-label">Verified Banks</span>
               </div>
               <div className="hero-stat-col">
-                <span className="hero-stat-num">12,000+</span>
+                <StatCounter target={12000} suffix="+" />
                 <span className="hero-stat-label">Active Donors</span>
               </div>
               <div className="hero-stat-col">
-                <span className="hero-stat-num">1.5M+</span>
+                <StatCounter target={1.5} suffix="M+" decimals={1} />
                 <span className="hero-stat-label">Lives Impacted</span>
               </div>
             </div>
@@ -117,7 +160,7 @@ export default function Home() {
           ══════════════════════════════════════════════════════════ */}
       <section
         id="core-infrastructure"
-        className="section-spacing"
+        className="section-spacing section-content-visibility"
         style={{
           backgroundColor: 'var(--bg-surface)',
           borderTop: '1px solid var(--border-color)',
@@ -197,7 +240,7 @@ export default function Home() {
           ══════════════════════════════════════════════════════════ */}
       <section
         id="platform-impact"
-        className="section-spacing"
+        className="section-spacing section-content-visibility"
         style={{ backgroundColor: '#FFFFFF' }}
       >
         <div className="content-container">
@@ -353,7 +396,7 @@ export default function Home() {
           EXPERIENCE THE VISION / ABOUT BRIDGE SECTION
           ══════════════════════════════════════════════════════════ */}
       <section
-        className="section-spacing"
+        className="section-spacing section-content-visibility"
         style={{
           backgroundColor: 'var(--bg-surface)',
           borderTop: '1px solid var(--border-color)'
@@ -422,7 +465,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════
           FOOTER (Navy Background, Links, Helpline, Emergency Note)
           ══════════════════════════════════════════════════════════ */}
-      <footer style={{
+      <footer className="section-content-visibility" style={{
         backgroundColor: 'var(--navy-footer)',
         color: '#FFFFFF',
         padding: '72px 0 36px',
@@ -443,7 +486,7 @@ export default function Home() {
             flexWrap: 'wrap',
             gap: '16px'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flex: 1, minWidth: 0 }}>
               <div style={{
                 width: '40px',
                 height: '40px',
@@ -456,11 +499,11 @@ export default function Home() {
               }}>
                 <PhoneCall size={20} color="#FFFFFF" />
               </div>
-              <div>
+              <div style={{ minWidth: 0, flex: 1 }}>
                 <div style={{ fontSize: '0.85rem', color: '#94A3B8', textTransform: 'uppercase', letterSpacing: '0.08em', fontWeight: 600 }}>
                   Emergency Assistance
                 </div>
-                <div style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 700, fontFamily: 'var(--font-heading)' }}>
+                <div style={{ fontSize: '1rem', color: '#FFFFFF', fontWeight: 700, fontFamily: 'var(--font-heading)', wordBreak: 'break-word' }}>
                   Kerala State Emergency Helpline: Dial 108 (Ambulance) • 104 (Health & Blood Information)
                 </div>
               </div>
@@ -525,7 +568,6 @@ export default function Home() {
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
                 <li><Link href="/privacy-policy" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Privacy Policy</Link></li>
                 <li><Link href="/terms-of-service" style={{ color: '#94A3B8', fontSize: '0.9rem' }}>Terms of Service</Link></li>
-                <li><Link href="/admin-login" style={{ color: '#64748B', fontSize: '0.85rem' }}>Hospital Portal Login</Link></li>
               </ul>
             </div>
           </div>
