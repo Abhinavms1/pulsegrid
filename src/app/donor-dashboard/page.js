@@ -145,7 +145,7 @@ export default async function DonorDashboard() {
                   </div>
 
                   {/* Middle Row: Prominent Receiver Mobile Number & Call Actions */}
-                  <div style={{
+                  <div className="receiver-contact-box" style={{
                     backgroundColor: '#F8FAFC',
                     border: '1px solid #E2E8F0',
                     borderRadius: '12px',
@@ -197,7 +197,7 @@ export default async function DonorDashboard() {
                     </div>
 
                     {/* Direct Contact Action Buttons */}
-                    <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                    <div className="receiver-actions-group" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
                       <a
                         href={`tel:${cleanPhone}`}
                         style={{

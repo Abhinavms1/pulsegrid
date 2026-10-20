@@ -273,8 +273,8 @@ export default function BloodBanks() {
 
             <div style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
-              gap: '24px'
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+              gap: '20px'
             }}>
               {filteredBanks.map((bank) => {
                 const distance = userLocation && bank.latitude && bank.longitude

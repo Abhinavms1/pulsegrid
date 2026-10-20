@@ -203,7 +203,7 @@ export default function Home() {
           {/* Feature Cards Grid (3 white cards with #FEF2F2 rounded square icons) */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '28px'
           }}>
             {architectureFeatures.map((feat, idx) => (
@@ -279,7 +279,7 @@ export default function Home() {
           {/* 3 Impact Cards with Local Images, Same Aspect Ratio & Dark Navy Bottom Gradient */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '28px'
           }}>
 
