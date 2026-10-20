@@ -223,20 +223,46 @@ export default async function AdminDashboard() {
             <p style={{ padding: '40px', textAlign: 'center', color: 'var(--text-muted)' }}>No active emergency broadcasts at this time.</p>
           ) : (
             <div style={{ padding: '10px' }}>
-              {stats.requests.map(req => (
-                <div key={req.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--glass-border)' }}>
-                  <div>
-                    <h4 style={{ fontSize: '1.1rem', marginBottom: '4px', color: 'var(--text-primary)' }}>{req.patientName}</h4>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem' }}>Contact: {req.contactNumber}</p>
+              {stats.requests.map(req => {
+                const cleanPhone = (req.contactNumber || '').replace(/[^0-9+]/g, '');
+                return (
+                  <div key={req.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '16px 20px', borderBottom: '1px solid var(--glass-border)', flexWrap: 'wrap', gap: '12px' }}>
+                    <div>
+                      <h4 style={{ fontSize: '1.1rem', marginBottom: '4px', color: 'var(--text-primary)', fontWeight: 700 }}>{req.patientName}</h4>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', margin: '0 0 6px 0' }}>
+                        Broadcast ID: <code style={{ fontFamily: 'monospace' }}>{req.id}</code>
+                      </p>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                        <span style={{ fontSize: '0.82rem', fontWeight: 600, color: 'var(--text-muted)' }}>Receiver Contact:</span>
+                        <a 
+                          href={`tel:${cleanPhone}`} 
+                          style={{ 
+                            color: '#0E9F6E', 
+                            fontWeight: 700, 
+                            textDecoration: 'none',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '4px',
+                            background: '#F0FDF4',
+                            padding: '3px 10px',
+                            borderRadius: '6px',
+                            border: '1px solid #BBF7D0',
+                            fontSize: '0.9rem'
+                          }}
+                        >
+                          📞 {req.contactNumber}
+                        </a>
+                      </div>
+                    </div>
+                    <div style={{ textAlign: 'right' }}>
+                      <span style={{ display: 'inline-block', background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', padding: '5px 12px', borderRadius: '50px', fontWeight: 'bold', marginBottom: '4px' }}>
+                        {req.unitsRequired} Units {req.bloodGroupRequired}
+                      </span>
+                      <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>Status: {req.status}</p>
+                    </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <span style={{ display: 'inline-block', background: 'rgba(211,47,47,0.1)', color: 'var(--primary-red)', padding: '5px 12px', borderRadius: '50px', fontWeight: 'bold', marginBottom: '4px' }}>
-                      {req.unitsRequired} Units {req.bloodGroupRequired}
-                    </span>
-                    <p style={{ color: 'var(--text-muted)', fontSize: '0.85rem', margin: 0 }}>Status: {req.status}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>
