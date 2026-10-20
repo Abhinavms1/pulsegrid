@@ -79,7 +79,7 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ backgroundColor: '#FFFFFF', minHeight: '100vh', position: 'relative' }}>
+    <main style={{ backgroundColor: 'transparent', minHeight: '100vh', position: 'relative' }}>
 
       {/* ══════════════════════════════════════════════════════════
           HERO SECTION (Clean Light Theme, Normal Flow, No Overlap)
@@ -87,7 +87,7 @@ export default function Home() {
       <section style={{
         paddingTop: '116px', // Floating pill buffer
         paddingBottom: '80px',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: 'transparent',
         position: 'relative'
       }}>
         <div className="content-container" style={{ textAlign: 'center' }}>
@@ -241,7 +241,7 @@ export default function Home() {
       <section
         id="platform-impact"
         className="section-spacing section-content-visibility"
-        style={{ backgroundColor: '#FFFFFF' }}
+        style={{ backgroundColor: 'rgba(255, 255, 255, 0.85)' }}
       >
         <div className="content-container">
           {/* Section Header */}
