@@ -17,16 +17,22 @@ export default function Register() {
     setLoading(true);
     setError('');
 
-    const formData = new FormData(e.target);
-    const result = await registerDonorAction(formData);
+    try {
+      const formData = new FormData(e.target);
+      const result = await registerDonorAction(formData);
 
-    if (result && result.error) {
-      setError(result.error);
-      setLoading(false);
-    } else if (result && result.success) {
-      router.push('/login?registered=true');
-    } else {
-      setError('An error occurred during registration.');
+      if (result && result.error) {
+        setError(result.error);
+        setLoading(false);
+      } else if (result && result.success) {
+        router.push('/login?registered=true');
+      } else {
+        setError('An unexpected error occurred during registration. Please try again.');
+        setLoading(false);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Connection failed. Please verify your network and try again.');
       setLoading(false);
     }
   };

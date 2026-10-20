@@ -33,8 +33,8 @@ function LoginForm() {
         setError(result.error);
         setLoading(false);
       } else if (result && result.success) {
-        document.cookie = `donor_auth=${result.name}; path=/; max-age=86400`;
-        router.push('/donor-dashboard');
+        document.cookie = `donor_auth=${encodeURIComponent(result.name)}; path=/; max-age=86400; SameSite=Lax`;
+        window.location.href = '/donor-dashboard';
       } else {
         setError('An unexpected authentication error occurred.');
         setLoading(false);

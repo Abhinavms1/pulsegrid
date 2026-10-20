@@ -9,6 +9,13 @@ export async function loginAdmin(formData) {
   const password = formData.get('password');
 
   if (username === 'admin' && password === 'PulseGridAdmin2026') {
+    const cookieStore = await cookies();
+    cookieStore.set('admin_auth', 'admin_authenticated', {
+      path: '/',
+      maxAge: 86400,
+      sameSite: 'lax',
+      httpOnly: false
+    });
     return { success: true };
   } else {
     return { error: 'Invalid credentials. Please try again.' };
@@ -23,7 +30,16 @@ export async function logoutAdmin() {
 
 export async function loginDonor(formData) {
   const res = await loginDonorAction(formData);
-  return res; // Returns {success: true, name: donor.name} or {error: ...}
+  if (res && res.success) {
+    const cookieStore = await cookies();
+    cookieStore.set('donor_auth', encodeURIComponent(res.name), {
+      path: '/',
+      maxAge: 86400,
+      sameSite: 'lax',
+      httpOnly: false
+    });
+  }
+  return res;
 }
 
 export async function logoutDonor() {
