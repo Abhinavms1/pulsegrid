@@ -294,3 +294,27 @@ export async function getDashboardStats() {
     };
   }
 }
+
+export async function getAllUsers() {
+  try {
+    const users = await prisma.user.findMany({
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        bloodGroup: true,
+        role: true,
+        isAvailable: true,
+        createdAt: true
+      }
+    });
+    return users.map(u => ({
+      ...u,
+      createdAt: u.createdAt ? new Date(u.createdAt).toISOString() : null
+    }));
+  } catch (error) {
+    console.error("Error fetching all users:", error);
+    return [];
+  }
+}
