@@ -50,20 +50,20 @@ export default function LiveBackground() {
     const SLATE = { r: 15, g: 23, b: 42 };
 
     // ─── 1. Kerala Regional Logistics Hubs (Structured Statewide Network Topology) ───
-    // Fixed strategic geographic coordinates (normalized 0..1) with organic drift
+    // Perimeter coordinates framing the hero margins without overlapping the central headline
     const hubConfigs = [
-      { id: 'KL-01', code: 'CAN', name: 'Kannur Hub', xR: 0.16, yR: 0.20 },
-      { id: 'KL-02', code: 'CLT', name: 'Kozhikode Regional', xR: 0.28, yR: 0.32 },
-      { id: 'KL-03', code: 'PGT', name: 'Palakkad Corridor', xR: 0.42, yR: 0.24 },
-      { id: 'KL-04', code: 'TCR', name: 'Thrissur Central', xR: 0.44, yR: 0.42 },
-      { id: 'KL-05', code: 'COK', name: 'Kochi Metro Gateway', xR: 0.50, yR: 0.56 },
-      { id: 'KL-06', code: 'IDK', name: 'Idukki Highland', xR: 0.68, yR: 0.44 },
-      { id: 'KL-07', code: 'KTM', name: 'Kottayam Center', xR: 0.60, yR: 0.62 },
-      { id: 'KL-08', code: 'ALP', name: 'Alappuzha Coastal', xR: 0.54, yR: 0.74 },
-      { id: 'KL-09', code: 'QLN', name: 'Kollam Medical Hub', xR: 0.72, yR: 0.72 },
-      { id: 'KL-10', code: 'TRV', name: 'Thiruvananthapuram Command', xR: 0.82, yR: 0.84 },
-      { id: 'KL-11', code: 'WND', name: 'Wayanad Relay', xR: 0.32, yR: 0.18 },
-      { id: 'KL-12', code: 'MLP', name: 'Malappuram Transit', xR: 0.34, yR: 0.46 }
+      { id: 'KL-01', code: 'CAN', name: 'Kannur Hub', xR: 0.11, yR: 0.20 },
+      { id: 'KL-02', code: 'CLT', name: 'Kozhikode Regional', xR: 0.13, yR: 0.36 },
+      { id: 'KL-03', code: 'PGT', name: 'Palakkad Highland', xR: 0.86, yR: 0.18 },
+      { id: 'KL-04', code: 'TCR', name: 'Thrissur Gateway', xR: 0.24, yR: 0.74 },
+      { id: 'KL-05', code: 'COK', name: 'Kochi Metro Gateway', xR: 0.38, yR: 0.82 },
+      { id: 'KL-06', code: 'IDK', name: 'Idukki Highland', xR: 0.88, yR: 0.34 },
+      { id: 'KL-07', code: 'KTM', name: 'Kottayam Center', xR: 0.82, yR: 0.52 },
+      { id: 'KL-08', code: 'ALP', name: 'Alappuzha Coastal', xR: 0.54, yR: 0.86 },
+      { id: 'KL-09', code: 'QLN', name: 'Kollam Medical Hub', xR: 0.70, yR: 0.82 },
+      { id: 'KL-10', code: 'TRV', name: 'Thiruvananthapuram Command', xR: 0.88, yR: 0.88 },
+      { id: 'KL-11', code: 'WND', name: 'Wayanad Relay', xR: 0.19, yR: 0.12 },
+      { id: 'KL-12', code: 'MLP', name: 'Malappuram Transit', xR: 0.15, yR: 0.52 }
     ];
 
     // Filter hubs for mobile to avoid crowding
@@ -81,10 +81,11 @@ export default function LiveBackground() {
       lastPacketTime: 0
     }));
 
-    // Arterial trunk routes connecting hubs into a clear medical logistics graph
+    // Perimeter arterial trunk routes framing the content
     const arterialRoutes = [
-      [0, 1], [1, 11], [1, 2], [1, 3], [2, 3], [3, 4], [3, 11],
-      [4, 5], [4, 6], [5, 6], [6, 7], [6, 8], [7, 8], [8, 9]
+      [0, 10], [0, 1], [10, 1], [1, 11], [11, 3],
+      [3, 4], [4, 7], [7, 8], [8, 9],
+      [8, 6], [6, 5], [5, 2]
     ].filter(([a, b]) => a < hubs.length && b < hubs.length);
 
     // ─── 2. Tributary Relay Nodes (Secondary Community Donors & Hospitals) ───
@@ -122,12 +123,12 @@ export default function LiveBackground() {
       });
     }
 
-    // ─── 4. Continuous ECG Cardiac Lifeline ───
+    // ─── 4. Continuous ECG Cardiac Lifeline (Positioned cleanly below CTAs as a medical telemetry divider) ───
     const ecg = {
-      yR: isMobile ? 0.38 : 0.48, // Y position across hero / middle
+      yR: isMobile ? 0.70 : 0.66,
       x: -120,
       speed: isMobile ? 130 : 190,
-      amplitude: isMobile ? 18 : 26,
+      amplitude: isMobile ? 16 : 22,
       wavelength: 240, // distance between heartbeat spikes
       trailLength: isMobile ? 260 : 380
     };
@@ -650,6 +651,27 @@ export default function LiveBackground() {
           ctx.arc(rip.x, rip.y, rip.radius - 20, 0, Math.PI * 2);
           ctx.stroke();
         }
+      }
+
+      // 11. Sanctuary Mask: Ensure 100% zero background overlap behind main hero headline
+      if (isHome) {
+        const hx = width * 0.5;
+        const hy = height * (isMobile ? 0.35 : 0.38);
+        const hrx = isMobile ? width * 0.46 : Math.min(width * 0.36, 440);
+        const hry = isMobile ? 130 : 155;
+
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        const mask = ctx.createRadialGradient(hx, hy, hrx * 0.25, hx, hy, hrx);
+        mask.addColorStop(0, 'rgba(0,0,0,1)');      // Pure cutout directly behind typography
+        mask.addColorStop(0.70, 'rgba(0,0,0,0.85)'); // Clean high feather
+        mask.addColorStop(0.92, 'rgba(0,0,0,0.20)'); // Smooth transition
+        mask.addColorStop(1, 'rgba(0,0,0,0)');       // Alive network continues outside
+        ctx.fillStyle = mask;
+        ctx.beginPath();
+        ctx.ellipse(hx, hy, hrx, hry, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
       }
 
       animId = requestAnimationFrame(render);

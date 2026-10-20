@@ -1,22 +1,11 @@
-import { prisma } from '../../../lib/prisma.js';
+import { getAllUsers } from '../../actions.js';
 import { NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const users = await prisma.user.findMany({
-      orderBy: { createdAt: 'desc' },
-      select: {
-        id: true,
-        name: true,
-        email: true,
-        bloodGroup: true,
-        role: true,
-        isAvailable: true,
-        createdAt: true
-      }
-    });
+    const users = await getAllUsers();
 
     const headers = ['ID', 'Full Name', 'Email Address', 'Blood Group', 'Role', 'Status', 'Registration Date'];
     const rows = users.map(u => [
